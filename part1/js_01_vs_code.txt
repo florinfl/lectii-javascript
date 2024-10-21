@@ -1,0 +1,86 @@
+//////////////
+VS Code
+//////////////
+Mai intai descarcati si instalati VS Code. Pe calculatorul pe care lucrati e posibil sa fie deja instalata o varianta mai veche, daca ruleaza e buna, nu ne trebuie o varianta noua.
+Pentru moment vom folosi doar varianta de rulare Javascript in browser prin intermediul unui fisier HTML.
+Se creaza in editor un document index.html si apoi se adauga scriptul Javascript
+
+Pasi de urmat:
+1. Creati un folder pentru proiect, e folderul de lucru si e bine sa aveti cate un folder pentru fiecare aplicatie in parte.
+
+Deschidem editorul dand click dreapta pe folderul de lucru si apoi ‘Open with Code’.
+
+Pentru a avea acces la aceasta optiune trebuie bifata optiunea de integrare in meniul contextual din Windows la instalare. E o optiune utila si daca nu apare in Windows e bine sa dezinstalati VS Code si reinstalati-l corect.
+
+Prima oara cand se deschide proiectul bifam ca avem incredere in autorii proiectului, suntem chiar noi autorii
+
+2. Cream fisierul index.html
+
+3. Pe primul rand tastam caracterul ‘!’ si un plugin integrat de numit Emmet Abreviation ne ajuta sa adaugam structura de baza a documentului HTML.
+
+Daca dintr-un motiv anume nu mai vedeti optiunea Emmet atunci apasati combinatia Ctrl + Space care reafiseaza optiunile de autofill
+
+4. In cele din urma aveti un fisier HTML cu structura potrivita: 
+
+tag-ul !DOCTYPE care semnifica varianta de HTML
+tag-ul <html> care contine alte doua tag-uri
+                 tag-ul <head> care contine informatii generale despre pagina
+                 tag-ul <body> care contine toata informatia vizibila din pagina web dar si scripturi, cel putin la inceput
+
+5. Adugam tag-ul <script>
+Obs: Putem apela oricand la optiunea de autocomplete Emmet, aici se poate observa cum se
+activeaza imedia ce incepem sa scriem tag-ul script. Dati enter pe sugestie si apoi putem
+edita in interiorul scriptului
+
+6. Editam continutul scriptului. In acest caz e doar un pop-ul alert(‘Hello world’)
+
+7. O metoda rapida de a rula un document HTML cu sau fara Javascript e sa apelam
+la un server local in VS Code denumit Live Server. 
+Serverul se instaleaza de la sectiunea cu plugin-uri. Se scrie in caseta de cautare Live Server sau doar ‘Live’ si se alege plugin-ul ‘Live Server’ si se da click pe ‘install‘. In acest mode se creaza un mic server care simuleaza un server de hosting si este suficient pentru faza de dezvoltare.
+
+8. Odata instalat plugin-ul Live Server poate fi accesat cu click dreapta oriunde in pagina
+
+9. Se deschide automat browser-ul implicit si se afiseaza mesajul pop-up generat de alert().
+Atentie! Daca va doriti alt browser sa se deschida implicit trebuie modificat din setarile browser-ului sau ale sistemului de operare ce browser va doriti sa fie implicit/default.
+
+Obs
+browser mai vechi
+
+Daca aveti un sistem de operare mai vechi atunci cautati pe internet o varianta mai veche pentru VS Code(VS Code old version)
+
+/////////////////////////////
+Intrebari raspunsuri
+///////////////////////////
+
+Intrebari raspunsuri:
+
+Ce trebuie sa facem la instalarea VS Code pentru a putea deschide un proiect prin metoda click dreapta - Open with Code?
+
+Se bifeaza ambele casete Add “Open with code” action to Windows Explorer 
+
+Cum procedam pentru a adauga rapid structura HTML pentru o un document HTML?
+
+Se tasteaza chiar dupa crearea fisierului HTML simbolul ‘!’ care activeaza optiunea de autocomplete Emmet pentru adaugare structura HTML. Se alege prima optiune cu TAB sau click
+
+Care e scurtatura pentru activarea meniului contextual pentru autocomplete? Adica am tastat primele caractere dar fie am tastat gresit fie am data click in alta parte? Cum activam din nou optiunea de autocomplete?
+
+Crl + Space
+
+Cum putem deschide cu usurinta un document HTML in browser folosind o comanda din editorul VS Code?
+
+Mai intai instalam Live Server(sau un plugin de tip live server, sunt mai multe) apoi dam click in zona de editare si din meniul contextual alegem ‘Open with Live Server’.
+
+Unde poate fi adaugat Javascript astfel incat sa ruleze?
+
+Daca vorbim de browser, si doar la browser vom face referire pe viitor, pentru adauga si executa Javascript trebuie sa adaugam o secventa de script intr-un fisier HTML folosind tag-ul <script> la finalul tag-ului <body>
+<body>
+.....
+        <script>
+            ...cod Javascript>
+        </script>
+</body>
+
+Cum putem importa cod Javascript din alt fisier “.js”?
+
+In fiserul ‘radacina’ html, de obicei ‘index.html’, in interiorul lui <body>, de regula inainte de sfarsitul tag-ului body, adaugam tag-ul <script> cu atributul ‘src’ avand valoarea corespunzatoare numelui fisierului de importat:
+ <script src= “external_code.js”></script>

@@ -1,0 +1,288 @@
+//////////////
+Variables
+/////////////
+
+Variabile
+
+O variabila e o zona de memorie care are asociat un nume. In acea zona de memorie sunt stocate date.
+Datele pot fi numere, text, obiecte, functii, valori de adevar(true/false) si din alte tipuri necesare rularii programelor.
+
+Mod de declarare variabila
+
+Exista doua moduri corecte de declarare variabile, folosind cuvintele cheie ‘let’ si ‘const’
+
+let message;
+
+odata declarata, variabilei i se poate asocia si o valoare
+
+message = ‘hello’;
+
+operatia ‘=’ are denumirea ‘atribuire’ (value assignment)
+
+apoi variabila poate fi folosita in instructiuni
+
+alert(message);
+
+///
+exemplu utilizare variabila
+///
+
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+
+  <script>
+    let message;
+    message = 'hello';
+    alert(message);
+  </script>
+
+
+</body>
+
+</html>
+
+///
+
+Cand este rulat in browser alert(message) lanseza o fereastra cu textul ‘hello’, valoarea din message
+
+Atunci cand declaram o variabila si ii atribuim o valoare imediat, putem face asta pe un singur rand.
+
+let message = ‘hello’
+
+///
+declarare si atribuire variabila
+///
+
+  <script>
+    let message = 'hello';
+    alert(message);
+  </script>
+///
+
+Pot fi declarate pe acelasi rand mai multe variabile, inclusiv cu atribuire valori.
+Cele doua variante sunt similare
+
+///
+  <script>
+   let user = 'John', age= 25, message = 'Hello';
+  </script>
+///
+  <script>
+   let user = 'John', 
+   age= 25, 
+   message = 'Hello';
+  </script>
+///
+
+
+De regula vom declara fiecare variabila pe randul ei cu propriul ‘let’ mai ales ca in timpul realizarii unui proiect adaugam cate o variala cand avem nevoie, nu toate deodata.
+
+///
+metoda de declarare uzuala
+///
+  <script>
+     let user = 'John'; 
+     let age= 25; 
+     let message;
+  </script>
+///
+
+
+Insa atunci cand atribuim unei variabile continut, acel continut e ca si cand am adaugat ceva in container. Va ramane acolo in container pana il vom inlocui cu altceva. 
+
+Putem prelua valoarea din alta variabila:
+
+let message = ‘Hello’;
+let greeting = “Welcome back”;
+message = greeting; //vechea valoare e inlocuita de valoarea din greeting
+
+alert(message); // se va afisa “Welcome back”
+
+Doua variabile cu acelasi nume
+
+Nu putem declara variabile cu acelasi nume, va genera eroare. Nu putem avea:
+
+let message = ‘Hello’;
+let message = ‘Welcome’;
+//eroare: SyntaxError: ‘message’ has already been declared
+
+Se poate intampla sa apara declaratii duplicat pentru aceeasi variabila atunci cand copiem in script fragmente de cod care contin declaratii de variabile din acelasi script.
+
+
+//////////////////
+Numele variabilelor
+/////////////////
+
+Numele variabilelor
+
+Anumite caractere nu pot face parte din numele variabilelor. E vorba de acele caractere care au semnificatie aparte in limbaj. De exemplu caracterele ‘+’, ‘-’ , ‘*’ , ’/’ , ’%’ sunt operatii aritmetice pentru numere si variabile care contin numere. Ar crea confuzie pentru Javascript care nu ar sti daca e vorba de un singur text sau o operatie.
+
+let user-name = ‘John’; // nu e o declaratie corecta de variabila din cauza ca ‘-’ e operatorul scadere, nu poate face parte dintr-un nume de variabila.
+
+In schimba putem folosi caracterul underscore ‘_’ care este o metoda des utilizata de a combina mai multe cuvinte pentru un nume de variabila. Astfel putem avea user_name
+
+Literele mari si mici (majuscule / minuscule)
+
+Tipul de litere cu care cream o variabila conteaza, adica variabila Message e diferitea de message
+adica urmatoarele doua variabile sunt diferite
+let userName = “John”;
+let username = “Mark”;
+
+Obs: Creare variabile fara let
+
+Este posibila crearea unei variabile fara cuvintele cheie ‘let’ dar automat variabila devine globala si odata cu asta se creaza o problema de securitate a codului. E considerata o greseala si e una din scaparile de la inceputurile Javascript. Prin folosirea lui ‘use script’ se va genera o eroare in acest caz.
+
+
+Constante
+
+Pentru declararea unei variabile care nu isi schimba valoarea pe parcursul rularii programului folosim cuvantul cheie ‘const’:
+
+const myBirthday = ‘18.04.1982’;
+
+Daca incercam sa modificam o constanta se va afisa o eroare.
+
+
+const myBirthday = ‘18.04.1982’;
+myBirthday = ‘01.01.2001’;//error, can’t reassign the constant!
+
+Atunci cand declaram o constanta e bine sa stim dupa cum arata numele ca e vorba de o constanta si sa evitam sa-i schimbam valoarea. De aceea constantele sunt scrise cu majuscule, ca o conventie.
+
+const COLOR_RED = “F00”;
+alert(COLOR_RED);
+
+//////////////
+Denumirea corecta a variabilelor
+///////////////
+
+Crearea de nume corecte pentru variabile
+
+Numele variabilelor trebuie sa descrie in mod evident ceea ce contin. La fel ca si numele functiilor, daca sunt scrise concis si cu semnificatie clara, nu mai e nevoie de comentarii legat de logica codului.
+
+Cateva reguli:
+sa fie usor de inteles: userName sau shoppingCart
+evitati abrevierile ca a,b,c decat daca au un rol anume intr-o problema simpla, de exemplu intr-o expresie matematica
+nume prea generale nu transmit suficiente informatii despre variabile, de ex: data, value, vector, arr(array), obj(object) dar pot fi folosite in exemple mici doar cu rol demonstrativ.
+intr-o echipa trebuie sa existe conventii pentru denumirea variabilelor care fac acelasi lucru. De exemplu cand doi programatori lucreaza la o aplicatie de logare nu e bine ca unul sa foloseasca user, newUser, curentUser si celalalt visitor, newVisitor, currentVisitor, trebuie sa se puna de acord sa foloseasca aceeasi denumire de baza, fie ‘user’ fie ‘visitor’
+
+///////
+
+Recapitulare
+O variabila se declara cu ‘let’ sau ‘const’ (const pentru constante)
+O varianta mai veche e cu ‘var’, e bine sa se evite, de stiut doar ce semnificatie are atunci cand o vedem in cod vechi.
+Nu atribuim valori unor variabile fara se le declaram. E permis dar e considerata greseala. Pentru a evita astfel de omisiuni se foloseste ‘use strict’ la inceputul scriptului.
+
+Numele variabilelor trebuie sa fie usor de inteles si sa descrie continutul.
+
+//////////
+Exercitii
+
+Ex.1
+
+Declarati doua variabile: admin si name
+Atribuiti “John” pentru name
+Copiati valoarea din name in admin
+Afisati valoarea lui admin folosind alert (trebuie sa afiseze “John”)
+
+///
+let admin, name; // can declare two variables at once
+
+name = "John";
+
+admin = name;
+
+alert( admin ); // "John"
+///
+
+
+/////////////////
+Intrebari raspunsuri:
+/////////////////
+
+Intrebari raspunsuri:
+
+Ce este o variabila?
+
+Variabila este un loc din memorie unde pot fi scrise date. Acel loc din memorie are asociat un nume. Prin apelarea acelui nume se acceseaza datele.
+
+Care este modul de creare a unei variabile?
+
+O variabila se creaza prin ‘declarare’. O variabila se declara folosind cuvantul cheie let.
+
+let persoana;
+
+
+Cum se pot stoca date intr-o variabila?
+
+Folosind operatorul de atribuire ‘egal’, ‘=’.
+persoana = “John”;
+
+
+Cand se poate atribui o valoare unei variabile?
+Se poate atribui dupa declarare pe parcursul rularii scriptului
+persoana = “Mark”;
+
+Sau se poate atribui o valoare chiar la declarare:
+
+let userName = “John”;
+
+
+Se pot transfera valori din alte variabile ?
+
+Se atribuie continutul unei variabile cu o operatie de atribuire obisnuita. 
+
+userName = persoana;
+
+Ce se intampla daca intentionat sau nu declaram de doua ori aceasi variabila cu let?
+
+let message;
+....alte instructiuni
+let message;
+
+Javascript nu permite redeclararea unei variabile, va da eroare “ ‘message’ has already been declared”
+
+Cum este tratata de Javascript o variabila care a fost declarata dar nu i s-a atribuit nici o valoare?
+
+Variabila primeste automat ‘valoarea’ undefined.
+
+///
+
+Intrebari raspunsuri:
+
+Ce metode avem pentru a crea variabile din mai multe cuvinte si totusi a separa cuvintele intre ele
+
+Ce-a mai des intalnita metoda e folosirea majsusculelor in interiorul numelor:
+userName, currentUser, primeNumbersArray etc.
+Este folosita destul de des si metoda cu underscore: 
+user_name, current_user, prime_numbers_arr
+
+Conteaza daca folosim majuscule sau doar litere mici?
+
+Da, variabilele difera intre intre ele chiar si doar in urma folosirii unei singure majuscule. Variabilele username si userName sunt diferite.
+
+Ce se intampla daca atribuim o valoare unei variabile care nu a fost declarata?
+Ex: global_var = 5;
+
+Daca nu se foloseste ‘use strict’ variabila global_var este creata insa devine automat globala indiferent unde se intampla atribuirea in aplicatie. Pentru a se evita astfel de scapari se recomanda folosirea lui ‘use strict’ care genereaza o eroare in caz ca atribuim o valoare unei variabile nedeclarate.
+
+Cuvantul cheie const determina declararea unei variabile cum o face si let. Care e diferenta intre cele doua metode?
+
+Declararea cu const determina ca acea variabila sa nu-si mi schimbe continutul pe durata rularii aplicatiei. Orice incercare de modificare genereaza o eroare si inchide aplicatia. E o metoda de securizare a anumitor date stocate intr-o variabila. De fapt nu se mai cheama variabila ci constanta.
+
+const ADMIN = ‘John’;
+
+De ce este bine sa scriem numele constantelor cu majuscule?
+
+E bine sa fim avertizati prin intemediul numelor scrise cu majuscule ca nu putem atribui valori acelor variabile tocmai pentru ca sunt constante.
+
+///
+
+Intrebari raspunsuri:
+
+Ce este de preferat, nume de variabile sugestive sau mai multe comentarii adaugate la cod?
+
+Daca se poate e bine sa nu adaugam deloc comentarii. Denumirea corecta si sugestiva a variabilelor si functiilor ar putea fi suficienta in majoritatea cazurilor. A invata cum se denumeste corect o variabila, cu un nume care sa fie si succint si care sa descrie si continutul, cere multa experienta si se dobandeste in timp.
+
+

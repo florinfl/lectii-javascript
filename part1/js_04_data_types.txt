@@ -1,0 +1,522 @@
+////////////
+Data types
+///////////
+
+Tipuri de date(Data types)
+
+Valorile cu care lucram se incadreaza fiecare la cate un tip de date. Cele mai importante tipuri de date sunt Number, String, Boolean, Object, Array, Null, Undefined. Mai exista Symbol folosit mai rar. 
+Atunci cand atribuim o valoare unei variabile, automat acea variabila devine de tipul de date a valorii pe care o contine.
+
+In Javascript o variabila nu are propriul tip, tipul este dat la atribuire.
+
+Tipul Number 
+e vorba de numere intregi si cu zecimale
+
+let n = 123;
+n = 12.345;
+
+Aceleasi operatii pe care le stim de la aritmetica se aplica si numerelor: adunare, scadere, inmultire, impartire care sunt corespunzatoare operatorilor +, -, *, /
+
+console.log(1+2);//3
+console.log(1/2);//0.5
+console.log(1*2);//2
+console.log(1-2);//-1
+
+Exista un set de valori speciale pentru a preintampina erori datorate unor operatii interzise.
+
+NaN (not a number) pentru erori in operatii cu numere
+Infinity pentru impartiri la 0 
+
+Se spune astfel ca Javascript e ‘safe’, adica putem face orice operatii in cel mai rau caz obtinem un NaN sau Infinity 
+
+console.log(1/0);//afiseaza Infinity
+console.log(Infinity);//afiseaza Infinity
+
+Daca incercam o operatie invalida, de exemplu dintre un sir de caractere si un numar, rezultatul va fi  NaN.
+
+console.log(“not a number”/2 - 1);//NaN
+console.log(NaN + 1);//NaN
+console.log(3 * NaN);//NaN
+
+Daca se incearca in continuare alte operatii implicand text NaN va fi tratat ca text
+
+
+Obs:
+
+Exista situatii cand Infinity este tratat ca simplu numar
+
+typeof Infinity
+ returneaza ‘number’ ceea ce nu e de ajutor.
+
+la fel si 
+isNaN(Infinity)
+ returneaza false in sensul ca il recunoaste ca numar oarecare.
+
+Pentru aceasta functia isFinite() reprezinta o metoda mai de incredere pentru verificare daca o valoare e numar sau non number sau din categoria NaN/ Infinity , va fi discutata mai tarziu.
+
+
+
+Tipul BigInt
+Deoarece numerele obisnuite sunt stocate pe 64 biti, nu pot fi folosite numere mai mari decat 2^53-1. Pentru a afla care e cel mai mare numar obisnuit se poate folosi constanta
+Number.MAX_SAFE_INTEGER
+  
+Daca se doreste folosirea unui numar mai mare putem apela la numerele BigInt.
+Odata ales un operand in BigInt si celalt operand trebuie sa fie BigInt, adica atat a cat si b trebuie sa fie BigInt in operatia a + b.
+
+Un numar BigInt e ca un numar normal cu litera n la sfarsit:
+
+let a = 123456789012345678901234567890n;
+
+Dar de obicei nu avem nevoie de astfel de numere mari.
+
+
+/////////////////
+String
+////////////////
+
+Tipul de date String
+
+
+
+Un sir de caractere (string) trebuie sa fie incadrat de ghilimele. Nu conteaza daca sunt simple sau duble (apostrof sau ghilimele).
+
+let message = “exemplu string”; 
+let greeting = ‘Hello John!’; 
+
+let salut =` Exemplu de salut: ${greeting}`; 
+
+Exista  trei tipuri de ghilimele:
+
+double: “ghilimele”
+single: ‘apostrof’
+backticks: `Se afla in stanga tastei 1, chiar in coltul stanga sus, sub tasta Escape`
+
+In Javascript nu exista diferente intre primele doua tipuri, le consideram ghilimele simple (simple quotes).
+
+Vor fi situatii cand insa va trebui sa le grupam corect, ca de exemplu in interiorul unui string ce reprezinta HTML:
+
+let imagine = ‘<img src = “landscape1.jgp” alt = “Peisaj montan”>’ ; 
+
+La exterior vom avea ghilimele simple iar la interior ghilimele duble pentru ca sunt necesare pentru tag-ul HTML.
+
+Backticks, sunt ghilimele simple, orientate invers. Le vom denumi ca in engleza `backticks`. Ele au functionalitate avansata permitand integrarea de variabile si expresii in interiorul unui string cu ajutorul constructiei ${...}
+
+let name = “John”;  
+
+let greeting = `Hello, ${name}!`; 
+
+console.log(greeting);// Hello, John!
+
+Expresia din interiorul lui ${...} este evaluata si devine parte din string-ul in care a fost inserata. Putem pune aproape orice in interior dar de obice ne vom rezuma la variabile si expresii simple:
+
+console.log(`rezultatul sumei 1 + 2 este ${1+2}`)// rezultatul sumei 1 + 2 este 3
+
+
+
+//////////////////
+Tipul de date Boolean
+//////////////////
+
+Tipul de date Boolean
+
+Tipul de date Boolean are doar doua valori: true si false. True e atunci cand o propozitie sau afirmatie e adevarata iar false cand e falsa. Valorile de adevar true/false mai sunt numite valori booleene. 
+
+Obs: Boolean vine de la numele unui matematician din sec 19 - George Boole care a studiat elemente de logica in matematica, de la el provine termenul de logica booleana. 
+
+exemple de stocare valori booleene: 
+
+let toateElementelePozitive = true; // da, toate elementele dintr-un array sunt pozitive
+
+let ageCheckBox = false;// nu, caseta pentru varsta nu e bifata
+
+
+Valorile booleene pot fi si rezultatul unor operatii de comparare:
+
+let maiMare = 10 > 9;
+
+console.log(maiMare);// true (rezultatul comparatiei este adevarat)
+
+Va exista o sectiune in care se va vorbi pe larg despre operatori logici si se va detalia logica booleana.
+
+
+///////////////////
+Tipurile Undefined si Null
+////////////////////
+
+Tipurile Undefined si Null
+
+Tipul de date undefined
+
+Variabilele pot avea valori sau nu. In caz ca nu au primit o valoare se spune ca sunt undefined / nedefinite. In general nu exista motive ca o variabila sa ramane nedefinita deci trebuie privita ca o scapare.
+
+Exista o metoda pentru crearea de variabile globale cand variabilele pot ramane undefined, dar in general o variabila undefined semnifica o scapare a noastra.
+
+O variabila undefined poate fi utilizata, dar va fi tratata ca avand chiar valoarea text ‘undefined’ ceea ce nu poate fi util. 
+
+O variabila devine automat de tipul undefined la declarare.
+
+let persoana;
+alert(persoana);//se va afisa ‘undefined’
+
+Nu este bine sa atribuim noi catre o variabila ‘valoarea’ undefined pentru ca Javascript nu ne mai poate avertiza daca variabila a ramas nedefinita din greseala noastra odata ce intentionat atribuim undefined. Pentru ca asta e scopul lui undefined, sa ne avertizeze ca acea variabila pentru moment nu contine INCA nici o valoare.
+
+Tipul de date null
+
+consta intr-o singura valoare, null
+
+De multe ori avem nevoie sa specificam ca o variabila nu contine nimic. Dar nu se recomanda sa atribuim undefined si atunci folosim ‘null’ care e un fel de valoarea zero pentru orice tip de date.
+
+Dar nu e acelasi lucru cu undefined pentru ca de data asta null este o valoare concreta, doar ca simbolizeaza lipsa oricarei valori tot la fel cum 0 este lipsa unei cantitati, marimi sau dimensiuni in aritmetica.
+
+let persoana = null;
+alert(persoana);// se va afisa null
+
+Dat fiind ca ambele tipuri, undefined si null, aparent desemneaza lipsa unei valori, exista tendinta sa fie confundate.
+
+Principala diferenta e ca undefined e asociat automat unei variabile pana la atribuire iar daca ramane in continuare asa asta poate fi o greseala sau o scapare de programare. 
+
+In schimb null nu poate fi atribuit decat intentionat si inseamna stergerea cu buna stiinta a continutului unei variabile, acea variabila putand fi testata daca contine ceva sau este null. E o metoda universala de a sterge continutul unei variabile indiferent ce tip de date contine.
+
+Obs:
+Spre deosebire de C++ acolo unde null reprezinta un pointer-ul null, in Javascript null NU are legatura cu pointerii. 
+
+
+///////////////
+Object / Symbol
+//////////////
+
+Tipul de date Object
+
+Tipul Object e un tip special.
+
+Toate celelalte tipuri de date se numesc “primitive” pentru ca o valoare poate contine un singur lucru. Valorile numerice (number) contine doar numere, valorile de tip string contin doar siruri de caractere. Celelalte tipuri de date sunt inca si mai simple: undefined, null, boolean contin valori predefinite.
+
+Tipul Object permite crearea de constructii complexe care se numesc obiecte. Obiectele pot contine campuri sau proprietati din oricare celelalte tipuri. Tipul Object va fi discutat separat.
+
+Obs(optional):
+Object e atat de diferit de restul tipurilor de date incat valorile de tip Object sunt stocate in alta parte a memoriei. Toate variabilele sunt stocate in zona Stack a memoriei. Inclusiv obiectele incep in Stack ca nume si locatie de memorie. Dar locatia de memorie din Stack conduce la alta locatie de memorie din zona Heap a memoriei si acolo e stocat corpul obiectului. Obiectele sunt gandite sa nu aiba limita de memorie spre deosebire de restul tipurilor de date. In realitate exista limitari de natura tehnica: browser, sistem de operare, cantitate de memorie disponibila pe calculator. 
+
+Tipul de date Symbol
+
+Ca si tipul Object va fi tratat separat, mai ales ca trebuie cunoscut tipul Object mai intai. Tipul Symbol permite de crearea de proprietati unice in interiorul obiectelor. 
+
+////////////
+Operatorul typeof
+////////////
+
+
+Operatorul typeof
+
+Operatorul typeof returneaza tipul operandului. 
+
+let nr = 5;
+console.log(typeof nr)// se afiseaza: number 
+
+Pentru ca e un nume atat de lung pentru un operator se creaza confuzia ca ar fi o functie. Dar este doar operator. Se mai poate folosi cu paranteze, typeof(x), dar tot operator ramane.
+
+Scopul lui typeof este sa identifice tipurile de date astfel atunci cand avem de realizat operatii sa le realizam “safe”. Adica daca identificam incompatibilitate intre valori/variabile vom putea face conversiile necesare sau vom bloca executarea unor operatii care altminteri ar da rezultate din categoria NaN, conversii gresite, erori.
+
+typeof undefined;// returneaza “undefined”
+
+typeof 10;// “number”
+
+typeof 10n; //”bigint”
+
+typeof true; //”boolean”
+
+typeof “sir”; //”string”
+
+typeof Symbol(“id”); // “symbol”
+
+typeof null; // “object” 
+
+typeof console.log; //”function”
+
+
+Obs:
+Exista o problema pentru null
+
+console.log(typeof null); // “object”
+
+Rezultatul pentru typeof null ar trebui sa fie null si nu “object”. E una din greselile care s-au perpetuat in Javascript. Daca se foloseste “use strict” tot object se returneaza.
+De aceea pentru verificare variabila pentru null se va folosi compararea directa cu null. 
+
+
+O functie poate fie data ca operand pentru typeof si va returna “function”
+
+let popup = alert;
+console.log(typeof popup); // “function”
+
+Functiile nu sunt structuri sau tipuri de date dar pot fi stocate in variabile in Javascript. De aceea typeof identifica o functie si returneaza “function” cand o depisteaza in operand.
+
+////////////////
+
+Recapitulare tipuri de date
+
+Exista 8 tipuri de date. Un tip de date se refera la o simpla valoare sau la o variabila.
+
+Tipurile de date sunt 
+1) Number, 2)BigInt, 3) String, 4) Boolean, 5) null, 6) undefined, 7) symbol, 8) object
+
+Pentru identificare tip de date se foloseste operatorul typeof
+
+
+//////////
+
+
+Exercitiu:
+Care este rezultatul pentru script?
+
+///
+let name = "John";
+
+console.log( `hello ${1}` ); // ?
+
+console.log( `hello ${"name"}` ); // ?
+
+console.log( `hello ${name}` ); // ?
+///
+
+
+Raspuns:
+
+In interiorul unui string de tip template, creat cu backticks ``, o constructie de forma ${...} evalueaza valori si operatii Javascript si le integreaza in string.
+
+let name = "John";
+
+console.log( `hello ${1}` ); // “hello 1”
+
+console.log( `hello ${"name"}` ); // “hello name”
+
+console.log( `hello ${name}` ); // “hello John”
+
+///
+
+////////////////////
+Interactions: alert, prompt
+///////////////////
+
+Functii de interactiune popup: alert, prompt, confirm
+
+Pentru afisare date vom folosi de obicei console.log dar uneori vom apela si la alert.
+
+Pentru citire vom avea nevoie de prompt, mai rar de confirm.
+/////
+alert
+/////
+
+Afiseaza un mesaj si asteapta ca utilizatorul sa apese “OK”.
+
+alert(“Hello modal window”);
+
+Fereastra care apare se cheama modal window. “Modal” inseamna ca nu putem interactiona cu restul paginii pana nu inchidem fereastra, in acest caz trebuie sa apasam “OK”.
+////
+prompt
+////
+let result = prompt(title, [default]);
+
+Cand apare in definitia unei instructiuni paranteza patrata, [ ... ], in zona parametrilor, inseamna ca desemneaza un parametru optional.
+
+Este tot o fereastra modala care permite preluarea de valori de la utilizator. 
+
+let nr = prompt( `Introdu un numar`, 15) 
+console.log(nr)//15 
+
+Functia prompt primeste doua valori, mesajul de afisat si, optional, o valoare care este inserata implicit in caseta text a ferestrei.
+
+Daca se apasa OK se returneaza valoarea din caseta text, daca se apasa Cancel se returneaza null.
+
+///
+let nr = prompt( "Introdu un numar", 15) 
+console.log(nr)//15
+///
+
+Valoarea initiala este doar o sugestie, poate fi modificata. 
+
+Valoarea din caseta text, chiar daca este scrisa fara ghilimele, adica daca dorim sa fie considerata numar, va fi returnata tot ca text. 
+
+In exemplul de mai sus variabila nr va primit intotdeauna o valoare text (string).
+
+
+/////
+confirm
+////
+result = confirm(question);
+
+
+Functia confirm functioneaza ca si prompt insa returneaza doar true sau false. De aceea are un singur parametru care reprezinta o intrebare la care se poate raspunde cu Da sau Nu, in cazul nostru OK pentru true sau Cancel pentru false
+
+///
+let esteTipDate = confirm("Este Boolean un tip de date?")
+console.log(`True este Da si false este Nu? Raspuns: ${esteTipDate}`)
+///
+
+
+////////////
+
+Recapitulare functii de interactiune
+
+Pentru citire si afisare in fereastra browser-ului exista 3 instructiuni care genereaza ferestre modale. Cand sunt afisate restul paginii nu poate fi accesat pana se inchid ferestrele cu Ok sau Cancel.
+
+Pentru afisare exista functia alert.
+
+Pentru citire date exista functia prompt
+
+Pentru citire true/false exista functia confirm
+
+/////////////
+
+
+//////////////////
+Intrebari raspunsuri:
+/////////////////
+
+Intrebari raspunsuri:
+
+De ce tip de date e o anumita variabila.
+
+O variabila nu are un anumit tip de date. Initial totusi, imediat ce e declarata, inainte de a i se atribui o valoare, Javascript o considera de tipul undefined.
+
+Cand putem considera ca o variabila e de un anumit tip de date? In afara de undefined
+
+O variabila este de tipul de date a valorii pe care o primeste. De exemplu
+let nr = 5; 
+variabila nr va fi de tip Number
+
+let pers = “John”;
+variabila pers este de tip String
+
+Se poate schimba pe parcursul rularii aplicatiei tipul de date asociat unei variabile?
+
+Cum in Javascript tipul de date nu e legat de variabila ci doar de valorile din variabila, atunci variabila isi poate schimba tipul de date
+
+daca reatribuim o valoare pentru variabila nr
+nr = “cinci”
+atunci variabila nr este de tip String chiar daca initial a fost de tip Number
+
+
+De ce Javascript nu genereaza eroare daca incercam sa impartim un numar la 0 sau daca incercam o operatie aritmetica cu un sir de caractere?
+
+In ambele operatii nu se genereaza eroare ca in alte limbaje de programare. Astfel Javascript e considerat ‘safe’ pentru aceste operatii. Creatorii Javascript au luat decizia ca in cazul unei astfel de operatii Javascript sa NU genereze o eroare care sa opreasca aplicatia si a lasat la latitudinea programatorului sa gestioneze astfel de erori. 
+
+Ce rezultat se returneaza in urma impartirii la 0?
+
+In cazul impartirii la 0 se returneza valoarea Infinity, mai mare decat orice alta valoare numerica. Este o alta cale de a spune ca s-a produs o eroare de calcul dar nu rezulta in oprirea brusca a scriptului.
+
+Ce rezultat se returneaza cand o operatie aritmetica nu se poate finaliza ca si numar din cauza ca unul dintre operanzi nu este numar sau nu poate fi convertit in numar?
+
+ In cazul in care se incearca o operatie dintre un numar si o valoare non numerica se incearca conversia automata a valorii non numerice si daca esueaza se returneaza valoarea NaN (not a number) care practic este un text. La fel ca in cazul lui Infinity este o eroare care insa nu produce blocarea aplicatiei. 
+
+Ce metode exista de a verifica daca o valoare este un numar?
+
+typeof valoare si isNaN(valoare) sunt doua dintre ele. Insa functia isFinite() e mai de incredere in raport cu depistarea valorii Infinity
+
+Exista o limita pentru cel mai mare numar stocat in memorie?
+
+Dat fiind metoda de codificare a numerelor in memorie, pe 64 biti, nu pot fi memorate numere mai mari decat 2^53-1( 2 la puterea 53),
+
+
+Exista o metoda pentru memorarea numerelor mai mari?
+
+Se foloseste tipul BigInt pentru rarele situatii cand numerele depasesc valoarea 2^52. Pentru a desemna ca un numar este BigInt se adauga litera ‘n’ la finalul numarului. Toti operanzii vor trebui sa fie din acelasi tip de date BigInt
+
+let a = 123456789012345678901234567890n;
+
+///
+
+Intrebari raspunsuri:
+
+Ce determina ca o valoare sa fie de tip string.
+
+String este orice text incadrat intre ghilimele.
+
+Sunt cateva tipuri de ghilimele, conteaza pe care le folosim?
+
+Pentru tipurile mai vechi de ghilimele nu conteaza pe care dintre ele le folosim, simple ‘ sau duble “. Atunci cand memoram tag-uri HTML va trebui sa folosim un tip la interior pentru valorile atributelor si unul diferit la exterior.
+
+Varianta de ghilimele backtick aduce ceva nou?
+
+Backticks ` ` schimba complet modul de concatenare si creare a sirurilor. Metoda de creare a sirurilor folosind backticks se numeste template literals si consta in integrarea in siruri a expresiilor, variabilelor sau valori fara a fi necesare alte operatii de concatenare.
+
+let name = “John”;
+
+let greeting = `Hello ${name}, how are you?`;
+
+pentru a face acelasi lucru prin metoda cu ghilmele obisnuite:
+
+let greetingOld = “Hello ” + name + “, how are you?”;
+
+///
+
+Intrebari raspunsuri:
+
+Ce determina ca o valoare sa fie de tip undefined?
+
+O variabila daca este doar declarata si lasata asa fara sa i se atribuie o valoare se spune ca este nedefinita. Javascript automat ii asociaza tipul undefined. E tip de date care este asociat doar variabilelor iar valoarea asociata este chiar textul ‘undefined’
+
+Care este utilitatea acestui tip de date undefined?
+
+Tipul undefined este atribuit oricarei variabile la creare. Este inlocuit cu tipul de date al unei valori cand se face o atribuire. Deci avem undefined sau alt tip de date. Normal acest lucru inseamna ca daca o variabila este inca undefined inseamna ca s-a omis atribuirea unei valori catre acea variabila. Deci undefined este ca un fel de marker / flag care ne atentioneaza ca variabila inca nu si-a primit nici o valoare.
+
+Putem atribui undefined unei variabile?
+
+Nu se recomanda dar se poate atribui ca orice alta valoare. Insa se anuleaza chiar scopul existentei tipului undefined si anume acela de avertisment. Nu mai poate fi folosit ca avertisment daca il atribuim noi intentionat.
+
+Daca ne dorim stergerea constinutului unei variabile putem sa inlocuim totusi cu undefined?
+
+Nu e bine sa atribuim unei variabile valoarea “undefined”.
+Am putea incerca sa inlocuim cu ceva ce simbolizeaza valoarea 0:
+
+name = “”;//sirul vid in loc de text
+number = 0;//valoarea 0
+obj1 = {};//obiectul vid
+arr1 = [];//vectorul vid
+
+Dar in loc ca noi sa cautam metode de stergere a continutului unei variabile exista deja una si anume inlocuirea cu null. Tipul de date null a fost creat tocmai ca sa fie o metoda universala de a sterge sau de a specifica in mod explicit lipsa unei valori - ca sa nu fie folosit undefined.
+
+anyVariable = null
+
+
+///
+
+Intrebari raspunsuri:
+
+Cand o variabila este de tip null?
+
+O variabila nu poate deveni de tip null decat atunci cand in mod explicit se atribuie null catre acea variabila:
+
+anyVar = null
+
+Care este utilitatea acestui tip de date null?
+
+E o metoda de a sterge continutul unei variabile sau de a specifica ca acea variabila in mod intentionat nu contine nimic. Spre deosebire de null, o variabila undefined specifica faptul ca a ramas asa cel mai probabil neintentionat.
+
+Putem atribui null unei variabile?
+
+Da, acesta este scopul lui null, de a fi atribuit atunci cand dorim ca sa specificam ca variabila nu contine nimic.
+
+Null are legatura cu pointeri ca in alte limbaje de programare, ex: C++ ?
+
+Javascript nu lucreaza direct cu pointeri desi vom folosi notiunea de pointer cand vom vorbi despre vectori si obiecte care functioneaza ca pointeri atunci cand sunt accesate. Deci nu e necesara in Javascript existenta unor valori de tip pointer. In Javascript null face referire la lipsa oricarei valori indiferent daca se refera la o variabila obisnuita sau similara cu pointerii.
+
+///
+
+Intrebari raspunsuri:
+
+Prin ce anume difera tipul Object de restul tipurilor de date?
+
+Tipul Object permite crearea de structuri de date complexe care pot contine colectii de valori din toate tipurile de date. 
+
+
+Ce face typeof?
+
+Operatorul typeof returneaza tipul de date al operandului. Este utila ca sa stim cum sa tratam si in ce operatii sau functii sa includem acea valoare.
+
+Cate tipuri de date sunt in total?
+
+8 tipuri de date: number, bigint, boolean, string, null, undefined, object, symbol
+
+
+
+
+

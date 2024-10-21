@@ -1,0 +1,166 @@
+////////////////////
+Developer console
+//////////////////
+Pentru a deschide consola din Chrome, cateva optiuni:
+-Ctrl + Shift + J
+-Click dreapta oriunde in pagina si apoi ultima optiune din meniul contextual, Inspect si apoi click pe Console
+-F12 -> Console
+
+Rolul consolei este acel de a ne informa despre eventualele erori din cod. Vom avea erori tot timpul deci e bine sa stim cum sa le gasim.
+
+Tot in consola putem afisa informatii. Fara a afisa informatii nu putem sti rezultatul aplicatiilor la care lucram. Exista mai multe cai de a afisa informatii dar in consola e cel mai simplu in faza de dezvoltare. E adevarat ca la inceput vom putea folosi comanda alert(numeVariabila), care lanseaza un pop-up, dar e o comanda limitata mai ales ca blocheaza executia scriptului, deci vom apela la ea doar la inceput.
+
+Pentru afisa in consola folosim comanda
+console.log(numeVariabila);
+
+Pentru detalii legate de variabile mai complexe vom folosi
+console.dir(numeVariabila)
+
+Exista mai multe optiuni, pot fi gasite pe mdn/console
+
+////////////////////
+Code structure
+////////////////////
+
+Instructiunile
+
+In engleza instructiunile denumite statements. Inseamna orice fel de constructii sintactice.
+Pe langa instructiuni mai exista comentarii.
+
+Obs: Instructiunile exista exclusiv in interiorul tag-ului script. Tot ce e in afara tag-ului script reprezinta de regula limbajul HTML.
+
+Exemplu de instructiuni:
+
+alert(‘hello’);
+alert(‘hello’);
+
+ Desi in Javascript nu e obligatoriu, e considerat practica corecta sa fie pus la final caracterul ‘;’. Daca e omis il pune automat Javascript la momentul executiei acelei instructiuni.
+
+Deci poate fi scris si asa:
+
+alert(‘hello’)
+alert(‘hello’)
+
+Comentariile
+
+Comentariile pot fi adaugate selectand un text/ fragment de cod si apoi se apa combinatia Ctrl + /(valabil pentru VS Code si nu numai)
+
+Comentariile au forma
+
+// pentru un singur rand
+
+/* pentru mai 
+multe randuri */
+
+Comentariile sunt fragmente de text din interiorul scriptului care vor fi ignorate de engine-ul Javascript. De obicei sunt informatii explicative legate de cod.
+
+Obs:
+
+Comentariile exista si pentru HTML sau CSS si se adauga folosind aceeasi combinatie de taste. Ma intai se selecteaza codul si apoi se apasa Ctrl + /
+
+///////////
+‘use strict’
+///////////
+
+Cod vechi si cod nou
+
+Javascript a fost updatat de mai multe ori. Pana in 2009 update-urile nu au fost de mare importanta. In 2009 s-a trecut la ECMA Script 5 care e un update important. Pot aparea probleme cu vechiul cod daca se foloseste noul engine Javascript. 
+
+De aceea s-a luat decizia ca se se adauge un ‘modificator’ la inceputul codului, ‘use strict’, care determina ca engine-ul Javascript sa trateze codul ca fiind nou. Daca lipseste ‘use strict’ codul va fi tratat ca vechi.
+
+In realitate nu se prea poate scrie cod ‘vechi’ pentru ca in clase (OOP) si module(care se importa) ‘use strict’ este apelat implicit. Se mai poate omite ‘use strict’ doar in codul ‘global’ din scriptul principal al unui proiect sau in functii.
+
+Vom considera tot codul la care lucram ca fiind compatibil cu noile update-uri, consideram ‘use strict’ apelat chiar daca nu-l apelam explicit de fiecare data.
+
+Exemplu:
+<script> 
+1  “use strict”; 
+2  a = 5; 
+3  console.log(a) 
+</script> 
+
+Va fi afisat o eroare pentru instructiunea 2, 
+     a = 5 ,
+ ‘a is not defined’,
+
+In codul vechi se putea crea o variabila fara let, era automat creata globala, dar e considerata o greseala. Cu “use strict” este reparata greseala, este generata o eroare, ‘a is not defined’, iar scriptul nu se va executa.
+
+
+/////////////////
+Intrebari raspunsuri:
+/////////////////
+
+Intrebari raspunsuri:
+
+La ce foloseste Consola din zona de unelte pentru dezvoltatori(dev tools)?
+
+Pentru a citi eventualele erori si pentru a afisa informatii pe durata executiei aplicatiei
+
+Care e cea mai rapida metoda de deschiderea a consolei?
+
+Scurtatura Ctrl + Shift + J
+
+Ce metode avem pentru afisare informatii in consola?
+
+console.log()
+console.dir()
+
+
+///
+
+
+Intrebari raspunsuri:
+
+La ce se refera sintagma “statement” in limba Engleza?
+
+Reprezinta orice constructie sintactica, practic orice instructiune.
+
+Este recomandat ca instructiunile sa se termine cu ‘;’?
+
+In majoritatea limbajelor de programare se cere ‘;’ la finalul fiecarei instructiuni. Javascript adauga automat ‘;’ la finalul fiecarei instructiuni chiar daca noi nu vedem asta.  Unii programatori recomanda adaugarea ‘;’ la finalul fiecarei instructiuni.
+
+Unde sunt scrise instructiunile Javascript?
+
+Instructiunile Javascript trebuie scrise doar in interiorul tag-ului <script>. Orice este scris in afara tag-ului <script> va fi tratat ca HTML iar browser-ul va incerca sa-l interpreteze dar daca nu reuseste de obicei il afiseaza ca simplu text.
+
+
+Ce reprezinta comentariile ?
+
+Comentariile nu sunt expresii sau constructii sintactice, sunt texte inconjurate de simboluri speciale care determina browserul sa le ignore la momentul executiei scriptului. 
+
+Cum se adauga comentarii?
+
+Se creaza punand ‘//’ in fata unui text daca ne dorim comentariul pe un singur rand sau /* ... */ daca comentariul se intinde pe mai multe randuri. Scurtatura pentru adaugare de comentaii de tipul ‘//’ este Ctrl + /
+
+La ce folosesc comentariile?
+
+In principal folosesc pentru adaugarea de explicatii atunci cand numele functiilor si variabilelor create de noi nu sunt suficiente ca sa intelegem logica codului.
+Un al doilea rol e de a scapa rapid de o secventa de cod pe care nu o consideram utila la un moment dat sau de a o anula fara a o sterge in vederea depistarii unor erori.
+
+Putem avea comentarii si pentru codul HTML?
+
+Se pot adauga cu aceeasi scurtatura, Ctrl +/, si sunt de tipul ‘pe mai multe randuri’.
+Sau se pot adauga manual : 
+<!-- ... cod HTML... - - > 
+
+Obs: Daca par dificil de memorat tipurile de comentarii doar amintiti-va ca se poate adauga selectand textul si apoi shortcut-ul Ctrl + /
+
+
+Cum putem importa cod Javascript din alt fisier “.js”?
+
+In fiserul ‘radacina’ html, de obicei ‘index.html’, in interiorul lui <body>, de regula inainte de sfarsitul tag-ului body, adaugam tag-ul <script> cu atributul ‘src’ avand valoarea corespunzatoare numelui fisierului de importat:
+ <script src= “external_code.js”></script>
+
+ ///
+
+
+ Intrebari raspunsuri:
+
+Cum se rezolva problema compatibilitatii vechiului cod cu noile browsere in conditiile in care noile imbunatatiri ale Javascript pot determina ca vechile script-uri sa nu functioneze?
+
+Pentru noul cod cu imbunatatiri se adauga ‘use strict’ la inceputul script-ului. Pentru codul mai vechi nu se adauga nimic, se lasa asa.
+
+Este obligatorie folosirea lui ‘use strict’?
+
+In cazul in care nu avem proiecte avansate nu vom sesiza diferenta intre folosirea sau nu a lui ‘use strict’
+

@@ -1,0 +1,233 @@
+/////////////
+Type conversions
+//////////////
+
+Conversii de tip
+
+De fiecare data cand se executa o operatie sau o functie nativa Javascript se incearca conversia automata a operanzilor in tipul de date potrivit.
+
+De exemplu alert(valoare) converteste valoarea automat in string pentru a o afisa. Operatiile matematice convertesc valorile in numere.
+
+Sunt si cazuri in care conversiile ori nu se fac ori nu ne ajuta pentru ca nu convertesc in tipul pe care il dorim noi si atunci trebuie sa facem explicit conversia. 
+
+Conversia in String
+
+Conversia in string apare atunci cand avem nevoie de forma “string” a acelei valori.
+
+alert(valoare) automat converteste orice valoare in string.
+
+Putem si noi sa convertim orice valoare in string folosind functia String(valoare_de_convertit)
+
+String(true)// devine string-ul “true”
+String(1000)// devine string-ul “1000”
+
+Restul tipurilor de date sunt convertite in string pastrandu-se valoarea initiala:
+
+null devine “null”, 
+undefined devine “undefined”,
+false devine “false”
+
+Pentru obiecte, tipul Object:
+Daca incercam sa convertim obiecte in string vom primi de regula valoarea 
+[object Object] deci obiectele au un mecanism mai avansat de conversie.
+
+Un exemplu doar pentru ca se intampla de multe ori si e bine sa stim motivul, de obicei vedem rezultatul acesta in urma unei conversii automate.
+
+ let obj1 = { nume: "john" }
+ console.log(String(obj1))// se afiseaza [object Object]
+
+Obs:
+Cum putem diferentia intre o valoare afisata in consola daca e numar sau string?
+
+console.log(String(1000));// va fi afisat 1000 cu negru
+console.log(1000);//va fi afisat 1000 cu albastru
+
+Functia console.log() nu face conversii automate deci tipul de date se pastreaza. Pentru a diferentia intre numere si texte in consola, browser-ul coloreaza numerele cu albastru.
+
+Mai clar este sa afisam direct tipul
+let val_text = String(1000);
+let val_num = 1000;
+
+console.log(typeof val_text)//string
+console.log(typeof val_num)//number
+
+
+//////////////
+Conversia in Numar
+///////////////
+
+Conversia in Numar
+
+Conversia din functii matematice sau operatii matematice se realizeaza automat.
+Pentru inmultire, impatire si scadere string-urile se convertesc automat in numere. 
+
+console.log(“10”/”2”)//5
+console.log(“10”*”2”)//20
+console.log(“10”-”2”)//8
+
+Obs:
+Pentru cazul operatorului de adunare string-urile sunt concatenate. In Javascript operatia “+” functioneaza si ca operatie de concatenare pentru strings si are prioritate ca operatie de concatenare
+
+console.log(“10” + “2”)//afiseaza string-ul ”102”
+
+E suficient ca doar un membru al operatiei sa fie string, rezultatul va fi string
+
+console.log(10 + “2”)//afiseaza string-ul 102.
+
+Prin urmare daca dorim sa face operatii de adunare cu string-uri va trebui sa le convertim in numar in prealabil.
+
+Nu acelasi lucru se intampla cu restul operatorilor care incearca conversia automata in numere.
+let a = “1”;
+let b = “2”;
+
+let rezultat = a/1 + b/1 // se afiseaza 3, mai intai s-au convertit automat in numere
+
+// sau  se poate incerca si cu inmultirea cu 1
+
+rezultat = a*1 + b*1
+
+Ca metoda rapida de conversie automata in numere vom putea folosi operatorul unar ‘+’ folosit in fata valorilor string. Javascript se asteapta sa fie folosit doar pentru valori numerice deci va incerca o conversie automata.
+
+let rezultat = +a + +b
+
+
+Pentru conversii explicite in numar se poate folosi functia dedicata Number()
+
+rezultat = Number(a) + Number(b)
+
+
+Exista, pe langa Number, doua functii functii dedicate pentru conversie, parseInt si parseFloat.
+
+parseInt() face conversia in intreg iar parseFloat() in numere zecimale
+
+Conversiile automate functioneaza impreuna cu cele explicite deci la inceput se poate produce confuzie. Le gasiti pe toate peste tot iar cu timpul, pe masura ce le veti folosi, va veti obisnui cu una pe care o veti folosi mai des.
+
+Daca se inceraca conversia in numar dintr-o valoare string care nu contine numar se va returna NaN
+
+console.log(Number(“unu doi”));//NaN
+console.log(Number(“12trei”));// Nan
+console.log(Number(“123”));// 123
+
+Pentru celelalte tipuri de date:
+
+undefined si null
+Number(undefined)// NaN
+Number(null)// 0
+
+booleans
+Number(true)// 1
+Number(false)// 0
+
+Se observa diferenta intre conversia lui undefined si null. Undefined e tratat ca text iar null e tratat ca valoare nula, 0.
+
+
+///////////////
+Conversii de tip boolean
+/////////////////
+
+Conversii de tip boolean
+
+Cel mai adesea vom avea de a face cu conversii automate booleene. 
+
+Cand au loc astfel de conversii automate in Boolean?
+
+cand vom compara o valoare non booleana cu true sau false 
+
+cand vom folosi o valoare non boolean intr-o instructiune care se asteapta sa primeasca o valoare booleana,
+
+In astfel de situatii oricare dintre 0, null, undefined, NaN, string-ul vid “” va fi considerat false. 
+Orice altceva e considerat true;
+
+Pentru conversii explicite exista functia Boolean()
+
+Exemplu:
+console.log(Boolean(0));// false
+console.log(Boolean(123));// true
+console.log(Boolean(“abcd”));// true
+console.log(Boolean(“”));// false
+console.log(Boolean(null));// false
+console.log(Boolean(undefined));// false
+
+Optional:
+Un exemplu de cand vom folosi instructiunea if. Desi e despre expresii logice si instructiunea if care va fi discutata mai tarziu, se merita sa vedem un caz concret in care se intampla o astfel de conversie automata.
+
+let frumos_afara = null;
+if(frumos_afara) 
+ iesimLaPlimbare(); //
+   else
+ citimOcarte(); // se executa varianta cu citirea cartii pentru ca frumos_afara fiind null e interpretat ca false
+
+Valoarea null se converteste automat in boolean ca valoarea false si atunci ramura care se executa este else.
+
+///
+        console.log(Boolean(0));// false
+        console.log(Boolean(123));// true
+        console.log(Boolean("abcd"));// true
+        console.log(Boolean(""));// false
+        console.log(Boolean(null));// false
+        console.log(Boolean(undefined));// false
+///
+
+
+/////////
+Aplicatii
+////////
+
+1. Care este rezultatul expresiilor?
+
+///
+"" + 1 + 0 // "10" 
+// concatenarea ("" + 1) converteste valoarea 1 in string si devine string-ul "1" si apoi concatenarea ("1" + 0) determina conversia lui 0 in string iar rezultatul final este "10"
+
+"" - 1 + 0 // -1  
+//Scaderea spre deosebire de adunare incearca conversia din string in numar. Sirul vid "" este convertit in 0 ("" - 1) este echivalent cu (0 - 1) rezultand -1. Adunarea cu 0 (-1 + 0) este -1
+true + false // 1
+//adunarea pentru orice alt tip de date in afara de string incearca conversia in numere. Valorile booleene convertite in numere sunt: true este 1 iar false este 0. Deci (true + false) devine (1 + 0) egal 1
+8 / "4" // 2
+//La fel ca in cazul scaderii, impartirea incearca conversia string-urilor in numere (8/"4") devine (8/4) egal cu 2
+"4" * "3" // 12
+// si inmultirea incearca conversia din string in numere ("4" * "3") devine (4 * 3)
+2 + 3 + "px" // "5px"
+//evaluarea intr-o expresie e de la stanga la dreapta. Atat timp cat nu se intalneste un string adunarea va aduna numerele. Cand gaseste un string concateneaza suma de pana atunci cu string-ul gasit. (2 + 3 + "px") devine (5 + "px") egal cu "5px"
+"$" + 2 + 3 // "$23"
+//daca primul termen al adunarii este string atunci toate sumele ulterioare vor avea un termen string deci toate conversiile vor fi catre string. ("$" + 2 + 3) devine ("$2" + 3) si este egal cu "$23"
+"6" - 4 // 2
+//fiind scadere se face conversia catre numere: ("6" - 4) devine (6 - 4) egal cu 2
+"10px" - 9 // NaN
+//scaderea incearca conversia lui "4px" in numar dar "4px" nu e numar chiar daca contine o cifra. Conversia va esua si va returna NaN. Apoi (NaN - 2) este NaN
+"  -9  " + 5 // "  -9  5" 
+// "  -9  " este string, automat adunare inseamna concatenare deci ("  -9  " + 5) egal cu "  -9  5"
+"  -9  " - 5 // -14
+//scaderea nu face operatii cu string-uri deci incearca conversia catre numere. Atfel "  -9  " ramane fara spatii si devine "-9" si apoi este convertit in numar -9. Iar (-9 - 5) egal -14
+null + 1 // 1
+//niciunul din termeni nu este string deci se va incerca conversia in numere. null devine 0 si avem (null + 1) devine (0 + 1) egal 1
+undefined + 1 // NaN
+//niciunul din termeni nu este string deci se va incerca conversia in numere. Dar undefined se converteste in NaN deci si suma (NaN + 1) este NaN. 
+undefined + "1" //"undefined1" , undefined este convertit in string-ul "undefined"
+
+///
+
+
+
+2. Modificati urmatoarea secventa de cod astfel incat numerele citite sa poata fi adunate corect.
+///
+let nr1 = prompt("Dati un numar", 4);
+let nr2 = prompt("Dati un al doilea numar", 5);
+
+console.log(nr1 + nr2); // 45
+///
+
+
+
+.3 Codul urmator permite citirea a doua valori folosind prompt dar prompt returneaza doar string-uri. Cand se incearca adunarea (nr1 + nr2) doar se concateneaza cele doua string-uri
+
+Ca sa putem aduna numerele din cele doua string-uri trebuie sa convertim string-urile in numere. Putem folosi operatorul unar + sau functia parseInt() sau Number()
+
+///
+let nr1 = prompt("Dati un numar", 4);
+let nr2 = prompt("Dati un al doilea numar", 5);
+
+console.log(+nr1 + +nr2); // 9
+//alternativ
+console.log(parseInt(nr1) + parseInt(nr2));
+///
