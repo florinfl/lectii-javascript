@@ -1,0 +1,443 @@
+///////////
+Operatori 
+//////////
+
+Operatori matematici
+
+Un operator poate realiza o operatie cu una sau doua valori.
+De exemplu typeof de mai devreme e un operator pentru o singura valoare
+
+Operatorul de adunare plus, “+”, poate fi atat binar
+a+b    se aplica pentru doua valori
+cat si unar
++a      se aplica pentru o singura valoare
+
+valorile cu care lucreaza operatorii se numesc operanzi
+
+in cazul operatiei de adunare a+b, exista 2 operanzi, a si b
+
+In cazul lui operatiei de returnare tip, typeof a, exista un singur operand, a
+La fel si pentru +a
+
+Deci exista in genral doua tipuri de operatori, unari si binari. Iar valorile cu care lucreaza se numesc operanzi.
+
+Operatori matematici binari
+
+Cele 4 operatii sunt deja cunoscute
+adunare +
+scadere -
+inmultire *
+impartire /
+
+Sunt si operatori specifici limbajului de programare
+restul impartirii %
+ridicarea la putere **
+
+Restul impartirii % returneaza valoarea restului impartirii dintre doi intregi
+
+console.log(4%2);// afiseaza 0
+console.log(5%2);// afiseaza 1
+
+Se poate observa ca restul impartirii la 2 poate decide paritatea unui numar, pentru rest 0 este par, pentru rest 1 impar
+
+Ridicarea la putere a ** b,  a este ridicat la puterea b
+
+console.log(`${2**10} este si valoarea in bytes a unui kilobyte`)// 1024 ....
+console.log(`${2**10} kilobytes is a megabyte`);
+
+Se poate realiza si radical folosind ridicarea la putere
+
+Ex 2 la puterea 1/3
+console.log(2**(1/3));// 1.25992 care este radical de ordin 3 din 2
+
+///////////
+Operatorul de concatenare +
+//////////
+
+Operatorul de concatenare +
+
+Am discutat pe scurt despre operatorul de concatenare + cand a fost vorba de conversii in string
+
+Daca avem un string si un numar, operatorul de concatenare converteste numarul in string.
+
+let viteza = 50;
+let sir_concat = “masina are viteza ” + 50;
+console.log(sir_concat);// “masina are viteza 50”
+
+Putem face mai multe concatenari pe acelasi rand
+
+console.log(“masina merge cu “ + 20 + 30);// “masina merge cu 2030”
+De la primul termen string restul conversiilor sunt catre string
+
+console.log(20 + 30 + “ este viteza actuala a masinii”);// “50 este viteza actuala a masinii”
+
+Daca insa primii termeni sunt numere se realizeaza operatia de adunare matematica pana se intalneste primul string cand se converteste in string.
+
+Doar operatorul de adunare converteste in string
+
+Ceilalti operatori matematici incearca conversia in numere daca se poate din string
+
+console.log(“10”-”2”); 8, conversie in numerele 10 si 2 si apoi se face scaderea
+
+console.log(10”/”2”); 5, conversie in numerele 10 si 2 si apoi impartirea
+
+console.log(“10”*”2”); //20
+
+///////////
+Operatori matematici unari
+///////////
+
+Operatori matematici unari
+
+Operatorii + si - aplicati unui singur operand
+
+Cand + se aplica unui operand nu ii schimba semnul
+Dar daca operandul nu este numar atunci incearca sa il converteasca in numar.
+
++a este cea mai scurta metoda de conversie catre numar, acelasi lucru ca Number(a)
+
+-a in schimb schimba semnul lui a si asta este scopul operatorului unar -, de a schimba semnul. Din cauza ca altereaza numarul initial nu este folosit pentru conversii desi si el incearca conversia in numar daca operandul nu e numar.
+
+Putem folosi conversia cu ‘+’ si in expresii
+
+let greutate1 = “50”;
+let greutate2 = “30”;
+
+let greutate_totala = +greutate1 + +greutate2;
+ar fi echivalent cu
+greutate_total = Number(greutate1) + Number(greutate2);
+
+Nici din punct de vedere matematic nu ar fi gresit, nu e gresit sa punem ‘+’ in fata unui numar doar ca in Javascript exista si o consecinta suplimentara, aceea de conversie.
+
+///////////////
+Precedenta operatorilor
+/////////////
+
+Precedenta operatorilor
+
+Stim deja ca daca dorim sa facem o inmultire dintre un termen si o suma de termeni avem nevoie de paranteze:
+
+a*(b+c)
+
+Daca nu punem paranteze avem doar
+a*b + c
+Stim de la matematica ca inmultirea e mai puternica decat adunarea adica se executa prima cand se intalnesc amandoua. Daca vrem ca adunarea sa se execute inaintea inmultirii trebuie sa punem adunarea intre paranteze
+a*(b+c)
+
+Asta inseamna ca inmultirea are precedenta sau prioritate mai mare deca adunarea
+
+Daca ar fi sa luam operatorii de care am vorbit pana acum am putea avea urmatorul tabel cu precedenta operatorilor
+
+Precedenta operatori
+
+Precedenta	Nume	Simbol
+14	plus unar	+
+14	negatie unara	-
+13	ridicare putere	**
+12	inmultire	*
+12	impartire	/
+11	adunare	+
+11	scadere	-
+2	atribuire	=
+
+Se poate observa ca atribuirea, =, are cea mai mica precedenta, adica asteapta sa se desfasoare toate operatiile si abia la final se atribuie valoarea catre variabila din stanga lui =.
+
+Plus unar e mai prioritar decat plus binar de aceea are prioritate in conversie in exemplul de mai sus cu conversia de greutati in number.
+
+Inmultirea are precedenta mai mare decat adunarea deci va trebuie sa grupam termenii adunarii pentru ca adunarea sa se execute inaintea inmultirii.
+
+//////////////////
+Atribuirea / Assignment
+//////////////////
+
+Atribuirea / Assignment
+Simbolul ‘=’ pentru operatia de atribuire este un operator. Este in tabelul de precedenta cu o prioritate de 2, cea mai mica dintre prioritatile existente.
+
+De aceea toate calculele se fac in partea dreapta, atribuirea catre variabila din stanga fiind ultima operatie.
+
+let y = 30 - 2*10; // prima oara se fac operatiile din dreapta, mai intai inmultirea apoi scaderea, fiind de prioritati 12 respectiv 11, iar la final cand toate operatiile de prioritate mai mare decat 2 s-au executat si s-a format un rezultat, acel rezultat este transferat in variabila din dreapta in urma operatiei de atribuire, ‘=’
+
+Atribuirea returneaza valoarea
+
+Toti operatorii returneaza o valoare, si operatorul atribuire = returneaza valoarea pe care o atribuie.
+
+Asta insemna ca atribuirile pot fi inlantuite, rezultatul unei atribuiri poate fi trimis urmatoarei.
+
+let a,b,c;
+a = b = c = 2;
+
+Rezultatul atribuirii lui 2 catre c este trimis catre b si apoi catre a, de la dreapta la stanga.
+
+Combinatii dintre operatorul de atribuire si operatorii matematici
+
+In mod normal vom face urmatoarea atribuire pentru o operatie matematica daca dorim adaugarea unei valori b la o variabila a
+
+a = a + b;
+
+Exista o scurtatura pentru asta:
+
+a += b;
+
+Nu e doar o metoda alternativa de a adauga o valoare, odata invatata o veti folosi tot timpul, e si mai scurta dar si mai logica. Are sensul “adauga b la a”
+
+Si pentru ceilalti operatori exista ceva similar:
+
+a=a-b;
+devine
+a -= b;
+
+a = a * b
+devine
+a *= b;
+
+a=a/b;
+devine
+a /= b;
+
+Precedenta este aceeasi cu a operatorului de atribuire =.
+
+let a = 3;
+a *=  4 - 2 ; // 6
+Mai intai se executa operatiile din dreapta la final, se face atribuirea cu inmultire.
+
+
+///////////////
+Operatori pe biti
+////////////////
+Operatori pe biti
+
+Operatorii pe biti lucreaza la nivel de bit pentru o valoare numerica. De exemplu pentru valoarea 5 reprezentarea binara este 101 (1*2^2 + 0 * 2^1 + 1). Fiind reprezentat pe 64 de biti va avea forma 000....00101. Negarea inseamna inversarea din 0 in 1 si invers. 
+Valoare inversata a lui 5 e 111...11010 care este corespunzator lui -6
+
+Operatorul de negatie este ‘~’, adica ~5 este egal cu -6 
+
+`~’ este operator unar dar se pot face operatii la nivel de bit cu doua numere
+
+
+operatorul “Si” pe biti ( & )
+Vom folosi reprezentarea doar pe 4 biti:
+1011 & 0101 este egal cu 0001, bitii 0 de pe o anumita pozitie au prioritate in fata bitilor 1
+
+format zecimal : 11 & 5 este egal cu 1
+
+operatorul “Sau” pe biti ( | )
+1011 | 0101 este egal cu 1111, bitii 1 de pe o anumtia pozitie au prioritate
+format zecimal: 11 | 5 este egal cu 15
+
+Alti operatori binari: XOR(^), Left Shift (<<), Right Shift (>>)
+
+Operatorii pe biti sunt folosit rar, mai ales cand se incripteaza si se decripteaza valori numerice sau caractere.
+
+Mai multe informatii pot fi gasite pe mdn(mdn bitwise operators)
+
+///////////////
+Operatorul virgula
+///////////////
+
+Operatorul virgula
+
+Operatorul virgula  ‘, ‘ se foloseste rar.  Poate ajuta sa concentram mai multe operatii pe acelasi rand, chiar daca nu e recomandat.  Fiind operatorul cu cea mai mica prioritate, toate operatiile de atribuire vor avea prioritate. 
+
+let a,b,c;
+a=1, b=2, c=3;
+console.log(a,b,c);//1,2,3
+
+Uneori mai gasim in codul unor programatori mai experimentati acumulari de operatii in constructii de tipul lui for
+
+for(a=1, b=2, c=3, i=0; i < 10;i++){
+          a=b+c;
+          b++;
+          c++;
+.....
+}
+
+
+//////////////////
+Incrementare si decrementare
+//////////////////
+Incrementare si decrementare
+
+Incrementare inseamna adaugarea lui 1 la o valoare. Vine de la expresia increment de 1. Insasi verbul a incrementa inseamna a adauga de fiecare data o valoare constanta. Aici semnificatia din engleza are doar sensul de a adauga valoarea 1.
+
+let a = 3;
+
+a = a + 1;//4
+
+sau 
+
+a += 1; //4
+
+La fel si decrementarea este scaderea dintr-o valoare a lui 1.
+
+let a = 3;
+a = a - 1;//2
+
+sau
+
+a -= 1; //2
+
+Incrementarea si decrementarea sunt folosite foarte des in programare. De exemplu numararea sau enumerarea primelor n numere necesita incrementare.
+
+De aceea exista un operator dedicat pentru incrementare ++ si pentru decrementare --
+let a = 3;
+
+a++; //4 incrementare
+a--; //2 decrementare
+
+Exista o problema cu operatorii ++ si -- cand sunt postfixati, adica cand se afla in dreapta operandului.
+
+Ex:
+let a = 3;
+1) console.log(a++);//3
+2) console.log(a);//4
+
+Cu alte cuvinte daca folosim a++ in cadrul altei instructiuni, mai intai se executa instructiunea cu valoarea initiala a lui a si apoi se face incrementarea. Ca si cand incrementarea propriu-zisa ar fi o instructiune invizibila inserata dupa instructiunea de pe randul 1) si inainte de instructiunea de pe randul 2) .
+
+Consecinta acestui fapt va fi importanta cand vom fololosi incrementarea i++ pentru instructiunea for sau alte instructiuni repetitive (bucle/loops) . Variabila i din bucla curenta va fi valoarea curenta a lui i. Valoarea incrementata a lui i va aparea in urmatoarea iteratie a lui for sau a instructiunii in care e folosita.
+
+Pentru a putea folosi valoarea incrementata in interiorul acelei instructiuni avem un alt operator ++ dar prefixat, ++a
+
+let a = 3;
+console.log(++a);//4
+console.log(a);//4
+
+Precedenta lui ++/-- e mai mare decat a celorlalti operatori. Deci se va executa inaintea altor operatii. Doar ca trebuie folosita varianta prefixata.
+
+let a = 3;
+let b = ++a * 2;// 8
+
+Operatorul virgula “,”
+Desi nu pare sa arate ca un operator, virgula se incadreaza la operatori fiind folosit pentru a insirui pe acelasi rand mai multe operatii.
+
+let a=2,b=3,c=4;
+
+Obs:
+Unii programatori folosesc enumerarea cu virgula in interiorul instructiunii for
+for(a=2, b=3, c=4; a<10; a++){..}
+E ca o modalitate de a se asigura de initializarea tuturor variabilelor care vor fi folosite in blocul de instructiuni in caz ca intreaga instructiune for va fi mutata undeva in alta parte in cod.
+
+
+/////////
+Aplicatii
+///////////
+
+//Care sunt valorile pentru a, b, c, d?
+let a = 1, b = 1;
+
+let c = ++a;//c primeste valoarea incrementata a lui a
+let d = b++;//d primeste valoarea curenta, neincrementata a lui b
+
+console.log(a,b,c,d);//2,2,2,1
+
+///
+
+//Care sunt valorile pentru a si x
+let a = 2;
+
+let x = 1 + (a *= 2); // operatorul *= returneaza valoarea care se atribuie lui a, adica in urma atribuirii a = a * 2 in a se stocheaza a *2 si se returneaza tot a * 2, valoarea fiind 4, deci x primeste 1 + 4 = 5
+
+
+console.log(a,x); //4,5
+
+///
+
+
+///////////////
+Intrebari raspunsuri:
+///////////////
+
+Intrebari raspunsuri:
+
+Care e diferenta dintre un operator binar si unul unar?
+
+Operatorul binar se aplica la doi operanzi, cel unar la un singur operand.
+
+Ce inseamna operand?
+
+Este termenul dintr-o operatie. O operatie e formata din unul sau doi operanzi:
+
+operand operator operand (operator binar)
+sau
+operator operand (operator unar)
+
+Ce operator matematici folosim cel mai des?
+
+Operatori binari
+Adunare +, scadere -, inmultire *, impartire /
+
+restul impartirii %, ridicarea la putere **
+
+Ce operator matematic nu converteste automat string-urile in numere?
+
+Operatorul + este folosit si pentru concatenarea string-urilor deci va avea prioritate concatenarea si nu adunarea. Deci Javascript nu va incerca conversia in number.
+
+Care operatori incearca conversia automata a string-urilor in numere?
+Toti operatorii matematici mai putin adunarea vor incerca conversia in numere a string-urilor.
+
+let a=”6”,b=”2”;
+a/b, a*b, a-b vor incerca conversia lui a si b in numere.
+
+///
+
+Intrebari raspunsuri:
+
+Care este scopul operatorului unar ‘+’?
+
+Operatorul unar + este pozitionat in fata operandului si desi ar trebui sa modifice semnul, nu are nici un efect pentru ca semnul + aplicat oricarui numar nu modifica semnul initial, un numar pozitiv va ramane pozitiv iar cel negativ va ramane negativ.
+
+Ce efect are operatorul unar “-”?
+Operatorul unar “-” schimba semnul oricarui numar inversandu-l, numerele pozitive devin negative, cele negative devin pozitive.
+
+Care este efectul aplicarii asupra unei valori non-numerice a operatorului unar ‘+’?
+Operatorul ‘+’ nu are nici un efect cand este aplicat unui numar deci nu aduce nici o modificare. Dar cand se aplica unei valori cu alt tip decat Number are ca efect secundar conversia automata in numar. Daca valoarea nu poate fi convertita returneaza NaN.
+
+Care este efectul asupra valorilor non-numerice a operatorului unar ‘-’? 
+Ca si in cazul lui ‘+’ are efect secundar conversia in numar a operandului. Dar indiferent daca valoarea initiala e numar sau alta valoare convertita in numar, va schimba semnul valorii numerice din - in + si invers. Daca valoarea nu poate fi convertita returneaza NaN.
+
+Pentru a evita concatenarea numerelor scrise sub forma de string-uri acestea trebuie in prealabil convertite in numar. Ce metoda rapida exista?
+Se poate atasa in fata fiecarui numar sub forma de string operatorul unar “+”
+suma = +nr1     +    +nr2
+
+Ce reprezinta precedenta operatorilor?
+Este prioritatea de executare a unei operatii atunci cand intr-o expresie exista mai multe operatii determinate de operatori.
+
+De ce este necesara o diferentiere intre operatori pe baza prioritatii de executare?
+E la fel ca la matematica. Operatorul pentru inmultire are prioritate mai mare decat cel pentru adunare. Ordinea provine in special din regulile din matematica. Dar sunt si alti operatori specifici limbajelor de programare care, dupa aceleasi principii ca operatorii matematici, au un anumit nivel de prioritate.
+
+De ce operatorul de atribuire “=” are cea mai mica prioritate?
+Prioritatea este ca operatiile din partea dreapta a operatorului de atribuire “=” sa se realizeze primele, rezultatul fiind atribuit variabilei din partea stanga si la momentul atribuirii toate operatiile din partea dreapta trebuie sa se fi terminat deja. Deci toti operatorii folositi in expresia din partea dreapta trebuie sa aiba prioritate mai mare decat operatorul de atribuire.
+
+Operatia de adunare a unei valori la o variabila are forma a = a + b. Poate fi simplificata din punct de vedere vizual?
+Pentru simplitate a = a + b poate fi rescris a+=b
+
+Se poate folosi rezultatul unei atribuiri in interiorul unei expresii?
+Atribuirea este operator si ca orice operator returneaza rezultatul acelei operatii. Chiar daca operatia este de doar atribuire, adica rezultatul nu se schimba, acel rezultat este returnat si folosit in continuare in acea expresie. 
+Ex:  d = a + (e = b * c) sau d = (e=b * c) + a
+rezultatul din d este a + b*c iar valoarea lui e este b*c
+
+///
+
+Intrebari raspunsuri:
+
+Ce inseamna incrementare?
+Adaugarea unei unitati la o variabila de tip numeric.
+
+Cum se poate scrie incrementarea?
+Exista 3 forme, doua dintre ele au fost discutate insa forma dedicata incrementarii e cea cu operatorul “++”
+a = a + 1;
+a+=1
+a++
+sau
+++a
+
+De ce exista doua forme ale operatorului de incrementare, prefixat si postfixat a++, ++a?
+Operatorul postfixat e folosit in combinatie cu instructiunea for pentru elementul contor pentru ca la momentul executarii blocului de instructiuni este necesara valoarea neincrementata a contorului. Valoarea incrementata va fi folosita pentru urmatoarea iteratie.
+Varianta prefixata este folosita in operatiile in care este necesara valoarea incrementata. 
+De fapt ++a functioneaza ca si a = a + 1 in orice operatie iar a++ e functioneaza ca a = a +1 dar ca si cand ar fi inserat dupa operatia curenta
+
+console.log(++a) echivalent cu 
+console.log(a=a+1)
+
+console.log(a++) echivalent cu
+console.log(a)
+a= a + 1
