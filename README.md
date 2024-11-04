@@ -1,5 +1,7 @@
 Varianta 20 sept 2024
-Prima parte:
+
+part1:
+
 1. Instalare VS Code
 2. Folosirea consolei browser-ului
 3. Variabile, declarare, initializare, metode de denumire a variabilelor
