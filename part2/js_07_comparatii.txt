@@ -1,0 +1,342 @@
+Comparatii
+
+Comparatiile, ca simboluri folosite, sunt asemanatoare cu cele din matematica. 
+
+In matematica cand intalnim expresie > 0 intelegem ca afirmatia determinata de inegalitate este adevarata si trebuie sa rezolvam problema care reiese din aceasta inegalitate. Deci expresie > 0 este considerata deja adevarata
+
+In programare (expresie > 0) are o valoarea de adevar care nu se cunoaste dinainte si urmeaza sa fie evaluata. Componenta din stanga,  ‘expresie’, este evaluata pentru a se decide daca e mai mare sau nu decat 0. Daca e mai mare decat 0 se returneaza o valoare de adevar, in acest caz true.
+
+Altfel spus vom lasa calculatorul sa afle valoarea de adevar, nu o impunem noi.
+
+Obs: 
+Comparatiile sunt folosite in intructiuni de decizie si ciclare(loops). Pentru moment ne vom referi doar la conceptul de comparatie intre doua valori care returneaza o valoare de adevar dar nu exista aplicatie practica a comparatiilor in afara instructiunilor de decizie si ciclare, adica instructiunea if, while, for, repeat, operatorul ternar. De asemeni rezultatul unei comparatii poate fi stocat intr-o variabila care poate fi folosit ulterior. Variabila devine astfel de tip Boolean pentru ca are ca si continut o valoare de adevar, true sau false, rezultatul comparatiei. 
+
+Operatorii pentru comparatii
+
+Mai mare decat: a > b
+Mai mare sau egal : a >= b
+
+Mai mic decat: a < b
+Mai mic sau egal : a <= b
+
+Egalitate:
+ egalitate simpla  a == b, 
+ egalitate stricta a === b // pentru cazul in care se doreste sa se ia in considerare si tipul de date atunci can se compara de exemplu numere cu string-uri, 
+ex: 
+“1234” === 1234 // false
+“1234” == 1234 // true
+
+Inegalitate (not egal/not equal)  a != b, este echivalentul din matematica a lui “≠”
+
+Obs. Simbolul egal ‘=’ folosit intre 2 variabile, a = b, sau intre variabila si valoare, a = 5, nu inseamna comparatie ci atribuire, valoarea din dreapta se atribuie variabilei din stanga.
+
+Rezultatul comparatiilor este Boolean
+
+Operatorii de comparatii returneaza si ei un rezultat asa cum face orice operator.
+Rezultatul este de tip Boolean adica true sau false
+
+Daca comparatia este adevarata va returna valoarea true
+Daca comparatia este falsa va returna valoarea false
+
+Valorile true si false sunt cele doua valori ale tipului de date Boolean si prin urmare o comparatie va fi intotdeauna de tip Boolean avand una dintre cele doua valori.
+
+console.log( 2 > 1); // true
+console.log( 2 < 1); // false
+console.log(2 >=1 ); //true
+console.log(2 <= 1); // false
+console.log(2 == 1); // false
+console.log(2 === 1); //false
+console.log(2 != 1); true
+
+Se poate stoca valoarea unei comparatii intr-o variabila
+let bool = 2 > 1;
+console.log(bool); // true
+
+
+Daca in matematica nu are sens sa comparam decat doua valori numerice, in programare avem mai multe tipuri de date si se pot compara valori atat din acelasi tip de date cat si din tipuri de date diferite. Prin urmare putem avea rezultate care nu sunt evidente la prima vedere.
+De exemplu comparatia de egalitate dintre sirul vid si valoarea 0 returneaza true
+
+“” == 0 //  true
+
+De aceea va trebui sa analizam comparatiile pentru diferite tipuri de date
+
+
+
+//////////
+Comparatiile de string-uri(siruri de caractere)
+//////////
+
+Comparatiile de string-uri(siruri de caractere)
+
+Sirurile sunt comparate la fel cum sunt ordonate cuvintele in dictionar. Doar ca in Javascript vom considera cuvinte chiar si sirurile de o singura litera. Astfel “a”, “ab”, “abc”, “A”, “AB”, “012”, “0A1B2C”, “Z”, “xyz” toate pot fi considerata cuvinte intr-un dictionar al tuturor constructiilor posibile folosind caractere “a”..”z”, “A”...”Z”, “0”...”9”, si alte simboluri si semne de punctuatie. Toate caractere fac parte din “alfabetul ASCII” si ordinea lor este conform unui cod ASCII asociat.
+Astfel putem compara cuvintele intre ele dupa urmatoarele reguli:
+
+“b” > “a” //true,   “b” este dupa “a” si atunci “b” este mai mare decat “a” tot la fel cum 2 este dupa 1 si 2 este mai mare decat 1.
+
+“ac”>”ab” //true,  daca prima litera e la fel se trece la urmatoarea pozitie si se compara cele doua litere. Aici pe prima pozitie este “a” pentru ambele, dar pe pozitia a doua gasim ca “c” mai mare decat “b” si determina ca primul sir sa fie mai mare.
+
+“abc”>”abac” //true,  daca cele doua siruri nu sunt egale ca lungime dar au aceleasi prime n caractere atunci sirul cu caracterul mai mare pe pozitia n+1 va fi mai mare. 
+Aici ambele siruri au in comun sirul “ab” dar caracterul de pe pozitia a 3-a pentru primul sir, “c”, este mai mare decat “a” pe aceasi pozitie in al doilea sir. Asta inseamna ca
+( “abc”>”aba” ) si ( “abc” > “abac” ) sau ( “abc” > “aba.....” ) sau ( “abc....” > “aba....” ). 
+Aici conteaza doar a treia pozitie din sir pentru ca acolo e prima pozitie, numarand din stanga, unde apare diferenta dintre caractere si e singurul loc care face diferenta dintre cele doua siruri din punct de vedere al ordonarii.
+
+“aba” > “ab” // true
+Pentru cazul in care un sir are  n caractere iar un altul are n + i caractere iar cele n caractere sunt identice atunci sirul cu mai multe caractere e mai mare. 
+Aici ambele siruri au in comun “ab” care este chiar sirul al doilea. Daca primul sir are macar un caracter in plus atunci e automat mai mare.
+
+Comparatii intre litere mari si litere mici
+Apare totusi o problema legat de diferenta de alfabet, noi folosim un alfabet in care literele mici si mari ocupa aceeasi pozitie. Nu este la fel pentru calculatoare. Alfabetul(de baza) al unui calculator este format din 256 de caractere (cate pot fi stocate intr-un byte). Iar literele mici si mari se afla in locatii diferite in acest set de caractere. Setul de caractere se cheama ASCII (https://www.asciitable.com/)
+In acest set de caractere codul literei “A” este 65 iar pentru “a” este 97.  Iar “Z” este 90 si “z” este 122. Deci orice string care incepe cu litera mare va fi mai mic decat decat cele care incep cu litere mici.
+
+Prin urmare “Aba” < “ab”
+
+Obs: “A” are codul 65 si “Z” are codul 90 pentru ca de la A la Z sunt 25 de litere (B, C, D... Z, cu tot cu A sunt 26). Astfel 65 + 25 = 90
+
+Ca sa putem face in continuare analogie cu dictionarul trebuie sa consideram ca sunt de fapt 2x 26 litere si literele mari sunt alte litere care apar in dictionar inainte de literele mici.
+
+Ca sa se evite problemele cauzate de diferentele dintre litere mari si litere mici in practica se transforma toate sirurile in litere mici si apoi se reface sirul original daca e nevoie.
+
+De asemeni nu exista doar comparatii intre litere. Trebuie luate in considerare si caracterele cifre si alte caractere speciale. 
+
+Obs: literele si cifrele se numesc caractere alfanumerice iar celelalte caractere de pe tastatura sunt caractere speciale.
+
+Astfel “0” are codul 48 iar “9” are codul 57.
+Cand comparam siruri care sunt formate din cifre sirurile sunt comparate tot dupa algoritmul de comparare siruri
+“98” > “101” // true
+pentru ca nu se compara numere ci siruri iar caracterele de pe prima pozitie sunt “9” si “1” iar codul ASCII pentru “9” este 71 care este mai mare decat 61 care este codul pentru “1”. Altfel spus “98” se afla in dictionar dupa “101”.
+
+
+/////////////////////
+Comparatii intre valori apartinand de tipuri de date diferite
+/////////////////////
+
+Comparatii intre valori apartinand de tipuri de date diferite
+
+Rezultatul unei comparatii poate fi stocat intr-o variabila. Tipul de date asociat variabilei este bineinteles Boolean pentru ca rezultatul comparatiei nu poate fi decat Boolean.
+Deci putem avea:
+let rezultat_comparatie = a > b;
+
+Obs:
+In alte limbaje de programare pentru a fi comparate valorile trebuie aduse catre acelasi tip de date.
+ Adica daca in C++ trebuie comparate doua valori de tipuri diferite
+bool1 = “124” > 123
+aceasta comparatie ar crea automat o eroare.
+In Javascript nu da eroare, se incearca conversia catre numere pentru ca se considera ca dorim sa comparam numere.
+
+Comparatii intre siruri si numere
+
+Comparatii intre numere si siruri, sirurile sunt convertite in numere
+Comparatii doar intre siruri, sirurile nu sunt convertite
+
+In javascript sunt posibilie comparatiile dintre o valoare numerica si una non-numerica. Javascript incearca conversii automate in numere ale valorilor non-numerice.
+Astfel comparatia
+bool1 = “124” > 123
+ e echivalenta cu
+bool1 = 124 > 123
+sirul “124” a fost convertit automat in numar inainte de a fi comparat
+
+Asta nu inseamna ca nu putem interveni. Adica putem converti inainte de comparatii:
+
+bool1 = Number(“124”) > 123
+si NU mai lasam Javascript sa faca conversiile automate. Unii programatori procedeaza asa pentru a avea control complet asupra tipurilor de date
+
+Dar conversia automata ne ajuta sa scriem mai putin cod si e bine sa stim cum functioneaza. 
+
+Daca insa facem comparatii intre siruri de caractere, NU se mai incearca conversia automata.
+
+bool2 = “2” > “12345” // true
+
+pentru ca se compara sirurile intre ele dupa algoritmul descris la comparatii intre siruri.
+
+
+Comparatii cu valori booleene
+
+Cand se compara o valoare booleana cu un numar valoarea true este convertita in 1 iar valoarea false in 0
+
+Astfel 
+
+10>true // echivalent cu 10 > 1 // true
+true > false // echivalent cu 1 > 0// true
+1 == true // echivalent cu 1 == 1 // true
+0 == false // echivalent cu 0 == 0 // true
+
+
+Obs: In practica nu prea avem nevoie de astfel de conversii din Boolean in Numeric. Nu prea are rost sa comparam numere sau alte valori cu 0 sau 1.
+Din contra ne dorim conversia din non-boolean in boolean pentru ca dorim sa testam daca anumite rezultate sunt nenule sau in general non-falsy
+
+Ne bazam pe faptul ca elementele “falsy” sunt convertite cu functia Boolean() in false
+
+De exemplu sa testam daca valoarea din variabila rezultat este nula(din categoria 0,””, null, undefined, NaN).
+
+let rezultat = null;
+if(Boolean(rezultat) == false) .... 
+
+Insa in practica vom proceda astfel
+
+if(!rezultat)...
+ sau 
+if(rezultat)...
+
+din cauza ca if(rezultat) converteste automat rezultat in Boolean.
+
+////////////////
+Egalitatea stricta
+////////////////
+
+
+Egalitatea stricta
+
+Atunci cand se compara valori de tipuri de date diferite dar echivalente din punct de vedere al cantitatii sau semnificatiei atunci Javascript le considera egale. Dar exista situatii cand dorim sa facem distinctie intre tipuri de date. Astfel urmatoarele comparatii sunt adevarate daca folosim operatorul de comparatie egalitate “==” (dublu egal)
+123 == “123” 
+ 1 == true sau 123 == true, orice numar nenul este echivalent cu true
+0 == false 
+ “” == false 
+
+Exista un al doilea operator de compartie, triplu egal “===” care permite distingerea intre tipuri de date. Astfel comparatiile anterioare toate adevarate cu “==” devin false cand se foloseste “===”
+
+123 === “123” //false
+ 1 ===true  sau 123 === true //false
+0 === false //false
+ “” === false //false
+
+Cu “===” diferenta de tip este luata in considerare asa cum se intampla in alte limbaje clasice C/C++.
+
+Comparatii cu null si undefined
+
+Valorile undefinded si null sunt egale cand se foloseste operatorul egal dublu “==” (au semnificatie de valoare nula sau false) dar nu sunt egale cand sunt comparate folosind  triplu egal “===” din cauza diferentei de tip.
+
+undefined == null // true
+undefined === null //false
+
+Valorile undefined si null nu sunt egale cu 0 sau sirul vid “” in comparatii
+null == 0//false
+undefined == 0 //false
+
+null == “”//false
+undefined == “” //false
+
+Din acest motiv putem verifica variabile daca sunt undefined sau null chiar daca acestea au valori din categorie “falsy”, 0 sau sirul vid “”. Adica 0 sau sirul vid nu vor fi confundate cu null sau undefined.
+Comparatiile de tip <, > ale lui null si undefined cu alte tipuri de date nu produc rezultate intuitive si nu au aplicatii practice.
+
+/////////////////////////
+Intrebari raspunsuri:
+/////////////////////////
+
+
+Intrebari raspunsuri:
+
+Cum este reprezentata sintactic o comparatie dintre doua valori?
+La fel ca in cazul altor operatori exista 2 operanzi si un operator intre ei:
+operand1 operator_comparatie operand2
+a                                        >                                   b
+Uneori sunt necesare paranteze si atunci vom avea forma (a>b)
+
+Care este efectul comparatiei dintre doua valori?
+Scopul comparatiei este aflarea valorii de adevar atunci cand se compara doua valori dupa criterii asemanatoare cu cele din matematica. Operatorul de comparatie respecta sensul din matematica si returneaza valoarea de adevar corespunzatoare, true sau false. Daca in comparatia a > b, a este mai mare decat b ca in sensul aritmetic, atunci se returneaza true. Nu avem ca operanzi doar numere deci vor interveni si alti algoritmi mai avansati cand se vor compara alte tipuri de date dar rezultatul va fi intotdeauna true sau false.
+
+Care sunt operatorii aritmetici folositi in programare?
+Cei pe care ii stim din matematica sunt
+mai mare >
+mai mare sau egal >=
+mai mic <
+mai mic sau egal <
+egalitate ==
+inegalitate cu sensul de diferit !=
+Mai exista operatorul ===, trei simboluri egal, care este asemanator cu operatorul de egalitate ‘==’ folosit pentru diferentiere intre tipuri de date, de obicei cand se compara numere cu stringuri care contin numere.
+
+Ce este tabelul ASCII?
+Este un tabel cu toate caracterele folosite de un calculator pentru stocarea datelor. Este echivalentul alfabetului uman pentru stocarea “datelor” pe hartie.
+
+Cate caractere sunt in acest tabel si cum sunt memorate ele.?
+Sunt 256 de caractere pentru ca sunt memorate intr-un byte. Cele mai comune sunt primele 128 si contin printe altele caracterele alfanumerice(alfabet si cifre), semnele de punctuatie si caracterele speciale de pe tastatura. Sunt memorate intr-un byte prin intermediul unui cod hexa. Tabelul ASCII contine si reprezentarea hexa si zecimala.
+
+Cum se poate afla daca un caracter se afla in fata altuia din punct de vedere alfabetic?
+Este usor de vazut cand un caracter din alfabet se afla in fata altuia pentru ca respecta ordinea alfabetului limbii engleze - si asta pentru ca si ordinea codurilor ASCII asociate respecta aceeasi ordine. “b”>”a” pentru ca “b” are codul 98 iar “a” are codul 97.  La fel se procedeaza si pentru celelalte caractere speciale care nu sunt in alfabetul englez, se compara codurile ASCII asociate.
+
+Care este algoritmul de comparare a doua siruri de caractere?
+Ca sa simplificam pornim de la doua siruri identice sir1 si sir2. Ele sunt egale.
+Daca la sir2 se adauga un caracter la dreapta el devine mai mare indiferent de caracterul adaugat
+Daca sir1 si sir2 sunt identice pana la pozitia k iar daca in sir2 pe pozitia k + 1 se afla un caracter mai mare decat caracterul de pe pozitia k+1 din sir1 atunci sir2 este mai mare decat sir1
+Altfel spus e algoritmul dupa care noi suntem obisnuiti sa cautam cuvinte in dictionar.
+
+
+///
+Intrebari raspunsuri:
+
+Odata obtinut rezultatul unei comparatii ce se poate face cu el? Poate fi atribuit unei variabile
+Rezultatul comparatiilor este in mod normal folosit in instructiuni de decizie si ciclare. Insa poate fi stocat si in variabile si folosit ulterior.
+Ex: 
+let compara = 3 > 5 // se stocheaza “false” in compara
+
+Daca se compara valori din tipuri de date diferite care este rezultatul comparatiei?
+Intotdeauna rezultatul unei comparatii va fi true sau false chiar daca are sau nu sens logic acea comparatie. De exemplu comparatia dintre obiectul vid  si 0 va da false
+{}==0 // false
+dar comparatia dintre sirul vid si 0 este true
+“”==0//true
+Nici o comparatie din cele doua nu are sens, comparatiile sunt intre tipuri de date incompatibile dar mecanismele Javascript permit reducerea unei comparatii la true sau false indiferent de tipurile de date ale operanzilor si nu va da niciodata eroare.
+
+Care este mecanismul prin care doua valori din tipuri diferite sunt comparate intre ele?
+Atunci cand ambii operanzi sunt numere lucrurile sunt simple, se intampla ca la matematica, rezultatul e valoarea de adevar a comparatiei dintre cele doua numere.
+Cand nu avem doar operanzi de tip Number se incearca conversia in Number pentru operandul care nu e numar.
+
+Ce se intampla cand comparam un numar si un string?
+Fiind operatori matematici de comparatie se presupune ca ambii operanzi sunt de tip Number. Deci Javascript va incerca conversia in numar a celui care nu e numar. 
+Daca nu se reuseste conversia, adica daca operandul de tip String nu e un numar corect, se genereaza NaN si rezultatul comparatiei este false.
+
+Ce se intampla daca comparam o valoare booleana cu un numar sau string?
+In ambele cazuri conversia valorii booleene este catre numar, true este 1 iar false este 0. Cand se compara cu un string, string-ul la randul lui se converteste in numar.
+Dar tipul acesta de conversie nu are aplicatii practice
+
+Trebuie intotdeauna sa ne bazam pe conversiile automate?
+Nu este nevoie sa lasam intotdeauna ca doar Javascript sa faca conversiile. Putem interveni si noi. Se considera insa o practica buna ca, stiind care este efectul conversiilor, sa lasam Javascript sa converteasca automat atunci cand e cazul.
+Exemplu de conversie care nu este automata:
+bool1 = Number(“124”) > 123
+este echivalent cu
+bool1 = “124”>123
+
+Uneori trebuie sa facem distinctie intre tipuri de date, de exemplu cand se compara numere si string-uri care contin numere. Care este metoda?
+Se foloseste operatorul de egalitate stricta “===” care face diferenta nu doar intre valori dar si intre tipuri de date
+Astfel pentru egalitate simpla
+“123” == 123 // true
+dar in cazul operatorului egalitate stricta comparatia returneaza false
+“123” === 123 // false
+
+Valorile null si undefined reprezinta tipuri de date a caror semnificatie este lipsa datelor. Care este rezultatul comparatiei dintre ele?
+Cand cele doua se compara folosind operatorul de egalitate simplu rezultatul este true:
+null == undefined// true
+Cand se compara intre ele folosind egalitatea stricta returneaza false:
+null === undefined//false
+
+Cum se compara null si undefined cu restul valorilor.
+Valorile null si undefined sunt egale intre ele(nestrict) dar nu sunt egale cu nimic altceva, nici macar cu alte valori “falsy”.
+null == 0//false
+undefined == NaN //false
+
+//////////////////////
+//Aplicatii
+//////////////////////
+
+//Aplicatii
+
+
+//Care sunt rezultatele pentru urmatoarele expresii?
+1==true// true , true este convertit in 1
+0==false//true, false este convertit in 0
+101 == true//false, true este convertit in numar, echivalent cu 101 == 1
+Boolean(101) == true // true, orice numar diferit de 0 este true cand este convertit in Boolean
+0 == null// false, nu se face nici o conversie, null e diferit de 0, 0 este o valoare, null e o conventie pentru lipsa "intentionata" a unei valori 
+Boolean(null)==false//true, cand null este convertit in boolean se returneaza false, este o valoare 'falsy'
+0 == undefined// false, 0 consituie o valoare chiar daca aparent nula sau false, undefined reprezinta lipsa unei valori rezultata din lipsa unei atribuiri.
+Boolean(undefined)==false//true, cand undefined este convertit in boolean se returneaza false ca in cazul lui null, este si undefined o valoare 'falsy'
+NaN == false //false, NaN e mai degraba o eroare si nu o valoare
+Boolean(NaN) == false//true, Boolean() face conversia catre false a lui NaN
+20>101//false, comparatie obisnuita intre 2 numere
+2>1//true, numere obisnuite
+"2">"1"//true, caracterul "2" este in dictionar dupa caracterul "1" si este mai mare, pentru comparatii intre siruri de caractere nu se face conversia catre numere
+"3">"20"//true, caracterul "3" este in dictionar dupa caracterul "2", se afla ambele pe prima pozitie in siruri, rezulta "3">"20"
+"20">"101"//true, caracterul "2" mai mare decat caracterul "1"
+"30">"4"// false caracterul "3" mai mic decat caracterul "4"
+"30">4// true, se face conversia din string catre numeric din cauza ca 4 este numar si cand se fac comparatii intre string-uri si numere string-urile sunt convertite in numere, echivalent cu 30>4
+"3">4//false, echivalent cu 3>4
+null == undefined//sunt egale folosind operatorul "==", considerate ambele falsy
+null === undefined// nu sunt egale cand sunt comparate folosind operatorul "===", diferenta de tip

@@ -1,0 +1,491 @@
+////////////////////
+Conditional branching - Instructiunea decizionala 
+////////////////////
+
+Conditional branching - Instructiunea decizionala 
+
+Conditional branching s-ar traduce “alegerea unei ramuri de executie in functie de o conditie logica”. Dar in romana se intalneste mai des termenul de instructiune de decizie / decizionala.
+Insa in engleza Conditional Brancing e formulat mai general pentru ca in Javascript nu avem doar o singura forma a instructiunii de decizie ci doua, instructiunea de decizie (if - then) si operatorul ternar care este o forma simplificata a instructiunii de decizie.
+
+Instructiunea if
+
+Instructiunea if are forma 
+
+if(conditie)
+{bloc instructiuni A}
+else
+{bloc instructiuni B}
+
+Sau
+
+if(conditie)
+{bloc instructiuni}
+
+Mai intai se evalueaza conditie si daca este adevarata se executa prima ramura {bloc instructiuni A}.
+Daca este falsa se executa a doua ramura daca aceasta exista {bloc instructiuni B}.
+
+Un bloc de instructiuni este o insiruire de instructiuni delimitate de acolade {...}
+
+{
+     instructiune 1
+     instructiune 2
+      ...
+     instructiune n
+}
+
+Poate fi si doar o singura instructiune
+{
+     instructiune 1
+}
+
+Obs. Pentru situatia in care blocul de instructiuni contine doar o singura instructiune sintaxa Javascript permite renuntarea la acolade. E vorba de folosirea blocurilor de instructiuni pentru instructiunile if, for, while. Pe parcursul lectiilor totusi vom folosi cel mai adesea blocuri cu acolade chiar si in cazul unui bloc de instructiuni cu o singura instructiune.
+
+Uneori cand o conditie s-a indeplinit executam o actiune iar daca nu s-a indeplinit executam o alta actiune
+
+Atunci avem de a face cu instructiunea “if - else”
+if - else
+daca(conditie) - atunci actiune 1 - altfel actiune 2
+
+
+Se poate intampla si sa executam o actiune daca s-a indeplinit o anumita conditie dar nu executam nimic daca nu s-a indeplinit acea conditie.
+
+Si atunci avem de-a face cu instructiunea simpla “if”
+if 
+daca(conditie) - atunci actiune 
+
+
+if-else
+
+sintaxa:
+if(conditie) 
+     {bloc instructiuni pentru conditie == true} 
+else 
+      {bloc instructiuni pentru conditie == false}
+
+Exemplu:
+let temperatura = 26;
+daca (temperatura <19)
+    { console.log(“Ies afara cu  haina groasa”)}
+altfel
+    {console.log(“E suficient de cald pentru haine usoare”)}
+
+Traducerea in limba engleza este exact instructiunea if - else
+
+let temperatura = 26;
+if(temperatura < 19)
+     { console.log(“Ies afara cu  haina groasa”)}
+else
+    {console.log(“E suficient de cald pentru haine usoare”)}
+
+Conditia logica  “temperatura < 19” poate fi true sau false
+
+daca (evaluarea conditiei logice) returneaza true se executa prima ramura:
+    blocul de instructiuni { console.log(“Ies afara cu  haina groasa”)}
+altfel ( evaluarea conditiei logice a returnat false) si se executa a doua ramura
+    blocul de instructiuni { console.log(“E suficient de cald pentru haine usoare”)}
+
+if() simplificata 
+
+Nu intotdeauna avem nevoie si de ramura else (altfel) si atunci forma instructiunii este mai simpla: 
+if(conditie)
+{bloc instructiuni}
+
+Desi pare logic sa existe si o ramura else totusi exista situatii in viata reala in care facem o actiune doar daca se indeplineste o conditie si nu trebuie sa facem altceva daca nu s-a indeplinit acea conditie (de exemplu situatiile cand asteptam sa se indeplineasca ceva)
+
+daca(telefon incarcat) {decuplam de la incarcator}
+
+In acest caz ramura altfel nu exista, pe ramura altfel ar inseamna ca “telefonul nu este inca incarcat” si nu exista o actiune pentru aceasta ramura.
+
+Exemplu:
+let ora = 6;
+if(ora>8)
+{console.log(“Am intarziat!”)}
+
+Ramura else nu prea are sens, inseamna doar ca inca nu e ora 8.
+
+//////////////
+Blocul de instructiuni
+//////////////
+
+Blocul de instructiuni
+
+Atunci cand se executa o ramura a instructiunii de decizie se pot executa mai multe instructiuni grupate sub forma unui bloc de instructiuni. Un bloc de instructiuni este desemnat prin prezenta acoladelor. Un bloc de instructiuni este mai mult decat o constructie sintactica pentru gruparea instructiunilor, in jurul unui bloc de instructiuni se creaza un asa-zis context lexical(domeniu de vizibilitate) care permite unui bloc sa aiba propriile lui declaratii de variabile si functii. Este ca o functie care inca nu are nume, avand unele din proprietatile unei functii. 
+
+Obs: Inca nu am discutat despre functii dar o functie este un bloc de instructiuni care are un nume, un context lexical si unul de executie, poate primi parametri si poate returna valori. Asta doar ca sa punctam importanta unui bloc de instructiuni.
+
+Deci blocul de instructiuni e primul pas catre modularizarea aplicatiilor, avand un rol foarte important pentru crearea ramurilor de executie pentru instructiunile de decizie si cele de ciclare.
+
+Forma unui bloc de instructiuni este:
+{
+instructiune 1
+instructiune 2
+instructiune 3
+...
+instructiune n
+}
+
+Mecanismul de executie este odata ce se incepe de executat un bloc de instructiuni fiecare instructiune din acel bloc trebuie sa fie executata, in ordinea in care se afla in bloc si abia dupa ultima instructiune se trece la urmatoarea instructiune de dupa bloc.
+
+O greseala comuna la inceput este omiterea acoladelor pentru un bloc pe o ramura a  instructiunii if
+
+In urmatorul algoritm ne dorim ca nr sa fie decrementat doar daca este pozitiv, 
+daca este pozitiv se afiseaza valoare si apoi se scade o unitate
+daca este negativ se afiseaza doar
+
+    nr=1;
+    if(nr>0)
+          console.log(nr, “ este pozitiv, se scade o unitate”)
+           nr--
+          
+    else{
+            console.log(nr, “ are valoarea 0 sau negativa”)
+           }
+
+
+
+In acest ca se va genera eroare, Javascript nu stie daca else este o instructiune separata care se executa dupa nr--; sau face parte din sintaxa lui if-else.
+
+Ca sa eliminam confuzia grupam instructiunile dintre if(nr>0) si else intr-un singur bloc:
+
+   nr=1;
+    if(nr>0)
+         {
+             console.log(nr, “ este pozitiv, se scade o unitate”)
+             nr--
+          }         
+    else{
+            console.log(nr, “ are valoarea 0 sau negativa”)
+           }
+
+In cazul instructiunii simple if nu va da eroare dar nu se vor mai executa corect instructiunile care ar trebui sa fie pe ramura true. In loc sa se execute toate instructiunile doar pe ramura true si nici una daca conditie nu este true, doar prima instructiune va fi atasata de if si va respecta conditia, restul instructiunilor se vor executa intotdeauna.
+
+In acest caz desi nr este negativ iar nr-- nu ar trebuie sa se execute pe ramura true se va executa oricum din cauza lipsei blocului de pe ramura true.
+
+nr = -10 
+ if(nr>0)
+          console.log(nr, “ este pozitiv”)
+           nr--
+console.log(nr)// se afiseaz -11
+
+Mai intai se evalueaza (nr>0) si returneaza false. In acest moment ne asteptam ca cele doua instructiuni care urmeaza sa nu se execute. 
+console.log(nr, “ este pozitiv”)
+si a doua
+ nr--
+
+Dar nefiind grupate ele nu au legatura intre ele si atunci se intampla ca
+console.log(nr, “ este pozitiv”)
+nu se executa dar 
+nr--
+se executa indiferent de conditia (nr>0) pentru ca nu este grupata in cadrul instructiunii if.
+
+
+daca indentam corect dupa nivelul fiecarei instructiuni se va vedea mai bine ca sunt instructiuni separate:
+
+ if(nr>0)
+          console.log(nr, “ este pozitiv”)
+  nr--
+
+Pentru a forta executia nr-- pe ramura true aceasta trebuie adaugata in blocul cu acolade pentru a face parte din blocul de executie de pe ramura true
+
+ if(nr>0)
+{
+          console.log(nr, “ este pozitiv”)
+            nr-- 
+}
+
+Astfel algoritmul functioneaza corect, nu se va executa nimic intre acolade pe ramura true daca conditie (nr>0) este false
+
+nr = -10 
+if(nr>0)
+{
+          console.log(nr, “ este pozitiv”)
+           nr--
+}
+console.log(nr)// se afiseaza -10, nu s-a executat nici o instructiune de pe ramura true, nu s-a realizat decrementarea
+
+Blocurile de instructiuni sunt o componente de baza pentru fiecare limbaj de programare. Creatorii limbajului de programare Python au permis realizarea blocurilor de instructiuni doar folosind indentarea la momentul editarii codului si astfel au permis eliminarea acoladelor. Dar asta nu inseamna ca blocurile de instructiuni au disparut. Ele exista insa doar sunt create altfel.
+
+In concluzie un bloc de instructiuni functioneaza ca o singura instructiune desi este compus la randului lui din mai multe instructiuni inconjurate de acolade.
+
+///////////////////
+Conversie in boolean
+///////////////////
+
+Conversie in boolean
+
+Instructiunea if(conditie) evalueaza “conditie” dintre paranteze si rezultatul e boolean. Adica orice se afla intre paranteze ca si “conditie” se reduce doar la true sau false. Javascript va converti orice valoare sau expresie care se afla intre paranteze la o valoare booleana. 
+
+Stim deja de la conversii in boolean ale altor tipuri de date ca valorile nule(din categoria lui 0) sunt convertite catre false
+Numarul 0, string-ul vid “”, null, undefined si NaN devin false (sunt considerate ‘falsy’)
+
+Orice alte valori devin true
+
+Daca expresia dintre paranteze se va reduce la una din valorile “falsy” atunci ramura “true” nu se va executa,
+
+Astfel:
+
+if(0){...} 
+if(“”){...} 
+if(undefined){...}
+if(null){...}
+if(NaN){...}
+
+NU se vor executa
+
+if(0){console.log(“Nu se executa”)
+// 0 devine false, prima ramura nu se executa
+
+if(1){console.log(“Se executa intotdeanuna”)
+//1 devine true, prima ramura se executa intotdeauna
+
+Exemplu pentru evaluare la false a lui NaN
+
+if(“123a”-2){console.log(“test”)}
+
+Nu se afiseaza nimic pentru ca rezultatul din expresie e NaN si deci se evalueaza la false
+
+“123a”-2 este NaN din cauza ca sirul “123a” nu este un numar. Prin urmare (“123a”-2) este evaluat la false
+
+Daca adaugam ramura else atunci se va executa blocul de pe ramura else pentru ca e ramura care se executa pentru valoarea false a expresiei dintre paranteze.
+
+ if ("123a" - 2) {
+            console.log('afiseaza pe ramura true')
+        }
+        else {
+            console.log('expresia a fost evaluata cu false')
+        }
+
+// se afiseaza: 'expresia a fost evaluata cu false'
+
+Sa reparam if-ul de mai sus ca sa functioneze pe ramura true
+
+if(“123” -2){
+console.log(“valoarea calculata in conditie este 121 si se evalueaza la true”)}
+
+
+sau un exemplu pentru sirul vid:
+
+let userName = “”
+if(userName) {
+    console.log(`${userName} s-a logat in aplicatie`);
+}
+else
+{
+      console.log(`Nu a fost introdus nici un caracter`);
+}
+
+userName fiind egal cu sirul vid “”, (userName) se evalueaza la false
+
+//se afiseaza: Nu a fost introdus nici un caracter 
+
+Pentru valori care sunt diferite de valorile “falsy” se executa ramura true
+
+let diferenta = 8 - 5;
+if(diferenta) {console.log(“diferenta e diferita de 0”);}
+
+//se afiseaza: diferenta e diferita de 0, conditia (diferenta) a fost evaluata la true pentru ca valoarea din diferenta este 3, convertita la boolean este true
+
+let diferenta = 8 - 8;
+if(diferenta) {console.log(“diferenta e diferita de 0”);}
+
+//nu se afiseaza nimic, diferenta este egala cu 0 si este evaluata la false in expresia din instructiunea if. In acest caz ramura true nu se executa.
+
+Obs:
+Ne vom referi la expreia dintre parantezele instructiunii if(cond) ca fiind conditie logica indiferent daca seamana sau nu cu o conditie logica din cele pe care le-am vazut la capitolul 11 - Comparatii
+
+De obice conditia logica va fi din categoria comparatiilor asa cum este (a > b) care in mod natural se evalueaza la o valoare booleana.
+
+let a=2,b=3;
+if(a>b)
+{console.log(`${a} este cel mai mare`)
+else 
+{console.log(`${b} este cel mai mare`)
+
+
+
+Mai multe instructiuni inlantuite else if
+
+Exista situatii in care pe ramura true a unei instructiuni if mai trebuie tratate alte cazuri.
+De exemplu sa presupunem ca viteza minima pe un segment de autostrada este 70km/h iar viteza maxima este 140km/h. Daca viteza unei masini nu se incadreaza in acest interval afisam ca are o viteza ilegala
+
+viteza = 150
+daca (viteza < 70)
+       {  afiseaza “viteza ilegala sub limita admisa”}
+altfel daca (viteza > 140)
+                 {afiseaza “viteza ilegala peste limita admisa”}
+          altfel
+                 {afiseaza “viteza legala”}
+
+  Prima instructiune if verifica daca viteza e sub 70. Daca viteza e mai mica se afiseaza  mesajul “viteza sub limita” si instructiunea if se termina.
+  Daca viteza e mai mare decat 70 nu stim totusi daca e mai mica sau mai mare decat 150 deci ne mai trebuie o instructiune if pe ramura else.
+
+In Javascript
+
+let viteza = 150;
+if (viteza < 70) { 
+              console.log("Viteza ilegala mai MICA decat limita admisa") }
+              else if (viteza > 140) { 
+                          console.log("Viteza ilegala mai MARE decat limita admisa") }
+                      else { 
+                          console.log("Viteza LEGALA") }
+
+se poate folosi pentru al doilea if sintaxa cu bloc cu acolade dar de regula se omite.
+Adica se poate si
+
+let viteza = 150;
+if (viteza < 70) {
+        console.log("Viteza ilegala mai MICA decat limita admisa") }
+        else {
+                   if (viteza > 140) {
+                          console.log("Viteza ilegala mai MARE decat limita admisa") }
+                              else { 
+                          console.log("Viteza LEGALA") }
+                 }
+
+Lipsa acoladelor in primul caz pentru ramura else e din cauza ca if reprezinta o singura instructiune pentru prima ramura else si se pot omite acoladele cand nu exista pe o ramura mai mult de o instructiune. Totusi daca apar multe astfel de instructiuni if-else e mai bine sa fie adaugate acoladele pentru blocuri altfel insiruirea de if-uri devine greu de citit.
+
+/////////////////////
+Operatorul conditional sau ternar
+/////////////////////
+
+
+Operatorul conditional sau ternar
+
+Exista pentru instructiunea if o simplificare de sintaxa in cazul particular al atribuirii unei valori catre o variabila, atribuire care depinde de expresia logica.
+Adica daca pe ramurile true sau false se face doar o atribuire catre aceasi variabila atunci instructiunea if se poate inlocui cu operatorul ternar.
+
+
+De exemplu avem un numar nr si dorim sa stocam intr-o variabila paritate_nr daca nr este par sau nu
+
+let paritate_nr, nr = 20;
+if(nr%2==0)
+         {paritate_nr = “par”}
+else 
+         {paritate_nr = “impar”}
+
+Din moment ce pe fiecare ramura nu avem decat o instructiune se mai poate scrie
+
+if(nr%2==0)
+         paritate_nr = “par”;
+else 
+         paritate_nr = “impar”;
+
+sau daca ne dorim neaparat sa fie pe o singura linie
+
+if(nr%2==0)  paritate_nr = “par”;  else  paritate_nr = “impar”;
+
+dar nu arata prea bine(mai ales din cauza simbolului “punct si virgula, ;” care apare de doua ori pe acelasi rand) si oricum scopul lui if nu este sa fie scris cat mai prescurtat.
+
+Pentru inlocuire cu varianta prescurtata folosim operatorul ternar :
+
+let paritate_nr, nr = 20
+paritate_nr = ( nr%2 == 0 ) ? ”par” : ”impar”
+
+Sensul este acelasi ca la implementarea cu instructiunea if dar operatia de atribuire este scoasa in fata iar termenul din dreapta care se evalueaza contine atat conditia logica cat si cele doua variante de raspuns
+
+Daca simplificam lucrurile atribuirea de mai sus arata astfel:
+paritate_nr = termen_din_dreapta.
+
+Adica paritate_nr primeste valoarea din dreapta o operatorului de atribuire
+
+Sa analizam ce se intampla cu termenul din dreapta al operatorului de atribuire pentru ca Javascript il calculeaza(evalueaza) inainte sa il atribuie lui paritate_nr
+
+( nr%2 == 0 ) ? ”par” : ”impar”
+
+Javascript parcurge expresia de la stanga spre dreapta si primul lucru pe care il gaseste este expresia logica (nr%2 == 0). Daca este urmat de simbolul “?” atunci interpreteaza ca fiind vorba de operatorul ternar. In functie de valoarea obtinuta din evaluarea expresiei logice se alege prima valoare de dupa “?”, “par” daca expresia logica este true, sau valoarea de dupa “:”, “impar”, cand e false.
+
+La modul general operatorul ternar are forma
+conditie_logica ? valoare_pentru_true : valoare_pentru_false
+si returneaza una din cele doua valori din stanga sau din dreapta simbolului “:”
+
+De regula se foloseste in combinatie cu operatorul de atribuire:
+variabila = conditie_logica ? valoare_pentru_true : valoare_pentru_false
+
+
+Aplicatie pentru conversii automate(optional):
+Cum se poate rescrie 
+( nr%2 == 0 ) ? ”par” : ”impar” 
+astfel incat expresia logica sa fie rezultatul unei conversii automate?
+
+Valoarea lui nr%2 cand nr este par este 0. Deci evaluarea automata (nr%2) va returna false. Prin urmare “par” trebuie sa fie pe ramura “false”. 
+La fel nr%2 cand nr este impar este 1. Deci evaluarea automata (nr%2) va returna true. Deci “impar” va trebui sa fie pe ramura “true”
+
+Astfel putem rescrie operatia de mai sus:
+(nr%2)?”impar”:”par”
+Se vede ca e inversata ramura true cu false fata de exemplul anterior
+
+Daca ne dorim sa pastram aceeasi ordine de mai sus pe ramurile true/false trebuie sa inversam conditia, pentru expresii logice asta inseaman negare, se foloseste operatorul de negatie “!”.  Adica (nr%2) devine prin negatie !(nr%2), isi inverseaza valoarea de adevar si apoi putem sa inversam valorile de pe ramurile true/false:
+
+!(nr%2) ? ”par” : ”impar”
+
+La final adaugam si partea cu atribuirea:
+
+paritate_nr = ( !(nr%2) ) ? ”par” : ”impar”
+
+Operatorul de negatie (!) este unar, inverseaza valoarea de adevar pentru o valoare booleana din true in false si invers. Va fi invatat la operatori logici
+! true == false // true
+true == ! false // true
+
+///////////////////
+//Aplicatii
+///////////////////
+
+
+//Aplicatii
+//1. Enumerati toate posibilitatile pentru variabila "conditie" astfel incat atunci cand e evaluata sa fie falsa si instructiunea if sa nu se execute pe ramura true, sa nu se afiseze nimic
+
+let conditie = 0;
+if(conditie){
+console.log("ramura true se executa");}
+
+// conditie pentru a fi evaluata la false trebuie sa contina una din valorile: 0, "", NaN, null, undefined
+
+//2. Scrieti codul pentru aflarea semnului unui numar. 
+//daca numarul e pozitiv se afiseaza 1
+//daca numarul e negativ se afiseaz -1
+//daca numarul este egal cu 0 se afiseaza 0
+
+let nr = +prompt("Introduceti un numar","12")
+if(nr == 0){console.log(0)}
+else if(nr<0){console.log(-1)}
+      else {console.log(1)}
+      
+// Fiind 3 situatii, -1, 0, 1, doar o instructiune if nu le poate rezolva deodata pe toate 3.
+//o prima instructiune if verifica o prima situatie(daca nr este 0) si o a doua instructiune if in continuare pe ramura else trateaza celelalte 2 situatii ramase, pentru nr<0 si nr>0
+
+
+//3. Rescrieti codul urmator folosind operatorul ternar
+// urmatorul cod calculeaza maximul dintre doua numere
+
+let a = 3, b=4
+let maxim;
+
+if(a > b){maxim = a;}
+else {maxim = b;}
+console.log("maximul este: ",maxim)
+
+//rezolvare
+
+maxim = (a>b)?a:b;
+console.log("maximul este:", maxim)
+
+//4. Acelasi lucru pentru rezolvarea unei ecuatii de gr1 ax+b = 0. x este -b/a. Conditia pentru existenta solutiei este ca a sa fie diferita de 0.
+let a = 4, b = 2
+let solutie;
+
+if(a==0)
+    {solutie = "nu exista solutie";}
+    else{solutie = -b/a}
+console.log("Solutia ecuatiei este: ", solutie)
+
+//rescrisa cu operatorul ternar are forma
+
+solutie = (a==0) ? "nu exista solutie" : -b/a;
+console.log("Solutia ecuatiei este: ", solutie)
+
+//Obs: O alta forma a ecuatiei de gr1 este ax = b. Ca in problema "Cate kilograme are o cutie daca 10 cutii(a) cantaresc 50kg(b)?"
+
+let a= 10, b=50
+
+let x = (a==0) ? "nu exista solutie" : b/a;
+//nu se mai pune semnul "-" in fata lui b/a
