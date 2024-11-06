@@ -1,4 +1,4 @@
-Varianta 20 sept 2024
+20 sept
 
 part1:
 
