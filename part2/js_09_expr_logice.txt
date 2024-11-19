@@ -1,0 +1,1209 @@
+/////////////////////
+Operatorii logici
+//////////////////////
+
+Exista 4 operatori logici || (OR), && (AND), !(NOT), ??(Nulish Coalescing). Se pot aplica nu doar valorilor si expresiilor booleene ci si altor tipuri de date iar rezultatul nu e neaparat boolean.
+
+Operatorii logici sunt urmatorul nivel dupa comparatii. Operatorii logici permit conectarea comparatiilor intre ele rezultand o expresie logica complexa.
+
+Fara conectarea comparatiilor intre ele ar trebui sa folosim inlantuiri de instructiuni if sau succesiuni de instructiuni if care ar ingreuia codul
+
+Obs: Atunci cand folosim o expresie logica complexe de forma (A|| B) && C intr-o functie if va trebuie ca intreaga expresie sa fie pusa intre paranteze. Trebuie gandit ca si cand expresia ar fi o valoare transmisa ca parametru pentru functia if() (si probabil ca asa si este, intern Javascript trateaza if() ca o functie cu parametri booleeni)
+
+if( (A|| B) && C ) {bloc}
+
+prin urmare avem paranteze cu doua roluri:
+primul set de paranteze  if(  (A|| B) && C  ) {bloc} sunt paranteze apartinand de if() 
+al doilea set de paranteze (A|| B) && C   face parte din mecanismul de grupare a operanzilor pentru ca apartin de operatori cu prioritati diferite, la fel ca (a+b)*c 
+
+
+Un exemplu pentru SAU logic (OR ||)
+
+SAU logic permite combinarea mai multor conditii din care doar una trebuie indeplinita.
+
+Exemplu: Calificarea unei echipe de fotbal A intr-o grupa de calificari depinde fie de victoria fata de echipa B fie de victoria unei alte echipe C din grupa in fata echipei D, sau daca se intampla amandoua cu atat mai bine.
+
+Adica 
+
+Daca (A invinge B SAU C invinge D )
+atunci {A se califica}
+
+Se poate rescrie folosind operatorul SAU logic (OR ||)
+
+if( A > B || C > D)
+{console.log(“A se califica”)
+
+Pentru SI logic  (AND &&):
+
+SI logic permite combinarea mai multor conditii care trebuie satisfacute simultan
+
+De exemplu un aparat poate functiona la temperaturi cuprinse intre -20 grade SI 50 grade Celsius. Aici exista doua conditii care pot fi adaugate separat folosind folosind doua instructiuni if
+
+daca(temp > -20)
+{     daca(temp < 50){console.log(“Dispozitivul se incadreaza in graficul de temperatura”)}
+}
+
+sau
+
+if(temp > -20)
+{     if(temp < 50){console.log(“Dispozitivul se incadreaza in graficul de temperatura”)}
+}
+
+insa folosind operatorul SI Logic (&&) putem rescrie
+
+daca(temp > -20 SI temp < 50)
+{
+   console.log(“Dispozitivul se incadreaza in graficul de temperatura”)
+}
+
+sau
+
+if(temp > -20 && temp < 50)
+{
+   console.log(“Dispozitivul se incadreaza in graficul de temperatura”)
+}
+
+Deci operatorii logici permit combinarea mai multor expresii logice in una singura 
+
+
+////////////////////////////////
+Operatorul SAU Logic (||) - Logical OR
+////////////////////////////////
+
+
+Operatorul SAU Logic (||) - Logical OR
+
+Operatorul “SAU logic” sau “Logical OR” este reprezentat de doua linii verticale.
+
+expresie = a || b
+
+
+In programarea clasica OR logic lucreaza doar cu valorii booleene. 
+
+!!! Operatorul OR returneaza prima valoare truthy din expresie. Daca intr-o expresie formata din unul sau mai multi operatori OR se gaseste un element “truthy”  atunci acel element este returnat. Daca nu exista nici un element truthy se returneaza ultimul element oricare ar fi el.
+
+In Javascript operatorul e mai complicat si se utilizeaza in mai multe situatii decat combinarea de expresii logice
+
+Mai intai abordarea clasica in care lucram doar cu valori de adevar. 
+
+Operatorul logic OR este binar deci returneaza rezultatul operatiei SAU logic a combinarii a doua valori de adevar:
+
+console.log(true || true) //true
+console.log(false || true) //true
+console.log(true || false) //true
+console.log(false || false) //false
+
+Exemplu
+Daca e mai devreme de 9 SAU daca e mai tarziu de 17 SAU este weekend atunci magazinul este inchis.
+
+Adica daca macar o conditie este adevarata atunci se produce situatia “magazin inchis”.
+
+Se observa ca doar atunci cand ambii operanzi sunt false returneaza false, in toate celelalte situatii cand macar un operand este true returneaza true. Atunci cand exista o inlantuire de operatori trebuie ca toti operanzii sa fie false ca sa dea rezultatul false
+
+false || false || false || .... || false || val_bool  || false || false 
+
+Totul se decide la val_bool, daca e true atunci totul devine true, daca e false, ramane false. 
+
+Daca operandul nu e boolean se converteste la boolean pentru evaluare.
+De exemplu numarul 1 este evaluat la true iar 0 la false
+
+if(1 || 0) { console.log(“adevarat”)}//afiseaza “adevarat”, 
+
+1 || 0 este evaluat ca valoarea booleana true, functioneaza ca si
+if(true || false) { console.log(“adevarat”)}//afiseaza “adevarat”, 
+
+
+De cele mai multe ori OR || este folosit pentru a verifica daca oricare dintre conditiile date este adevarata.
+
+Exemplul cu orele de acces la un magazin
+
+let ora = 18;
+
+if(ora < 9 || ora > 17) {console.log(“Magazin inchis”)} 
+//se afiseaza “Magazin inchis” pentru ca (ora > 17) este true
+
+Sau se pot adauga inca si mai multe conditii
+
+let este_weekend= true;
+let ora = 10;
+
+if(ora < 9 || ora > 17 || este_weekend) 
+ {console.log(“Magazin inchis”)} 
+
+//se afiseaza “Magazin inchis” pentru ca valoarea evaluarii expreriei logice este true pentru ca  (este_weekend) este true si determina ca intreaga expresie sa fie true chiar daca celelalte doua ora < 9 si ora > 17 sunt ambele false.
+
+
+//////////////////////////////////
+OR || gaseste prima valoare “truthy”
+//////////////////////////////////
+
+
+OR || gaseste prima valoare “truthy”
+
+Valoarea “truthy” inseamna valoare care este fie true, fie este convertita catre true, iar Javascript o gaseste pe prima dintr-o expresie formata cu operatori OR ||. 
+
+Faptul ca OR || lucreaza si cu valori non-booleene aduce cateva avantaje in plus. Se pot realiza cateva constructii logice care altfel nu s-ar putea realiza decat cu if.
+
+
+Algoritmul de evaluare a unei expresii formate din OR -uri functioneaza astfel:
+
+Cand sunt mai multi operatori OR inlantuiti:
+
+rezultat = val_1 || val_2 || val_3 || ... || val_n 
+
+Operatorul OR || evalueaza operanzii de la stanga la dreapta
+Pentru fiecare operand il converteste in boolean. Daca rezultatul este true se opreste si returneaza valoarea originala a operandului
+Daca toi operanzii au fost evaluati, adica toti au fost evaluati la false, returneaza ultimul operand in forma originala indiferent de tip sau valoarea de adevar al acestuia
+
+De fiecare data cand returneaza o valoare o returneaza in forma originala.
+Altfel spus o insiruire de operatori OR || returneaza prima valoare “truthy” sau ultima valoare daca nu este gasita alta valoare “truthy”.
+  
+console.log(1 || 0); // 1 (prima valoare, 1 este true)
+
+console.log(null || 1); // 1 , prima valoare este null, trece la urmatoarea care este  1, este prima(si ultima) valoare “truthy” si e returnata
+
+console.log(null || 0 || 1); // tot la fel, 1 este prima(si ultima) valoare truthy
+
+console.log(undefined || null || 0); // 0 , toate falsy, se returneaza ultima valoare 0 chiar daca e “falsy”)
+
+Faptul ca se returneaza prima valoare care nu e false duce catre cateva aplicatii in plus fata de OR || clasic care lucreaza doar cu valori booleene.
+
+Obtinerea primei valori “truthy” din o lista de varibile si expresii
+
+Sau mecanism de setare default
+
+De exemplu avem firstName, lastName si nickName, toate optionale (adica pot fi nedefinite sau sa aiba valori “falsy” precum null sau sirul vid)
+
+Sa aplicam OR || pentru a alege valoarea care contine date sau ultima valoare “it’sMe!” daca nu este setat altceva.
+
+let firstName = “”;
+let lastName = “”;
+let nickName = “Johnny”
+
+let idName = (firstName || lastName || nickName || “it’sMe!”);  
+console.log(idName); //”JohnnyBravo”
+
+daca toate variabilele ar fi fost “falsy” atunci ar fi fost atribuit lui idName ultima valoarea “it’sMe!”
+
+Aceasta este si o tehnica de a seta o valoare implicita (default) in caz ca trebuie ca idName sa primeasca neaparat o valoare truthy
+
+
+Evaluare de tip scurt-circuit (short-circuit evaluation) 
+
+
+Alta aplicatie pentru OR || este evaluarea folosind scurt-circuitarea. 
+
+Scurt-circuitarea in cazul lui OR|| se refera la faptul ca se scurt-circuiteaza toate valorile dupa prima valoare "truthy", adica se renuta la a le mai evalua odata ce s-a gasit prima valoare "truthy". 
+
+Obs
+Scurt-circuitarea urmeaza semnificatia scurt-circuitului intalnit in electricitate, in circuite electrice, atunci cand curentul urmeaza calea cea mai putin rezistenta si renunta la circuitul mai mare, mai rezistent alegand conexiunea/ circuitul direct cu cea mai mica rezistenta electrica.
+Un scurtcircuit pe un cablu electric al unui aparat electric blocheaza curentul sa mai ajunga la dispozitiv si curentul de pe un fir se intoarce in priza pe celalalt fir fara sa mai treaca prin aparat, a scurt-circuitat aparatul, a gasit calea cea mai scurta.
+
+In acest caz, al lui OR ||, daca se gaseste o valoare "truthy" la inceput, se returneaza acea valoare indeferent cati alti operanzi mai exista, sau altfel spus se scurt-circuiteaza restul operanzilor.
+
+Ex:
+
+let numar = 20 || "operand2: evaluarea expresiei nu mai ajunge aici" || 20<30 || 0 || true || null || "abcd"
+
+console.log(numar);//20
+
+Se afiseaza 20 pentru ca pe Javascript nu mai intereseaza restul expresiei logice, a gasit valoarea 20, e "truthy" si nu mai are sens sa caute mai departe, a gasit ce cauta si nu mai incearca sa evalueze pe "operand2:...". Altfel spus toti operanzii de la al doilea incolo au fost scurt-circuitati.
+
+
+Conditionarea executarii unei functii Optional
+
+O aplicatie pentru scurt-circuitare este conditionarea executarii unei instructiuni precedand-o cu o valoare booleana.
+
+O functie de pe pozitia a doua dintr-o expresie logica se poate executa sau nu in functie de prima valoare booleana. Daca prima valoare este true atunci expresia returneaza true nemaifiind nevoie de evalueare celui de al doilea termen care este functia
+
+
+true || alert("not printed")
+false || alert("printed")
+
+In primul caz valoarea true blocheaza executarea instructiunii care urmeaza, alert("not printed"), pentru ca Javascript renunta la evaluare dupa ce gaseste true. 
+A scurt-circuitat executarea functiei.
+
+In al doilea caz Javascript evalueaza si al doilea termen pentru ca primul e false. Al doilea termen e chiar functia alert si evaluare pentru o functie inseamna executia ei in vedere obtinereii valorii returnate. Aici alert va returna undefined dar nu conteaza, conteaza doar executia lui alert.
+
+Obs: 
+Expresia (true || alert("not printed")
+poate parea o expresie gresita pentru ca are in componenta o functie si nu o valoare. Si in plus functia alert nu returneaza nimic sau returneaza undefined. Dar o functie nu e nevoie sa returneze ceva ca sa intre in componenta unei expresii logice. O functie este tratata ca o valoare true daca returneaza o valoare “truthy” sau false pentru returnarea valorilor “falsy”. Iar aici nici nu conteaza ce returneaza atat timp cat ne intereseaza doar controlul executiei functiei. Scopul valorii de adevar din fata functiei determina ca functia sa fie sau nu evaluata ca al doilea termen al expresiei logice. Profitam de mecanismul de evaluare a unei expresii logice cu OR care  evalueaza pana la al doilea termen daca primul este false si ignora al doilea termen daca primul e true.
+
+Ul alt lucru care pare gresit e faptul ca expresia nu e atribuita nici unei variabile si nici nu se afla intr-o instructiune if. Asta pentru ca nu este nevoie de valoarea evaluarii expresiei, insasi expresia functioneaza ca o instructiune if.
+
+In general avem:
+(false || functie)// se executa functie
+(true  || functie) // nu se executa functie
+
+Functioneaza oarecum invers fata de instructiunea if, functia se executa daca primul termen e false.
+
+Exemplu cu string-uri template (backticks) daca dorim totusi sa returnam o valoare intr-un string.
+
+let afisat = false
+mesaj = `informatia este ${ afisat || “imprimata”}`// “informatia este imprimata”
+variabila afisat este false si evaluarea trece la termenul al doilea si il returneaza
+
+Daca schimbam afisat in true, expresia logica se scurt-circuiteaza, se returneaza primul termen afisat (true) si mesaj va contine doar “informatia este true” pentru ca returneza prima valoare aceasta fiind true.  
+
+
+Obs: Aceste scurt-circuitari pentru functii pot face codul sa fie greu de citit. Mai mult sunt folosite de unii programatori experimentati.
+
+
+////////////////////////////////////
+
+
+
+
+Operatorul SI logic (AND &&)
+
+Operatorul AND (SI logic) este reprezentat de doua simboluri ampersand &&.
+
+let bool1 = a && b;
+
+In programarea clasica AND && returneaza true daca ambii operanzi sunt true si false daca macar unul este false. E invers fata de OR in situatii in care un operand este false si celalalt true. 
+
+Astfel daca in timpul evaluarii conditiilor se gaseste o conditie falsa evaluarea se opreste si se returneaza false. In cazul lui OR acest lucru era valabil pentru true.
+!!!Operatorul AND && returneaza prima expresie “falsy” din expresie.  Pentru o expresie formata din unul sau mai multi operatori AND &&  daca apare macar o valoare “falsy” expresia logica returneaza acea valoare “falsy” .  Daca nu exista nici o valoare “falsy” returneaza ultimul element oricare ar fi el.
+
+
+console.log(true && true); // true
+console.log(true && false); // false
+console.log(false && true); // false
+console.log(true && true); // false
+
+
+Altfel spus operatorul SI logic este folosit atunci cand o situatie presupune indeplinirea simultana a mai multor conditii. Adica (conditie_1 && conditie_2 && ... conditie_n) este adevarata daca toate conditiile individuale sunt adevarate.
+
+
+Un exemplu: O persoana poate avea reducere pentru mijloacele de transport daca este student si daca are sub 30 de ani.
+
+if(este_student)
+{
+  if(varsta<30){
+           console.log(“Poate avea reducere pentru transport”);
+     }
+}
+
+In acest caz pe ramura true a lui if(este_student)mai trebuie sa adaugam o instructiune if pentru ca nu avem ambele conditii pentru obtinearea reducerii de transport reunite sub o singura conditie logica.
+
+Lucrurile ar fi mai simple daca am putea uni cele doua conditii (este_student) si (varsta<30) intr-o singura conditie.
+
+Folosind operatorul SI logic(&&) cele doua conditii pot fi reunite intr-o singur conditie
+este_student && varsta<30
+
+In acest caz operatorul SI logic returneaza true daca ambii operanzi sunt true. Persoana va avea drept la reducere daca este student SI in acelasi timp are varsta sub 30.
+
+Putem scrie folosind sintaxa Javascript:
+if(este_student && varsta<30)
+{console.log(“Poate avea reducere pentru transport”)}
+
+///////////////////////////////////////
+AND “&&” gaseste prima valoare “falsy” 
+///////////////////////////////////////
+
+AND “&&” gaseste prima valoare “falsy” 
+
+Evaluarea expresiei se face de la stanga la dreapta.
+Daca se gaseste o valoare “falsy” se intrerupe evaluarea si se returneaza acea prima valoare (neconvertita in boolean)
+Daca toti operanzii au fost evaluati, adica toti au fost truthy pana la ultimul, se returneaza ultima valoare indiferent care e.
+
+Atunci cand se intalnesc valori “falsy” acestea sunt convertite pentru evaluarea interna la false iar cele “truthy” la true. In acest fel Javascript evalueaza intern expresia la o valoare booleana. Totusi valoare returnata e cea originala.
+
+
+Exemplu pentru numere
+
+if( 1 && 1 && 0 && 1 ) {
+   console.log(“expresie adevarata”)} //nu se afiseaza
+
+Aici instructiunea if() evalueaza intreaga expresie la false din cauza operandului al treilea care este 0
+
+Este echivalent ca evaluare in boolean cu
+true && true && false && true
+
+Insa daca afisam valoare expresiei obtinem nu false ci 0 pentru ca se returneaza prima valoare “falsy” in original.
+console.log( 1 && 1 && 0 && 1)// afiseaza 0
+sau
+console.log( “123” &&  -123 && NaN && “”)// afiseaza NaN
+
+Iar daca toate valorile sunt true si nu exista valoare false se returneaza ultima valoare indiferent care e.
+
+console.log( “123” &&  -123 && “NotANumber” && “ultimul”)// afiseaza “ultimul”
+
+Este asemanator cu OR ||.  In cazul lui OR || se returneaza prima valoare “truthy”, in cazul lui AND && se returneaza prima valoarea “falsy” .
+
+console.log(null &&  -123 && “NotANumber” && “ultimul”)// afiseaza null
+
+
+Scurtcircuitarea pentru executia unei functii
+Se poate face o scurt-circuitare si pentru executia unei functii in combinatie cu AND &&. Mecanismul e inversat fata de OR. Daca dorim sa nu se execute functia prima valoare trebuie sa fie false pentru ca AND returneaza prima valoare false si nu se mai evalueaza a doua
+
+false && alert(“test”)//nu se executa functia
+
+Dar pentru prima valoare true functia se va executa
+
+true && alert(“test2”)// functia alert() se executa fiind ultima valoare din expresia cu AND cand restul termenilor sunt true.
+
+
+La fel ca la OR poate fi integrata intr-un sir template(backticks)
+
+let afisat = true
+mesaj = `informatia este ${afisat && "imprimata"}`
+console.log(mesaj)// “informatia este imprimata”
+
+Este chiar mai natural decat in cazul lui OR pentru ca al doilea termen este evaluat daca primul este true, cam la fel ca la instructiunea if
+
+Ca si in cazul lui OR, desi e posibil sa gasim in diverse locuri astfel de expresii, nu sunt neaparat recomandate.(cand se aduna cod sunt greu de citit si de facut debugging)
+
+Recapitulare:
+OR || returneaza prima valoare truthy 
+AND && returneaza prima valoare falsy
+
+/////////////////////////////
+Expresii logice combinate cu AND si OR
+Precedenta pentru AND && si OR ||
+/////////////////////////////
+
+
+Expresii logice combinate cu AND si OR
+Precedenta pentru AND && si OR ||
+
+Are sens sa vorbim despre precedenta pentru AND si OR doar daca ii gasim in aceasi expresie logica. De exemplu puteam avea o expresie logica mai complexa de forma
+
+(A || B) && (C || D)
+
+A && B || C && D 
+
+Mai des intalnim in programare
+
+(A || B) && C
+ sau
+A || B && C
+
+Observati prezenta parantezelor, are legatura cu precedenta la fel ca la ceilalti operatori.
+
+Astfel de conditii complexe sunt rar intalnite in viata de zi cu zi dar in industrie sau in cercetare(si bineinteles programare) exista conditii inca si mai complexe.
+
+Exemplu:
+Care este valoarea de adevar a expresiei (A || B) && (C || D)
+pentru 
+A = 2 > 3
+B = 5 > 4
+C = 1 == “1”
+D = false
+
+Daca se evalueaza fiecare expresie A,B, C, D avem
+A = false
+B = true
+C= true
+D = false
+
+si inlocuind in expresia 
+ (A       ||    B  ) && (  C      ||    D)
+ (false || true) && (true || false)
+Apoi avem
+ primul termen: (false || true) == true
+al doilea termen: (true || false) == true
+
+ ( true) && (true) care returneaza true
+
+Exemplu: 
+Sa luam un exemplu din fotbal si sa-l convertim intr-o expresie logica pe care sa o folosim intr-o instructiune if
+
+Sunt 4 sferturi de finala cu cate o echipa din Europa, E1, E2, E3, E4 sunt 4 echipe europene contra altor echipe din lume, 
+sfert1: E1 vs World1 
+sfert2: E2 vs World2 
+sfert3: E3 vs World3
+sfert4: E4 vs World4
+
+Dupa sferturi se joaca semifinalele, prima semifinala e formata cu echipele castigatoare din sfert1 si sfert2 si a doua semifinala e formata din castigatoarele din sfert3 si sfert 4
+
+Sansa ca in fiecare semifinala sa fie o echipa din Europa este ca in sferturi sa avem:
+
+o echipa europeana castigatoare in Sfert 1 SAU in Sfert 2 
+SI 
+o alta castigatoare in Sfert 3 SAU Sfert 4
+
+Altfel spus:
+
+Daca
+(E1 invingatoare in Sfert 1 SAU E2 invingatoare in Sfert 2) 
+SI 
+(E3 invingatoare in Sfert 3 SAU E4 invingatoare in Sfert 4)
+atunci 
+“Ambele semifinale au cate o echipa europeana”
+
+Sa prescurtam fiecare conditie cu cate o litera A, B, D, D
+
+Primele 2 sferturi din care se alege seminfinala 1:
+    (E1 invingatoare) e conditia A 
+    (E2 invingatoare) e conditia B 
+
+Ultimele 2 sferturi din care se alege semifinala 2:
+   (E3 invingatoare) e conditia C
+   (E4 invingatoare) e conditia D 
+
+putem rescrie
+
+Daca( (A SAU B) SI (C SAU D) )
+“Ambele semifinale au echipe din Europa:
+altfel
+“exista cel mult o semifinala cu echipa/echipe europene:
+
+sau cu sintaxa if:
+
+if( (A || B) && (C || D) )
+console.log( “Ambele semifinale au echipe din Europa “)
+else
+console.log(“exista cel mult o semifinala cu echipa/echipe europene”)
+
+Sa spunem ca rezultatele meciurilor au fost
+A = false  // echipa europeanta din sfert 1 a pierdut
+B = true    // echipa europeanta din sfert 2 castigatoare
+C= true   // echipa europeanta din sfert 3 castigatoare
+D = false    // echipa europeanta din sfert 4 a pierdut
+
+Ce se va afisa? Este aceeasi expresie pe care am folosit-o mai sus
+ (A       ||    B  ) && (  C      ||    D)
+ (false || true) && (true || false)
+              ( true) && (true)
+se returneaza true
+Deci se afiseaza
+ “Ambele semifinale au echipe din Europa “
+
+/////////////////////////////
+Precedenta operatorilor logici OR si AND
+/////////////////////////////
+
+
+Precedenta operatorilor logici OR si AND
+
+Pentru a putea evalua corect expresia trebuie sa stim daca evaluam continuu de la stanga la dreapta sau daca ne oprim si schimbam algoritmul de evaluare cand gasim un alt operator sau daca trebuie sa dam prioritate unuia dintre operatori. Este la fel ca in cazul inmultirii si adunarii
+
+pentru adunare punem paranteze pentru ca are prioritate mai mica decat inmultirea
+(a+b) * (c+d)
+sau ne bazam pe prioritatea inmultirii si omitem parantezele
+a*b + c*d
+ 
+
+Operatorul AND are prioritate mai mare decat OR, e ca in cazul adunarii si inmultirii, mai intai se fac operatiile cu AND si apoi cu OR.
+
+Exemple:
+
+Daca in expresia urmatoare
+(A || B) && (C || D)
+trebuie sa se realizeze mai intai evaluarile pentru OR || atunci expresiile cu OR trebuie puse intre paranteze pentru ca au prioritate mai mica decat AND &&.
+
+Fara paranteze 
+A || B && C || D
+s-ar evalua in ordinea 
+
+B && C 
+se evalueaza si returneaza rez1
+
+A  ||  B && C 
+ A || rez1, returneaza rez2
+
+A    ||    B && C   ||     D 
+ rez2 || D rezultand valoarea finala
+
+
+Pentru expresia
+A &&  B || C && D
+daca dorim sa fie evaluate mai intai expresiile cu AND && le lasam asa fara paranteze pentru ca AND && are prioritate. 
+
+Ordinea de evaluare este
+A && B 
+   mai intai prima operatie cu AND din stanga, se evalueaza se obtine rez1
+
+C && D 
+   apoi a doua operatie cu AND din stanga, se obtine rez2
+
+A &&  B || C && D 
+rezultatele de la 1 si 2 devin operanzi pentru OR|| , rez1 || rez2 
+
+
+
+Operatorul OR are prioritatea 3 iar AND are prioritatea 4, astfel and prioritatea mai mare AND se evalueaza primul
+
+In tabelul cu precedenta se poate observa ca AND are prioritatea 4, OR are prioritatea 3 si atribuirea(=) are prioritatea 2.
+
+(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence)
+
+
+De ce trebuie ca operatorii logici sa aiba cea mai mica prioritate?
+
+Putem avea o expresie de forma
+
+functie_1() && expresie_aritmetica_2 || expresie_logica_3 && variabila_4
+
+toti termenii trebuie sa fie evaluati inainte de a intra in faza de evaluare logica, adica expresia trebuie sa se reduca la
+
+val1 && val2 || val3 && val4
+
+iar pentru asta trebuie ca toate operatiile din fiecare expresie(aritmetica sau logica) sa se execute inainte de operatorii AND si OR
+Deci trebuie ca AND si OR sa aiba cea mai mica precedenta dintre toti operatorii.
+
+Totusi putem avea si atribuire
+let bool1 = val1 && val2 || val3 && val4
+
+Atunci AND si OR trebuie sa aiba precedenta mai mare decat atribuirea pentru ca valoarea expresiei din dreapta trebuie finalizata inainte de atribuire.
+
+De aceea gasim in tabelul cu precendenta valorile: 
+atribuire (=)   2 
+OR ||                  3
+AND &&            4
+
+Adica operatorii logici au cea mai mica prioritate dar mai mare decat atribuirea.
+
+
+Exemplu:
+Avand o expresie formata din valori “primitive” sa analizam care e ordinea de evaluare:
+val1=0
+val2=12
+val3=”abc”
+val4=1234
+
+let bool1 = val1 && val2 || val3 && val4
+
+Prin inlocuire expresia devine
+bool1 = 0 && 12 || “abc” && 1234
+
+se evalueaza prima expresie 0 && 12 si returneaza 0, prima valoare falsy
+
+expresia a devenit:
+
+bool1 = 0 || “abc” && 1234
+
+si apoi se evalueaza a doua expresie  (“abc” && 1234) pentru ca are precedenta mai mare decat OR ||. 
+
+“abc” && 1234, returneaza 1234, ultima valoare truthy
+
+Astfel expresia originala
+
+val1 && val2 || val3 && val4
+
+ s-a redus la:
+
+                0    ||     1234, 
+
+returneaza 1234, prima valoare truthy(care e si ultima)
+
+La final bool1 contine valoarea 1234
+
+bool1 = 0 && 12 || “abc” && 1234
+console.log(bool1)//1234
+
+
+De cele mai multe ori insa vom avea doar expresii booleene clasice
+
+let bool2 = 2<1  &&  8>7  ||  5>4  &&  2 == “2”
+
+ 2<1 && 8>7  se evalueaza false && true = false
+5>4 && 2 == “2”  se evalueaza true && true = true
+
+La final avem: false || true = true
+
+console.log(bool2)//true
+
+////////////////////////////////
+Operatorul NOT (!)
+////////////////////////////////
+
+Operatorul NOT (!)
+
+Sintaxa este
+
+bool1 = !value;
+
+Operatorul accepta un singur operand si realizeaza urmatoarele:
+Converteste operandul in tipul boolean: true/false
+Returneaza valoare inversata
+
+Exemplu:
+Avem comparatia A = 5 > 4 care returneaza o valoare de adevar , true
+Daca o negam, !A = !(5 > 4) returneaza false
+
+In Javascript functioneaza pentru orice valori dat fiind ca acestea au un corespondent boolean
+
+De exemplu:
+console.log(!true); //false
+console.log(!0);//true
+ aici mai intai a fost convertit 0 in false si apoi s-a aplicat negatia returnand true
+
+Conversia valorilor primitive in Boolean
+Operatorul NOT ! returneaza inversul boolean al unei valori si este folosit uneori pentru conversie in Boolean.
+
+Astfel:
+
+Boolean(5)//true 
+este echivalent cu 
+!!5//true
+
+Boolean(null)//false
+echivalent cu
+!!null//false
+
+In cazul aplicarii dublei negatii asupra unei valori primitive se intampla urmatoarele:
+Mai intai valoarea initiala este transformata in Boolean si acea valoare booleana negata prin operatorul de negatie aplicat prima oara.
+Apoi a doua oara operatorul de negatie schimba din nou valoarea booleana rezultata. In final returneaza valoarea booleana corecta a valorii primitive.
+
+!!5 este !(!5) este egal cu !(false) si returneaza true. Si intr-adevar Boolean(5) este true la fel ca !!5
+
+////////////////////////
+Aplicarea lui NOT asupra expresiilor logice complexe.
+////////////////////////
+
+Aplicarea lui NOT asupra expresiilor logice complexe.
+
+Atunci cand se doreste negarea unei expresii complexe formata din unul sau mai multi operatori logici se aplica negarea fiecarui termen al expresiei si se inverseaza operatorii logici din interior.
+
+
+!(A || B) = !A && !B
+
+!(A && B) = !A || !B
+
+expresii mai complexe 
+!( (A || B) && C )  = !(A || B) || !C = !A && B || !C
+
+!( A || B && C  ) = !A && !(B && C) = !A && ( !B || !C )
+
+!( (A || B) && (C || D) ) = !(A || B) || ! (C || D) = !A && !B || !C && !D
+
+!( A && B || C && D ) = !(A && B) && !(C && D) = (!A || !B) && (!C || !D)
+
+
+In general nu vom avea nevoie decat de:
+!(A || B) = !A && !B      
+si       
+!(A && B) = !A || !B 
+Celelalte se reduc la acestea doua
+
+Obs: Rationamentul din spatele acestui mecanism al logicii matematice poate fi studiat folosind interesectii si reuniuni de multimi (formulele lui De Morgan). Este vorba despre inversarea intervalului de valori din care face parte o valoare.
+
+Daca avem o valoare x care apartine unui interval oarecare (2, 5) se poate scrie:
+
+daca x ∈ (2, 5) rezulta x ∈ (-∞, 5) ∩ (2, -∞) sau ( x < 5 && x > 2 )
+
+Prin negare 
+! ( x < 5 && x > 2 )
+se schimba domeniul de apartenenta:
+
+Daca x nu mai apartine intervalului (2, 5) asta inseamna:
+
+x ∉ (2, 5) sau  !(x ∈ (2, 5) ) este echivalent cu x ∈ (-∞, 2] ∪ [5, ∞) sau x <= 2 || x >=5 sau
+!(x>2) || !(x<5)
+
+Deci ! ( x < 5 && x > 2 ) este echivalent cu !(x>2) || !(x<5)
+
+
+Exemple:
+
+Exemplu cu o comparatie
+Expresia Expr = 5 > 4
+
+prin negare devine
+!Expr = !(5 > 4) 
+
+dar negarea poate fi aplicata si in interiorul propozitiei 
+!(5 > 4) echivalent 5 <= 4 // false
+
+Exemplu cu doua comparatii
+
+!(5 > 4 && 5 > 6) //  pasii pentru evaluare:  ! (true && false) ->  ! false -> true
+este echivalent cu
+!(5 > 4) || !(5>6) //    ! true || ! false ->  false || true ->   true 
+
+
+Exemplu de expresie ce contine 2 propozitii cu valori de adevar
+
+Expr = A && B
+A = “Este cald afara”
+B = “Am timp liber”
+
+Expr = A && B = “Este cald afara “ && “Am timp liber”
+
+
+Negarea expresiei Expr
+!(A && B) = NU (“este cald afara” SI “Am timp liber”)
+
+este echivalenta cu 
+NU “este cald afara” SAU  NU “am timp liber” ?
+
+Daca Expr este adevarata inseamna ca A si B sunt amandoua adevarate, deci “este si cald afara” SI “am si timp liber”.
+
+Daca negam Expr si schimbam valoarea de adevar, inseamna ca ea nu mai este adevarata, asta pentru ca macar unul dintre termeni nu este adevarat adica  NU “este cald afara” SAU NU “am timp liber”
+
+Deci 
+NOT(“Este cald afara “ SI “Am timp liber”) este echivalent cu
+NOT(“Este cald afara”) SAU NOT(“Am timp liber”)
+
+folosind notatia pentru expresii logiece
+
+! (“este cald afara” &&  “Am timp liber”) este echivalent cu
+!(“este cald afara”) || !(“Am timp liber”)
+
+adica
+!(A && B) = ! A || ! B
+
+//////////////////////////////////
+Intrebari raspunsuri:
+//////////////////////////////////
+
+
+Intrebari raspunsuri:
+
+
+Care sunt operatorii logici?
+Exista 3 operatori logici clasici OR ||, AND &&, NOT ! si unul specific Javascript Nulish Coalescing ?? (care e tot un fel de OR|| doar ca pentru el 0 nu e “falsy”)
+
+La ce ajuta operatorii logici?
+Permit combinarea altor expresii logice intr-o expresie logica mai mare.
+De ex: x ∈ (4, 10) se poate scrie sub forma de inegalitati matematice x>4 si x<10.
+Daca scriem afirmatia x>4 SI x<10 cu operatorul logic AND && avem
+x>4 && x<10
+Astfel operatorul logic AND && a unit doua expresii logice
+
+Avand o expresie logica formata cu operatorul SAU || care este conditia ca ea sa fie adevarata?
+Daca expresia este Expr = A || B atunci este suficient ca unul din termenii A sau B sa fie true: 
+true || true = true
+true  || false = true
+false || true = true
+false || false = false
+
+Avand o conditie logica formata cu operatorul SI && care este conditia ca ea sa fie adevarata?
+Daca expresia este de forma Expr = A && B atunci trebuie ca ambii termeni A si B  sa fie true.
+true && true = true
+true && false = false
+false && true = false
+false && false = false
+
+Cum este evaluata de Javascript o expesie logica care contine mai multi operatori OR ||  ?
+Mai intai se verifica daca toti operatorii din expresie au aceeasi prioritate. In caz ca sunt si operatori AND &&  acele expresii formate cu AND se vor evalua primele. 
+Daca  toti operatori ramasi dupa evaluare expresiilor cu AND sunt numai OR atunci se evalueaza de la stanga la dreapta si se returneaza prima valoare “truthy”
+
+Care este mecanismul pentru setare valoare implicita pentru o atribuire daca folosim mecanismul de returnare a primei valori dintr-o expresie cu OR ?
+
+Se ordoneaza in expresia logica valorile dupa prioritatea pe care o au pentru a fi returnate. Iar daca nu e nici una true atunci se lasa totusi o valoare de rezerva care sa fie “truthy” pe ultima pozitie.
+
+De exemplu elevul de servici dintr-o clasa se alege dupa urmatoarea regula
+
+ Se alege elevul din tabelul elevilor de servici pe ziua curent, 
+           daca nu este prezent (daca este false)
+  se alege elevul de servici de a doua zi
+           daca nu este prezent
+ se alege seful clasei
+          daca nu este prezent
+se atribuie valoarea finala “nedecis” care este “truthy” fiind string nenul
+
+let elev_servici = elev_servici_tabel || elev_servici_urmator || seful_clasei || “nedecis”
+
+Primul dintre elevii prezenti(true) va fi atribuit catre variabila elev_servici. Daca nu e nici unul prezent se ajunge la ultima si se atribuie “nedecis” care este o valoare true
+
+De exemplu sa presupunem ca primii doi elevi sunt absenti, doar seful_clasei este prezent:
+
+elev_servici_tabel = “”
+elev_servici_urmator=””
+let elev_servici = “” || “” || seful_clasei || “nedecis”
+
+Variabila elev_servici primeste valoarea seful_clasei pentru ca ceilalti doi elevi care ar fi trebuit sa fie de servici sunt absenti, variabilele corespunzatoare contin sirul vid “”, si sunt evaluate la false. Daca nici seful clasei nu ar fi fost prezent s-ar fi atribuit “nedecis”.
+
+Un alt exemplu pentru citirea unui numar. Dorim sa stocam in variabila nr o valoare chiar daca utilizatorul apasa cancel in fereastra prompt()
+
+let nr = prompt(“Introdu un numar”) || 64;
+In caz ca se apasa Cancel se returneaza null si avem:
+nr = null || 64;
+console.log(nr)//64
+
+Ce este scurtcircuitarea pentru OR||?
+De obice se foloseste cu expresii logice create cu un singur operator OR (A ||B) iar prima valoare (A) are rolul de a scurtcircuita. In esenta se comporta ca o instructiune if simpla dar e invers, se evalueaza al doilea termen daca primul e false. Se evalueaza al doilea termen(B) in functie de valoarea de adevar a lui (A). Daca (A) este true evaluarea se termina si se returneaza true. Daca (A) este false se evalueaza cel de-al doilea termen (B) si se returneaza valoarea acestuia.  Daca (B) este o functie atunci aceasta este executata si se returneaza valoarea returnata de functie. In mod normal nu se atribuie niciunei variabile valoarea returnata.
+
+let A = false;
+A || console.log(“Daca s-a afisat mesajul inseamna ca operandul (A) este false”)
+
+
+
+
+///
+Intrebari raspunsuri:
+///
+
+
+
+Intrebari raspunsuri:
+
+Care sunt combinatiile de valori de adevar pentru operatorul AND &&, pentru ce valori returneaza true?
+true && true = true
+true && false = false
+false && true = false
+false && false = false 
+
+Trebuie ca ambii operanzi sa fie true pentru a returna true.
+
+Prin ce este diferit AND de OR din punct de vedere al logicii booleene?
+AND e invers fata de OR in sensul in care se comporta invers in situatiile in care unul dintre operanzi este false si celalalt true
+
+Care este valoarea logica pe prima pozitie intr-o expresie logica A && B && C... astfel incat sa fie scurtcircuitata restul expresiei? Pentru ce valoare a lui (A) evaluarea se opreste?
+Ca si in cazul lui OR exista posibilitatea scurtcircuitarii dupa prima valoare daca aceasta este “falsy”. Imediat ce se intalneste o valoare “falsy” aceasta este returnata, evaluarea restului expresiei s-a oprit.
+
+Cum se poate scurtcircuita o functie cu AND?
+Atunci cand intr-o expresie de forma ( A && functie() )  primul termen A este “falsy”, valoarea lui A este returnata iar functia nu se executa. Dar daca este “truthy” se executa functia si se returneaza valoarea returnata de functie.
+
+Functioneaza asemanator cu if
+true && functie()// se executa functie() si se returneaza valoarea lui functie()
+false && functie// se intrerupe evaluare la primul termen “false” si se returneaza false
+
+let nume = “Tudor”
+nume && console.log(nume)// daca nume contine o valoare nenula este evaluat ca true si se trece la evaluarea termenului al doilea, functia console.log() afiseaza nume
+
+nume = “”
+nume && console.log(nume)// nu se executa console.log() pentru ca nume este evaluat la false si se returneaza imedia false
+
+
+Care este efectul combinarii a doua sau mai multe conditii folosind AND ??.
+Acele doua conditii unite cu AND trebuie sa fie indeplinite simultan pentru a returna true. Un beneficiu il avem simplificand codul atunci cand doua sau mai multe conditii A, B, C... trebuie sa se indeplineasca intr-o insiruire de instructiuni de decizie.
+
+if(A) {
+   if (B){
+       if(C) {
+                    bloc instructiuni
+                  }
+              }
+}
+
+se poate rescrie
+
+if( A && B && C) {bloc instructiuni}
+
+
+
+
+///
+Intrebari raspunsuri:
+///
+
+
+Intrebari raspunsuri:
+
+
+De ce este nevoie de gruparea operanzilor in paranteze atunci cand exista mai multi operatori diferiti intr-o expresie logica.
+
+Are legatura cu precedenta operatorilor AND si OR, la fel cum la aritmetica inmultirea are o precedenta mai mare decat adunarea. Aici AND are precedenta mai mare decat OR
+
+Prezenta parantezelor este decisa de programator. Daca pentru expresia 
+A || B && C 
+programatorul decide ca este o expresie corecta atunci parantezele nu sunt necesare. In acest caz evaluarea B && C are prioritate in fata lui || (din cauza diferentei de precedenta dintre AND si OR). Deci termenii expresiei sunt
+A si B && C si sunt operanzi pentru OR ||
+Daca insa programatorul decide ca mai intai trebuie evaluata expresia A ||B atunci sunt necesare parantezele (A || B) && C . Iar termenii expresiei sunt
+(A || B) si C si sunt operanzi pentru AND &&
+
+Ce reprezinta operatorul de negare NOT !  ?
+Este metoda prin care se inverseaza valoaea de adevar a unei expreii logice. Din true in false sau din false in true.
+
+Care este efectul aplicarii in Javascript al opertorului NOT ! asupra unei valori primitive?
+Aplicarea lui not pentru o valoare non booleana are loc in doua etape
+se converteste valoarea primitive in boolean
+valoarea booleana obtinuta se inverseaza
+
+Care este metoda de conversie rapida in boolean, echivalenta cu Boolean(val)?
+Se poate aplica negarea de doua ori obtinand valoare echivalenta booleana.
+Daca se aplica o data se obtine valoarea booleana opusa. Daca se aplica a doua oara se obtine valoarea booleana corespunzatoare.
+
+Care este efectul aplicarii negatiei pentru o expresie logica?
+La fel ca in cazul aplicarii semnului minus pentru o expresie algebrica negatia poate fi aplicata tuturor termenilor din interiorul expresiei logice. Dar spre deosebire de algebra unde operatorii raman neschimbati, in logica matematica operatorii expresiei se inverseaza la randul lor.
+Astfel 
+!(A || B) devine !A && !B
+iar
+!(A && B) devine !A || !B
+
+
+#########################################
+//Aplicatii #1
+#########################################
+
+
+//Aplicatii #1
+
+//Ex 1
+//Care este valoarea afisata
+
+console.log(null || 2 || undefined);
+// se afiseaza 2, este prima valoare nenula in expresia data de insiruirea de operatori OR ||
+console.log( console.log(1) || 2 || console.log(3));
+// se afiseaza 1 si apoi 2; evaluarea expresiei presupune evaluarea mai intai a instructiunii console.log(1), aceasta se executa, afiseaza 1 dar returneaza undefined si determina evaluarea termenului al doilea. Se evalueaza al doilea termen, valoarea 2, si se returneaza 2 pentru ca 2 este "truthy". Valoarea 2 fiind valoarea intregii expresii este apoi afisat.
+
+console.log(1 && null && 2);// se afiseaza null, prima valoare "falsy", este invers decat la OR unde se se returneaza prima valoare truthy
+
+console.log(console.log(1) && console.log(2))// se afiseaza 1, undefined. Ambii termeni ai expresiei returneaza undefined dar evaluarea se opreste dupa primul. Primul, console.log(1) afiseaza 1, returneaza undefined care la randul lui este afisat.
+
+console.log(null || 2 && 3 || 4);//se afiseaza 3. Cele doua expresii OR || se evalueaza dupa ce se evalueaza expresia cu AND &&. Si avem: a) 2 && 3 este 3, ultima valoare daca pana acolo nu au fost gasite valori falsy. b) null || 3 este 3, prima valoare truthy. c) deoarece urmeaza tot un operator OR si avem deja o valoare truthy, 3, aceasta se returneaza.
+
+//////////////////////////////////////////////////
+
+//Ex 2
+//Verificati folosind instructiunea if daca o valoare, viteza, se incadreaza in domeniul [70, 140] adica viteza >= 70 si viteza <= 140
+//Creati doua variante, una cu NOT, una fara NOT
+
+//Rezolvare
+
+let viteza = +prompt("introdu o valoare pentru viteza pe autstrada",90);
+
+//mai intai varianta fara NOT, cea mai intuitiva
+if(viteza >= 70 && viteza <= 130 ){
+console.log("Viteza legala pe autostrada")
+}
+
+//varianta cu NOT
+if( ! (viteza < 70 || viteza> 130) ){
+console.log("Viteza legala pe autostrada")
+}
+//luam expresia de la prima varianta
+//viteza >= 70 && viteza <= 130 
+// si o negam de doua ori ca sa obtinem valoarea booleana originala
+// !!(viteza >= 70 && viteza <= 130)
+//primul NOT ! il pastram dar pe al doilea il transferam in interiorul expresiei:
+// !( !(viteza >= 70) || !(viteza <= 130) ) care se mai poate scrie:
+// !( viteza < 70 || viteza > 130)
+
+
+// Invers, folositi mai intai expresia logica cu OR pentru reuniunea intervalelor si apoi negati
+// Asta se mai poate numi verificarea domeniului extern.
+//Daca [70, 130] il putem denumi domeniu intern atunci  (-∞, 70) ∪ (130, ∞) este domeniul extern
+
+if( viteza < 70 || viteza > 130)
+{console.log("viteza ILEGALA pe autostrada")}
+
+
+//se poate scrie
+if( !!( viteza < 70 || viteza > 130)) {...}
+devine
+
+if(!(viteza >= 70 && viteza <= 130) ) {
+console.log("viteza ilegala")}
+else{
+console.log("viteza legala")}// se poate adauga si else si se poate observa ca afirmatia "viteza legala" e de data aceasta pe ramura else
+
+///////////////////////////////////////////////////
+
+//Ex 3:
+//Care dintre urmatoarele console.log() se vor executa
+
+if(-1 || 0) console.log("prima")//se va afisa pentru ca (-1 || 0) este true, -1 este "truthy"
+if(-1 && 0) console.log("al doilea")//nu se va afisa, (-1 && 0) este false din cauza lui 0.
+if(null || -1 && 1) console.log("al treilea")// se va afisa pentruca al doilea termen pentru OR ||, (-1 && 1), este "truthy"
+
+###########
+//Aplicatii #2
+###########
+
+
+//Aplicatii #2
+
+//////////////////////////////////////////////////
+//problema 1
+
+/*
+ SI logic permite combinarea mai multor conditii care trebuie satisfacute simultan
+
+De exemplu un aparat poate functiona la temperaturi cuprinse intre -20 grade SI 50 grade Celsius. Aici exista doua conditii care pot fi adaugate separat folosind folosind doua instructiuni if
+
+Rescrietie cele doua instructiuni if in una singura
+*/
+
+if(temp > -20)
+{  if(temp < 50){
+     console.log("Dispozitivul se incadreaza in graficul de temperatura")
+     }
+}
+
+
+//folosind operatorul SI Logic (&&) putem rescrie
+
+
+if(temp > -20 && temp < 50)
+{
+   console.log("Dispozitivul se incadreaza in graficul de temperatura")
+}
+
+//////////////////////////////////////////////////
+ //problema 2
+
+
+//Un exemplu: O persoana poate avea reducere pentru mijloacele de transport daca este student si daca are sub 30 de ani. Transformati cele doua instructiuni if inlantuite intr-o singura instructiune if cu expresiile logice combinate.
+
+if(este_student)
+{
+  if(varsta<30){
+           console.log("Poate avea reducere pentru transport");
+     }
+}
+
+//Folosind operatorul SI logic(&&) cele doua conditii pot fi reunite intr-o singur conditie este_student && varsta<30
+
+//In acest caz operatorul SI logic returneaza true daca ambii operanzi sunt true. Persoana va avea drept la reducere daca este student SI in acelasi timp are varsta sub 30.
+
+
+if(este_student && varsta<30){
+console.log("Poate avea reducere pentru transport")
+}
+
+
+//////////////////////////////////////////////////
+//problema 3
+  
+//Avem 3 numere, a, b, c. Care dintre ele este cel mai mare?
+
+// numerele pot fi citite cu prompt sau pot fi atribuite in script
+
+//rezolvare
+let a= 4, b= 2, c = 3
+if(a > b && a> c){
+console.log(`${a} este mai mare decat ${b} si ${c}`)
+}
+
+if(b > a && b> c){
+console.log(`${b} este mai mare decat ${a} si ${c}`)
+}
+
+if(c > a && c> b){ console.log(`${c} este mai mare decat ${a} si ${b}`)
+}
+  
+  
+ ////////////////////////////////////////////////// 
+//problema 4
+
+// Daca a, b, c sunt valori nenule pozitive. Pot fi acestea laturile unui triunghi?
+
+//rezolvare
+//Pentru ca trei numere sa fie laturile unui triunghi trebuie sa respecte urmatoarea conditie. Suma oricaror doua valori sa fie mai mare decat a treia
+  
+    
+let a = 5, b = 9, c = 3;
+
+if (a + b > c && a + c > b && b + c > a) {
+console.log(`${a}, ${b}, ${c} pot fi dimensiuni pentru laturile unui triunghi`)
+}
+else {
+console.log(`${a}, ${b}, ${c} nu pot fi dimensiuni pentru laturile unui triunghi pentru ca doua dintre ele au suma mai mica decat al treilea`)
+}
+
+
+############
+  //Aplicatii #3
+############
+
+
+
+  //Aplicatii #3
+
+  //////////////////////////////////////////////////
+ //problema 5 
+  
+  //Verificati daca triunghiul cu baza si inaltimea date (baza, inaltime) este triunghi si i se poate calcula aria. Conditia este ca ambele valori sa fie pozitive
+  
+  
+  let baza = 8, inaltime = 5
+  let arie = baza * inaltime / 2
+  
+  //afisam aria fara conditii suplimentare
+  console.log(arie)
+  
+  console.log(`Aria triunghiului cu baza ${baza} si inaltime ${inaltime} este ${arie}`)
+  
+  
+ //Vom reface aria dar vom verifica daca exista vreo valoare mai mica sau egala cu 0
+  
+  baza =0
+  arie = baza * inaltime / 2 
+
+  if(baza <= 0 || inaltime <= 0)
+  {
+    console.log("Eroare, triunghiul nu exista")
+  }
+  else
+  {
+    console.log(`Aria triunghiului cu baza ${baza} si inaltime ${inaltime} este ${arie}`)
+  }
+
+
+//////////////////////////////////////////////////
+ //problema 6
+/*
+Elevul de servici dintr-o clasa se alege dupa urmatoarea regula
+
+ Se alege elevul din tabelul elevilor de servici pe ziua curenta, 
+           daca nu este prezent (daca este false)
+  se alege elevul de servici de a doua zi
+           daca nu este prezent
+ se alege seful clasei
+          daca nu este prezent
+se atribuie valoarea finala “nedecis” care este “truthy” fiind string nenul
+
+Scrieti sub formba de expresie logica cu OR || astfel incat pentru default sa fie oferita valoarea "nedecis"
+
+*/
+
+let elev_servici = elev_servici_de_astazi || elev_servici_de_maine || seful_clasei || "nedecis"
+
+
+
+//////////////////////////////////////////////////
+//problema 7
+//scurtcircuitare
+//Se va afisa mesajul urmator?
+
+
+let A;
+A || console.log("Daca s-a afisat mesajul inseamna ca operandul (A) este false")
+
+// Se afiseaza pentru ca A este undefined prin urmare "falsy" si expresia cu OR || nu returneaza imediat ci trece la evaluarea termenului al doilea
+
+
+//dar pentru:
+
+let A;
+A && console.log("Daca s-a afisat mesajul inseamna ca operandul (A) este true")
+
+//Operatorul AND && se comporta invers decat OR ||, 
+va permite evaluarea celui de al doilea termen doar daca primul este true
+
+//////////////////////////////////////////////////
+//problema 8
+// In ce interval trebuie sa fie valoarea variabilei ora astfel incat sa se afiseze "Magazin deschis"?
+
+let ora;
+//ora = ????
+
+
+if(ora < 9 || ora > 17) {
+console.log("Magazin inchis")
+} 
+else {
+console.log("Magazin deschis")
+}
+
+/*
+Variabila ora trebuie sa fie in intervalul cand Magazinul NU este inchis adica 
+!(ora < 9 || ora > 17)
+care inseamna
+(ora >=9 && ora <= 17) sau
+ora ∈ [9,17]
+*/
+
+
+//Dar daca mai adaugam o valoare true in expresie?
+
+let este_weekend= true;
+let ora 
+/ora = ????
+
+if(ora < 9 || ora > 17 || este_weekend) 
+console.log("Magazin inchis")
+} 
+else {
+console.log("Magazin deschis")
+}
+ 
+ //Aici nu mai conteaza ce valoarea are "ora", valoarea lui "este_weekend" determina ca expresia sa fie true indiferent din ce interval face parte "ora"
+ 
+ 
+ 
