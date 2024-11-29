@@ -15,6 +15,11 @@ part2:
 8. Instructiunea decizionala, cele doua tipuri if, if-else. Blocuri de instructiuni si greseli obisnuite de sintaxa. Conversii in boolean ale valorilor non-booleene folosite in conditii logice in instructiunea if. Inlantuiri de instructiuni if - else. Operatorul ternar
 
 
+
+
+
+
+!!!!!
 De verificat
 
 La sectiunea 9, Conversii de tip Boolean, e o scapare:
