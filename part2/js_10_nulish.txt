@@ -1,0 +1,128 @@
+/////////////////////////////////////
+Operatorul “Nulish coalescing” ??
+/////////////////////////////////////
+
+Operatorul “Nulish coalescing” ??
+
+
+Operatorul ?? trateaza diferit valorile “nulish” de cele “non-nulish” si le vom numi pe cele “non-nulish” valori definite.
+
+Astfel 
+valorile “nulish” sunt null si undefined
+valorile “definite” sunt toate valorile de tip Number si String incluzand 0, sirul vid “” si NaN
+
+Si la fel ca in cazul operatorului OR || se returneaza prima valoarea truthy:
+
+Pentru expresia (a ?? b) se returneaza:
+a daca a este definita
+b daca a este nulish(null/undefined)
+
+ In engleza “coalescing” inseamna a grupa. Aici “nulish coalescing” ar putea insemna gruparea valorilor “nulish” si tratarea lor separat.
+
+De ce este necesar un astfel de operator?
+
+S-a constatat in multe situatii ca incercarea de a folosi operatorul OR|| pentru atribuirea “default” a valorilor nu functioneaza cand trebuie facuta distinctia dintre valorile “falsy” (0 si sirul vid “”) si cele “nulish” (null si undefined).
+
+De exemplu se cere o valoare pentru temperatura de la tastatura si daca nu se introduce nimic se doreste atribuirea valorii implicite “necompletat”
+
+let temperatura = +prompt(“Introduceti o valoare pentru temperatura”) || “necompletat”;
+console.log(`Temperatura inregistrata este ${temperatura}` ;
+
+Problema este ca se atribuie “necompletat” variabilei temperatura si atunci cand utilizatorul apasa “Cancel”, si atunci cand introduce valoarea 0 (grade) care este valida.
+
+Astfel avem:
+temperatura = null || “necompletat” // daca este apasat “Cancel” pentru prompt() 
+
+temperatura = 0 || “necompletat” // cand se introduce 0 de la tastatura
+
+Variabila temperatura va contine “necompletat” si cand s-a introdus in mod intentionat valoarea 0 care este o valoare perfect valabila si pentru temperaturi si pentru calcule matematice si pentru multe alte situatii din lumea reala.
+
+Folosind operatorul ?? se poate remedia
+
+let temperatura = +prompt(“Introduceti o valoare pentru temperatura”) ?? “necompletat”;
+console.log(`Temperatura inregistrata este ${temperatura}` ;
+
+Pentru valoarea 0 introdusa de la tastatura se va returna 0. Doar cand primul termen este null prin apasare butonului “Cancel” se va trece la al doilea termen “necompletat”.
+De data aceasta daca primul termen are valoarea 0 atunci este considerat “definit” si este evaluat ca “truthy”
+
+/////////////////////////
+Operatorul ??
+/////////////////////////
+
+
+Operatorul ??
+
+
+Operatorul ?? evalueaza la false prima valoare doar daca aceasta este “nulish”( null sau undefined). Orice alta valoare “definita” este evaluata la true. 
+
+Cu alte cuvinte OR || nu distinge intre 0, “”, null, undefined in timp ce ?? trateaza separat null si undefined fata de 0 si “”. 
+
+Chiar si NaN este o valoare truthy pentru ??.
+
+Exemplu:
+let inaltime = 0
+let latime = “4cm”/2
+
+console.log( inaltime || 10) // 10, inaltime este falsy, se trece la al doilea termen, 10
+console.log( inaltime ?? 10) // 0, inaltime este truthy pentru ??, 0 este returnat
+console.log( latime ?? 20) // NaN, latime este NaN, dar NaN este truthy pentru ??
+
+Nu trebuie inlocuit OR cu ??
+
+Pentru toate valorile truthy OR poate fi inlocuit de operatorul ?? dar dar cand apar cele doua valori falsy, sirul vid si 0, operatorul ?? nu mai ajuta, din contra, nu mai permite folosirea metodei cu atribuire default si nici scurtcircuitarea. 
+
+Atribuirea default discutata la operatorul OR || se refera la obtinerea primei valori “truthy” din o lista de varibile si expresii
+
+Exemplul cu atribuirea default pentru un nume de persoana. Daca firstName, lastName sau nickName contin sirul vid “” sau alta valoare “falsy” atunci se atribuie default “it’sMe”.
+
+let firstName = “”;
+let lastName = “”;
+let nickName = “Johnny”
+
+let idName = (firstName || lastName || nickName || “it’sMe!”);  
+console.log(idName); //”Johnny”
+
+In acest moment functioneaza, nickName contine o valoare “truthy” si va fi atribuit catre idName.
+
+Sa inlocuim acum pe OR || cu ??
+
+let firstName = “”;
+let lastName = “”;
+let nickName = “Johnny”
+
+let idName = (firstName ?? lastName ?? nickName ?? “it’sMe!”);  
+console.log(idName); // ””
+
+Se returneaza prima valoare definita, primul termen este firstName, contine sirul vid “” si este “truthy” din punctul de vedere al lui ??
+
+Deci se anuleaza posibilitatea atribuirii default care era pregatita pentru nickName sau “it’sMe”
+
+Asa ca operatorul ?? nu a fost creat sa-l “repare” pe OR|| ci doar sa fie folosit in acele cazuri speciale cand este necesara evaluare sirului vid “ “ si a lui 0 la true.
+
+
+Precedenta
+
+Atat operatorul ?? cat si OR|| au aceeasi prioritate, au valoarea 3 in tabelul cu precedenta. Asta inseamna ca operatorul ?? este evaluat inainte de atribuire = dar dupa ceilalti operatori precum +, -, *.
+
+Deci trebuie adaugate paranteze in expresii ca:
+let inaltime = null;
+let latime = null;
+
+//important: se folosesc paranteze, la fel cum s-ar folosi si pentru OR|| sau AND&&
+let aria = (inaltime ?? 100) * (latime ?? 50)
+console.log(aria);//500
+
+Daca nu sunt puse paranteze 
+let aria = inaltime ?? 100 * latime ?? 50
+se evalueaza astfel:
+let aria = inaltime ?? (100 *latime) ?? 50
+
+OR si AND impreuna cu ??
+
+Daca se foloseste in aceeasi expresie atat OR/AND cat si ?? se genereaza o eroare de sintaxa. E pentru a preveni erorile de programare cand se trece de la OR la ??, probabil sa nu fie inlocuiti din gresela operatorii OR cu ?? in expresii logice.
+
+Se pot insa folosi paranteze pentru izolarea lui ?? de restul operatorilor.
+let a = 0, b = 2, c = 3;
+let val1 = a && b ?? c // genereaza eroare
+let val2 = (a && b) ?? c // functioneaza daca sunt adaugate paranteze pentru separarea operatorilor
+console.log(val2)// 0

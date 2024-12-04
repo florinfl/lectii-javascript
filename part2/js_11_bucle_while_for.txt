@@ -1,0 +1,864 @@
+/////////////////////////////
+Instructiunile de ciclare while si for
+/////////////////////////////
+
+
+Instructiunile de ciclare while si for
+
+
+In engleza sunt denumite loops si in romana s-ar traduce bucle sau ciclari. Un ciclu va fi numit iteratie. Formal sunt denumite structuri repetitive sau instructiuni repetitive.
+
+Este vorba de repetarea unor actiuni de un anumit numar de ori atat timp cat o conditie este adevarata. 
+
+Parcurgerile de intervale sau structuri de date sunt importante in orice limbaj de programare iar asta ne aduce mai aproape de studiul algoritmicii.
+
+  
+Cunoasterea metodelor de rezolvarea a problemelor de algoritmica este o parte importanta in studiul programarii si nu conteaza in ce limbaj se face asta. Se poate folosi chiar si limbaj natural pentru exprimarea libera a insiruirii de instructiuni. De exemplu parcurgerea intervalului 1..n cu o variabila i se poate exprima
+
+pentru i de la 1 la n
+
+Daca dorim sa-l verificam pe i pentru paritate:
+
+daca i este par 
+sau
+daca restul impartirii lui i la 2 este 0
+sau
+daca i%2 == 0
+
+Iar daca dorim sa-l afisam pe i spunem “afisare i”
+
+In cele din urma afisarea tuturor numerelor pare dintre 1 si n poate fi de forma
+
+pentru i de la 1 la n
+   daca i % 2 == 0
+      afiseaza i
+
+Se vede ca nu ne trebuie nici un limbaj de programare. Si totusi limbajele de programare au fost create tocmai pentru a determina calculatorul sa urmeze exact aceeasi pasi pe care ii descriem in limbaj natural.
+
+Daca ar fi sa analizam care sunt categoriile de instructiuni pe care le folosim descoperim ca
+Variabila i trebuie sa primeasca valori de la 1 la n, asta inseamna atribuire, i = valoare
+Variabila i trebuie sa parcurga intervalul 1 .. n, asta este operatie de ciclare, atribuiri repetate
+Variabila i este verificata pentru paritate, deci instructiunea de decizie
+
+Se poate observa ca in algoritmul acesta de mici dimensiuni apar trei tipuri de instructiuni:
+atribuire, decizie si ciclare. Chiar si algoritmii mai complicati tot cu cele trei instructiuni se rezolva si nu exista alte tipuri de instructiuni necesare in rezolvarea problemelor.
+Pe primele doua instructiuni le-am parcurs deja, atribuirea si decizia.
+
+Prin studiul si celei de a treia, instructiunea de ciclare(bucle/loops), se deschide posibilitatea studiului algoritmicii.
+
+Algoritmica se ocupa cu studiul rezolvarii problemelor. De exemplu calcularea sumelor de numere, sau calculul radicalilor, sau gasirea numerelor prime sunt exemple de rezolvare de probleme care sunt cunoscute din vechime, din timpul matematicii vechi clasice.
+
+Cunoasterea tehnicilor generale de rezolvare a problemelor de algoritmica este foarte importanta, in asta consta in realitate programarea. Insa nu trebuie sa devenim foarte buni in algoritmica pentru a invata programare. Algoritmica insa este o stiinta care trebuie insusita cate putin, in mod constant, tot timpul.
+
+Inca nu avem la dispozitie toate resursele pentru a avea libertatea de rezolvare a oricarei probleme. Ne mai trebuie structurile de date Object si Array si dupa aceea se pot rezolva problemele de algoritmica fara restrictii. Dar chiar si asa, odata cu invatarea instructiunii de ciclare, se deschide calea catre rezolvarea a multor probleme prin algoritmi elementari.
+
+Problemele de algoritmica sunt pe diferite nivele de dificultate. Se merita investitia de efort si timp in studiul algoritmicii inca de la inceput?
+
+Desi invatarea algoritmicii este importanta accentul ar trebui pus pe invatarea unui limbaj de programare care sa duca intr-o directie care sa fie motivanta. Odata cu motivatia data de realizarea de proiecte simple apare si necesitatea invatarii unor anumite tehnici de programare care sa ajute la dezvoltarea mai eficienta a proiectelor.
+
+Exista resurse nenumarate pe Internet si sunt site-uri concentrate pe rezolvari de probleme la fel cum sunt site-uri care se concentreaza pe invatarea sahului si competitii de sah.
+
+Cateva exemple:
+
+codewars.com
+leetcode.com
+coderbyte.com
+
+Pentru alternative se poate oricand cauta cu expresia “codewars similar” sau “leetcode alternative” etc.
+
+O varianta buna este cautarea cartilor despre algoritmica si structuri de date. Exista carti despre algoritmica de dinaintea aparitiei Internet-ului si bineinteles dinaintea existentei Javascript. Algoritmica a determinat limbajele de programare si nu invers. Se poate cauta “algorithms and data structures” sau pentru carti “algorithms and data structures books”. Vor fi cel mai probabil scrise pentru C sau C++ dar diferentele fata de Javascript la nivel de algoritmi sunt minime deci limbajul nu va fi o problema.
+
+Insa va fi dificil de inteles fara oarecare experienta care resursa de invatare este potrivita pentru nivelul la care ne aflam fie ca avem de a face cu site-uri sau cu carti. Deci la inceput e bine sa cautam acele resurse de invatarea care ofera un asa zis “learning path”, care presupune un echilibru intre invatarea limbajelor si invatarea algoritmilor. O resursa importanta sunt lectiile sub forma de tuturiale video, de obicei se ofera o curba de invatare lenta si exista continuitate. Dar exista mult subiectivism legat de care sunt cele mai bune cursuri sau autori de tutoriale. E o problema care tine de explorare. Pentru site-uri de invatare bazate pe un “drum de invatare” se poate cauta chiar asa, “Javascript learning path sites”.
+Deci mai intai alegem o cale de invatare care sa ne duca pana la un nivel la care sa putem realiza aplicatii simple si apoi (!poate!) se merita o investigare a metodelor mai avansate de rezolvare a algoritmilor. Depinde si de directia finala. E posibil sa fie atat de multa algoritmica presarata pe o anumita cale de invatare incat studiul dedicat al algoritmicii sa nu mai fie absolut necesar.
+
+/////////////////////////////
+Instructiunea “while”
+/////////////////////////////
+
+Instructiunea “while”
+
+Are urmatoarea sintaxa
+
+while (conditie)
+{
+  bloc instructiuni
+}
+
+Atat timp cat conditie este truthy blocul de instructiuni atasat se va executa 
+(truthy ca in cazul lui if, nu e obligatorie valoare booleana clasica pentru conditie)
+
+O singura parcurgere a blocului de de instructiuni se numeste iteratie.
+
+Functioneaza ca o succesiuni de instructiuni if simple:
+
+if(conditie) {
+     {
+      bloc instructiuni, 
+     if (conditie){
+          {
+           bloc instructiuni, 
+                ........
+
+Problema care apare daca ar fi folosita o astfel de succesiune de if-uri e faptul ca nu se stie cate instructiuni if sa fie inlantuite pana conditie devine falsa si oricum codul ar fi foarte greu de urmarit.
+
+De aceea e nevoie de o constructie sintactica care sa cicleze(itereze) prin blocul de instructiuni de un numar nelimitat de ori atat timp cat o conditie este adevarata. Nu este nevoie de o ramura else, se considera ca ramura else este implicita, o reprezinta intstructiunile care urmeaza dupa while pentru ca terminarea lui while inseamna automat conditie falsa.
+
+De exemplu:
+let i = 1
+while(i<5){
+      console.log(i)// se va fisa 1, 2, 3, 4
+      i++
+}
+//alte instructiuni
+console.log(i)//se va afisa 5
+
+Aici while executa blocul format din console.log(i) si i++ pana cand i devine egal cu 5 si astfel conditia (i<5) devenind falsa il determina pe while sa se opreasca. Dupa ce se opreste while, inseamna conditie falsa, adica (i >= 5), si se executa instructiunile de dupa while.
+
+Aici a fost nevoie de 4 ciclari pentru ca while sa se opreasca. Adica au fost 4 iteratii sau while a iterat blocul de instructiuni de 4 ori. Dupa cele 4 iteratii conditia (i<5) a devenit falsa si s-a trecut la instructiunile de dupa while.
+
+Se poate analiza modul de executare a instructiunii while si se pot distinge cativa pasi care au loc pe parcursul executiei.
+
+A. Initializare variabila pentru oprire while. Mai intai variabila i primeste valoarea 1 , aceasta va fi folosita in mecanismul de oprire a lui while. E atat de importanta oprirea incat se face aceasta setare la inceput, inainte de a intra in prima iteratie while.
+
+B. Luarea deciziei.  La fel ca in cazul instructiunii if daca conditia i<5 este adevarata se executa blocul de instructiuni de pe ramura true. Spre deosebire de if nu exista ramura false.
+
+C. Parcurgerea blocului de instructiuni, iteratia. Pe ramura true se executa un numar oarecare de instructiuni (la fel ca la if), aici numarul oarecare de instructiuni e reprezentat de console.log(i) 
+
+D. Determinarea modificarii valorii de adevar a conditiei. In interiorul blocului de instructiuni trebuie sa existe un set de instructiuni care sa asigure ca la un moment dat conditia devine falsa. Aici conditie “i<5” devine falsa, cand i++ determina variabila i sa ajunga la valoarea 5.
+
+E. Terminarea executiei. Blocul de instructiuni dintre acolade este pe ramura true, deci se va executa cat timp conditie este true. Dar si i++ se executa de fiecare data cand se executa ramura true. Si la un moment dat i va fi suficient de mare ca sa nu mai permita conditiei i<5 sa fie adevarata. In cazul nostru, dupa ce i++ se executa de 4 ori, variabila i devine egala cu 5 si determina conditia i<5 sa fie false. Cu prima ocazia cand while verifica daca i<5 este true descopera ca este false si se opreste, nu mai executa ramura true iar Javascript trece la urmatoare instructiune care urmeaza dupa while.
+
+Obs:Toate instructiunile de ciclare sunt create dupa modelul lui while deci toate vor respecta pasii de mai sus chiar daca in cazul instructiunilor de ciclare functionale/declarative nu va fi atat de evident.
+
+O instructiune repetitiva e ca motorul unei masini care roteste un ax atat timp cat are combustibil. O rotatie a motorului este o iteratie.
+
+let combustibil = valoare_initiala
+while(combustibil > 0 ){
+      roteste_ax_motor() //produce lucru mecanic, e actiunea utila a motorului
+      combustibil = combustibil - 1 // se consuma din combustibil la fiecare rotatie/iteratie
+}
+
+Daca valoarea din variabila combustibil nu ar scadea motorul ar rula pentru totdeauna.
+
+In cazul Javascript
+let i = 1
+while(i<5){
+      console.log(i)// se va afisa 1, 1, 1, 1, 1, 1, 1, 1,.....
+      //i++
+}
+
+Daca nu ar fi instructiunea i++ care sa modifice valoarea lui i si sa determine conditia (i<5) sa devina falsa atunci while ar cicla la infinit, nu ar mai trece la urmatoarea instructiune. 
+
+Exista o regula in algoritmica, un algoritm trebuie sa se termine!
+
+In cazul nostru, in Javascript, s-ar vedea concret in browser ce se intampla in cazul unui algoritm care nu se termina. Lipsa unei instructiuni capabila sa modifice valoarea de adevar a conditiei (i<5) va determina ca scriptul sa ruleze la infinit, ar bloca browser-ul si browser-ul s-ar inchide automat sau ar da un mesaj prin care ne intreaba daca putem “inchide procesul”. 
+In Google Chrome se poate deschide o fereastra cu urmatorul mesaj:
+“The following page(s) has become unresponsive. You can wait them to become responsive or kill them.”
+
+
+Orice expresie poate fi conditie pentru while (la fel ca in cazul instructiunii if unde ne refeream la orice expresie ca fiind truthy or falsy)
+
+De exemplu pentru cazul in care variabila i este testata pentru valoare mai mare decat 0 expresia logica while(i>0) poate fi rescrisa while(i)
+
+let i = 5
+while(i > 0)
+{
+   console.log(i)
+   i--
+}
+
+poate fi rescris
+
+let i = 5
+while(i)
+{
+   console.log(i)
+   i--
+}
+
+Cand i ajunge la 0 conditia (i) devine falsa iar bucla while se opreste.
+
+
+Formatul do {... }while(conditie)
+
+Exista si o a doua forma a lui while, atunci cand conditia se muta dupa blocul de instructiuni. Este mai rar folosita si doar atunci cand se doreste ca blocul de instructiuni sa fie executat macar o data indiferent de conditie.
+
+do{
+  bloc instructiuni
+}
+while(conditie)
+
+Exemplu anterior scris cu while se poate rescrie cu do..while:
+
+let i = 5
+do {
+  console.log(i)// afiseaza 5
+   i++
+}
+while(i < 5)
+console.log(i)//afiseaza 6
+
+In mod normal cu while nu s-ar fi executat deloc, pentru i = 5 conditia (i<5) este deja falsa. Dar folosind do..while blocul se executa o data indiferent de conditie pentru ca aceasta este verfificata prima oara dupa ce se executa o iteratie a blocului.
+
+Deci blocul de instructiuni se va executa macar o data pentru ca verificarea conditiei de oprire se face dupa blocul de instructiuni.
+
+
+/////////////////////////
+Instructiunea  “for”
+/////////////////////////
+
+
+Instructiunea  “for”
+
+Are forma sintactica:
+
+for(initializare; conditie_de_oprire; pas_incrementare)
+{
+  bloc instructiuni
+}
+
+Desi pare mai complexa decat while e de fapt acelasi lucru:
+Se poate rescrie(desi nu e recomandat) si are exact acelasi efect ca originalul
+
+initializare
+for(  ;conditie_de_oprire;  )
+{
+  bloc instructiuni
+  pas_incrementare
+}
+
+seamana cu while:
+
+initializare
+while(conditie_de_oprire)
+{ bloc instructiuni
+ pas_incrementare
+}
+
+Forma concisa a lui for provine si din faptul ca este nevoie de o instructiune care sa imite exprimarea in limbaj natural a parcurgerii unui interval de numere
+
+Atunci cand gandim algoritmic spunem:
+“pentru variabila i de la 0 la n executa blocul de instructiuni”
+
+asta se traduce direct in instructiunea for:
+
+for(let i = 0 ; i<n ; i++){
+  bloc instructiuni
+}
+
+De aceea for e preferat atunci cand se doreste parcurgerea unui interval de tipul [0..n] sau un vector a carui lungime n se stie (sau se poate afla). Din contra while se foloseste atunci cand conditia este una complexa sau nu depinde neaparat de o variabila care se incrementeaza.
+
+Mai exista un avantaj si anume ca in editorul VS Code ne ajuta “Emmet autocomplete” sa adaugam rapid tot codul pentru “for” incluzand si un vector. Doar tastam “for” si apoi alegem varianta din lista pentru forma sintactica(e posibil sa fie a doua optiune din lista de autocomplete). Fiind atat de concis poate fi adaugat cu usurinta iar pe noi nu ne mai intereseaza decat codul dintre acolade. E si o metoda de invatare a sintaxei lui for.
+
+Din moment ce for poate fi simulat cu while sa luam un exemplu cu afisarea primelor 10 numere si cu for si cu while ca sa le comparam.
+
+Cu while:
+
+let i = 0;
+while(i<=10)
+{
+ console.log(i)// se afiseaza 0, 1, 2, ..... 10
+  i++
+}
+
+Cu for
+
+for(let i = 0; i<=10; i++){
+   console.log(i);// 0, 1, 2.... 10
+}
+
+sau scotand din paranteze initializarea si pasul de incrementare in stilul lui while:
+(nerecomandat totusi)
+
+let i =0;
+for( ; i <= 10 ; ){
+  console.log(i); //0, 1, 2... 10
+  i++
+}
+
+
+Pentru faptul ca e mai organizat, avand conditia si  instructiunile de initializare si incrementare toate intre parenteze, for este preferat de catre programatori. Insa nu exista nici un avantaj concret a lui for in fata lui while. E mai mult din cauza ca e mai convenabil si mai usor de scris. Nu ne mai preocupa ce se intampla cu initializarea dinaintea lui while si nici cu pasul de incrementare de la finalul blocului, toate sunt in acelasi loc, intre paranteze.
+
+Daca omitem totul dintre paranteze for devine ca un while care are conditie true si nu se mai termina
+
+for (;;)
+{
+  bloc de instructiuni 
+}
+
+echivalent cu
+
+while(1)
+{
+    bloc de instructiuni 
+}
+
+Observati ca totusi trebuie sa ramana cele doua “punct si virgula ;” dintre paranteze, altfel ar da eroare de sintaxa: for(;;)
+
+Astfel atat while cat si for se bazeaza pe o conditie logica pentru finalizarea executiei. Si orice alta instructiune de ciclare.
+
+Se poate si decrementare:
+for(let i = 10; i > 0 ; i-- )
+{
+console.log(i)
+}
+
+In concluzie, for si while sunt construite pentru acelasi lucru, si anume a cicla un bloc de instructiuni. Varianta for insa e ca o prescurtare pentru while pentru ca are forma compacta. Si cum majoritatea ciclarilor din programare se fac pentru parcurgerea unui interval sau a unui vector se prefera for pentru ca e construit pentru asa ceva.
+
+////////////////////////////////
+Iesirea din bucla(break)
+////////////////////////////////
+
+Iesirea din bucla(break)
+
+In mod normal se iese din bucla cand conditie devine falsy. Dar se poate forta iesirea din bucla folosind instructiunea break.
+
+Exemplu: 
+Sa se faca suma numerelor introduse de la tastatura. Numerele vor fi introduse pana cand se da Cancel sau se lasa necompletat in fereastra prompt().
+
+  let suma = 0;
+  let val
+
+while(true)
+{
+  (A)   val = +prompt(“Introdu un numar”,””); 
+  (B)   if(! val) break; 
+          suma += val;
+}
+
+  console.log(‘Suma: ‘ + suma);
+
+Pe linia (A) variabila val primeste un numar daca se introduce o valoare numarica  si se apasa OK sau o valoare falsy in restul cazurilor.
+
+Se poate analiza fiecare caz:
+1 .  Pentru o valoare numerica introdusa operatorul + o converteste in numar(valoare truthy)
+2 . Pentru un string care nu e numar operatorul + o converteste in NaN(valoare falsy)
+3 . cand se apasa Cancel se returneaza null dar +null este 0 (valoare falsy)
+4 . cand se da Ok fara a introduce vreo valoare se ia valoare implicita care este sirul vid “”, iar +”” este 0(valoare falsy)
+
+Pe linia (B) se evalueaza variabila iar in cazul 1) val va fi truthy deci (!val) va fi falsy, nu se va executa instructiunea break;
+Pentru toate celelalte cazuri 2),3),4), valorile citite pentru val sunt falsy si (!val) va fi truthy si atunci se executa intructiunea break; care determina iesirea din bucla si afisarea sumei calculata pana la acel moment
+
+S-ar fi putut rezolva si cu while dar presupune o citire in plus
+
+let suma = 0;
+let val
+let val = +prompt(“Introdu un numar”,””)
+
+while(val){
+  suma+=val;
+  let val = +prompt(“Introdu un numar”,””)
+}
+console.log(‘Suma: ‘ + suma);
+
+
+Varianta cu do..while ne scapa de citirea in plus dar suma se executa macar o data deci nu rezolva problema.
+
+
+Deci break permite un anumit control in interiorul blocului si folosind break poate fi mai logic sau mai intuitiv mai ales cand avem nevoie de un mai mare control in interiorul blocului (nu neaparat recomandat de cei care sustin principiile programarii structurate).
+
+Mai este utila folosirea lui break cand while() depinde de multe conditii.
+Adica decat sa avem o insiruire de conditii in while care pot fi greu de urmarit
+
+while(conditie1 && conditie2 && conditie3 && conditie4){...}
+
+mai bine rescriem:
+
+while(true)
+{
+  if(!conditie1)  break;
+  if(!conditie2) break;
+  if(!conditie3) break;
+  if(!conditie4) break;
+....
+}
+
+E de fapt o negatie pentru o conditie complexa
+ !(conditie1 && conditie2 && conditie3 && conditie4)
+este echivalent cu
+!conditie1 || !conditie2 || !conditie3 || !conditie4
+
+/////////////////////////////
+Continuarea la urmatoarea iteratie
+/////////////////////////////
+
+
+Continuarea la urmatoarea iteratie
+
+Pentru a sari peste o iteratie se poate folosi instructiunea “continue”
+Este asemanatoare cu break dar nu determina parasirea buclei complet ci doar sare iteratia curenta si trece la urmatoarea. E ca o versiune “light” a lui break.
+
+In exemplu se sare pentru fiecare numar par
+
+for(let i = 0; i< 10; i++){
+            if(i % 2 == 0) continue;
+            console.log(i); // 1, 3, 5, 7, 9
+{
+Fiecare numar par i nu mai este afisat pentru ca inainte de a fi afisat el este verificat si apoi se sare peste afisare si restul blocului folosind continue. Pentru numerele impare linia “if(i % 2 == 0) continue;” nu se mai executa si atunci se executa instructiunea care urmeaza dupa, afisarea lui i. 
+
+Instructiunea continue permite adaugarea de conditii care nu sunt permanente pentru while sau for
+
+while(conditie)
+{
+//inceput bloc
+
+if(conditie_speciala_1) continue;
+if(conditie_speciala_2) continue;
+...
+if(conditie_speciala_n) continue;
+
+//restul blocului
+}
+
+In felul acesta putem avea o conditie generala care se potriveste pentru aproape toate situatiile si apoi putem adauga “conditii speciale” pentru situatii particulare in aceeasi bucla.
+
+Afisarea numerelor prime pana la 100, ca in cazul ciurului lui Eratostene.
+
+for(let i = 0; i< 100; i++)
+{
+
+if(i> 2 && i % 2 == 0) continue;
+if(i> 3 && i % 3 == 0) continue;
+if(i> 5 && i % 5 == 0) continue;
+if(i> 7 && i % 7 == 0) continue;
+
+console.log(i)
+}
+
+Important e faptul ca se poate sari peste anumite numere, nu e neaparat important de inteles cum functioneaza “ciurul lui Eratostene”
+
+O explicatie aritmetica este urmatoarea:
+Se sare peste toate numerele care au divizori. Ne folosime de numerele prime pana la 10, ele sunt factorii primi care intra in componenta numerelor care nu sunt prime pana la 100. Aici ultimul factor prim pentru care se sar numerele (continue) este 7. Urmatorul potential factor prim ar fi 11 dar deja 11 *11 este mai mare decat 100 si nu este nevoie sa mai apelam la el.
+Astfel pentru fiecare numar divizibil cu unul din factorii primi 2,3, 5, 7 se sare peste afisarea acestuia la urmatorul numar care va fi verificat. In cele din urma raman afisate doar numerele care nu se divid cu cele patru numere prime, cer patru factori primi. Ceea ce ramane sunt chiar numerele prime pana la 100.
+Algoritmul nu e scalabil, functioneaza doar pentru numerele prime pana la 100 dar demonstreaza mecanismul de salt folosind instructiunea continue.
+
+
+
+Iesirea din bucle care contin alte bucle. 
+
+Se pot intalni bucle pe doua niveluri adica o prima bucla for poate contine o a doua bucla for care se executa la fiecare iteratie a primei bucle for.
+
+De exemplu sa se afiseze toate perechile i si j de la 1 pana la 10 pana cand produsul lor ajung la o anumita valoare, sa spunem 50
+
+for (let i = 0; i<= 10; i++ ){
+     for (let j= 0; j<= 10; j++ ){
+          if(i * j >= 50) {
+                     console.log(`${i} : ${j}, limita de 50 atinsa, se termina executia`);
+                     break;
+            }
+           console.log(`${i} : ${j} cu produs ${i * j}`)
+      }
+}
+
+In loc sa se opreasca cand ajunge la produs i * j >= 50 bucla exterioara, cea cu i, continua si determina bucla interioara cu j sa se execute din nou chiar daca bucla interioara a fost inchisa fortat cu break. De data asta, desi break face ce trebuie, nu opreste ambele bucle, doar cea in care se afla, adica cea cu j. Dar bucla cu i nu are motiv sa se opreasca si o porneste din nou pe cea cu j. Astfel desi se ajunge o data la 50 si se afiseaza mesajul de terminare a executiei, se mai ajunge la limita de 50 inca de 5 ori pentru un total de 6 ori.
+
+Pentru a iesi si din prima bucla, cea cu i, trebuie sa-i atasam acestei bucle o eticheta, “label”, si apoi sa-i spunem lui break sa sara pana acolo, “break bucla_i”
+
+bucla_i: for (let i = 0; i<= 10; i++ ){
+     for (let j= 0; j<= 10; j++ ){
+          if(i * j >= 50) {
+                     console.log(`${i} : ${j}, limita de 50 atinsa, se termina executia`);
+                     break bucla_i;
+            }
+           console.log(`${i} : ${j} cu produs ${i * j}`)
+      }
+}
+
+De data aceasta break sare pana la bucla exterioara  pe care o termina (terminand automat si bucla interioara).
+E valabil si pentru 3 niveluri de bucle atat timp ca eticheta se pune pe bucla exterioara. Rar insa apar situatiile pentru 3 bucle.
+
+Obs. In romana li se mai spune acestor bucle pe mai multe niveluri bucle imbricate (imbricat inseamna suprapunere partiala). In engleza e simplu “nested loops”
+
+Obs2: Instructiunile break si continue se considera ca nu respecta regulile programarii structurate mai ales cand se foloseste saltul la etichete. Saltul de la o linie de cod la o alta folosind etichete este considerata o practica gresita, nu mai exista executarea fireasca, de sus in jos, a instructiunilor din moment ce sarim inapoi undeva in cod. Totusi in cadrul instructiunilor de ciclare pe mai multe niveluri se folosesc destul de des atunci cand se doreste parasirea deodata a macar doua bucle “nested”.
+
+Recapitulare
+
+Sunt trei tipuri de instructiuni de ciclare:
+while(){..}
+do{..}while()
+for(;;){..}
+
+O bucla infinita apare cand o conditie ramane true la nesfarsit
+while(true){..}
+for(;;){..}
+
+Dar o astfel de bucla infinita poate fi intrerupta cu instructiunea break.
+Daca se doreste intreruperea unei iteratii se foloseste instructiunea continue.
+Pentru a iesi dintr-o bucla cu mai multe niveluri se poate adauga o eticheta inaintea buclei de pe primul nivel, break poate sari complet din acea bucla folosind numele etichetei.
+
+////////////////////////////
+Intrebari raspunsuri:
+////////////////////////////
+
+
+Intrebari raspunsuri:
+
+Ce inseamna instructiune de ciclare
+Este o instructiune care depinzand de conditie booleana va executa in mod repetat un bloc de instructiuni pana cand conditia booleana devine falsa.
+
+Cum se pot clasifica instructiunile repetitive?
+Le putem imparti in instructiuni repetitive clasice si instructiuni repetitive functionale/declarative. Cele clasice sunt for si while si mai sunt cateva mai noi din categoria non-functionala iar cele functionale sunt acelea care sunt atasate ca metode pentru vectroi si primesc ca parametru(in ajutor) o functie callback cu care proceseaza fiecare element in parte. Au aparut din necesitatea parcurgerii vectorilor folosind strategia(paradigma) declarativa prin folosirea unei functii callback ca parametru. Cele declarative sunt fundamental asemanatoare cu for si while dar au o sintaxa simplificata, o parte din functionalitate se transfera functiei callback(se vor studia dupa functii si vectori).
+
+Care este sintaxa pentru instructiunea while?
+Sintaxa este asemanatoare cu cea instructiunii if simple.
+while(conditie){bloc instructiuni}
+prin comparatie instructiunea is simpla se scrie la fel:
+if(conditie){bloc instructiuni}
+
+Care este modul de executie (logica de functionare) a lui while?
+while(conditie){bloc instructiuni}
+Deoarece sintaxa este asemanatoare cu cea a lui if() si mecanismul de executie este asemanator. Se executa blocul de instructiuni pentru conditie adevarata. Spre deosebire de if care se executa o singura data, pentru while se va continua executia atat timp cat conditia va continua sa fie adevarata.
+
+De ce este necesar ca la un moment dat conditia sa devina falsa?
+Fara sa avem o metoda de oprire a algoritmului acesta va continua sa ruleze fara sa furnizeze un rezultat si, mai rau, blocheaza browser-ul sau calculatorul, procesorul functionand la capacitate maxima.
+
+Cum ne putem asigura ca la un moment dat conditia devine falsa?
+Trebuie ca in interiorul blocului de instructiuni sa adaugam o instructiune sau mai multe care sa asigure ca se schimba valoarea de adevar a conditiei. Cea mai simpla metoda este sa adaugam un contor pe care sa-l incrementam la fiecare pas si cand ajunge la o anumita valoare conditia sa devina falsa.
+Exemplu:
+
+let contor = 0;
+while(contor <10){
+  console.log(contor);
+   contor++
+}
+
+Care sunt pasii de executie a lui while?
+initializare variabila pentru conditia de oprire
+adaugare conditie si luarea deciziei in functie de conditie. Daca e true se executa blocul de instructiuni. Daca e fals se termina executia lui while si se trece la urmatoarea instructiunie
+Parcurgerea blocului de instructiuni pentru cazul in care conditia este adevarata.
+Executarea operatiilor care determina modificarea conditiei de oprire. Poate fi o instructiune dedicata pentru finalizarea executiei sau conditia de oprire poate urmari variabile care evolueaza previzibil sau aleatoriu in interiorul blocului.
+Terminarea executiei: in momentul in care evaluarea conditiei returneaza false executia lui while se termina. Instructiunea while nu este diferita de o functie normala si la finalizarea lui while se trece la urmatoarea instructiune care vine dupa.
+
+
+Se pot folosi si conditii din categoria non-booleana pentru while?
+Si pentru while o valoare falsy va fi evaluata ca false. De exemplu 0 va fi considerata false iar secventa:
+
+while(0){ console.log(“functioneaza?”) }
+
+nu va rula fiind evaluat ca 
+while(false){..}
+
+iar
+while(100){ console.log(“functioneaza?”) } 
+
+va rula la nesfarsit pentru ca este echivalent cu
+
+while(true){ console.log(“functioneaza?”) } 
+
+Deci putem folosi valoarea lui i din urmatoarea secventa ca si conditie de oprire
+
+let i = 10
+while(i)
+{
+  console.log(i)
+  i--
+}
+
+se va afisa 10, 9, 8... 0
+
+Cand i ajunge la 0 este evaluat ca false de catre while si executia lui while se termina.
+
+Care este avantajul folosirii lui do .. while?
+Se executa blocul de instructiuni inainte de evaluarea conditiei atunci cand ne intereseaza ca (1) anumite operatii sa fie executate cel putin o data sau (2) sa fie executate inainte de evaluarea conditiei.
+
+De exemplu pentru cazul (2) citirea unei variabile se poate face in interiorul blocului si apoi se testeaza valoare citita.
+
+Sa se faca suma unor valori numerice pana la intalnirea unei valori negative. Nu ne intereseaza daca valoarea negativa se adauga la suma.
+
+let numar
+do{
+  numar = +prompt(“Introdu o valoare pozitiva”, 10)
+  suma += numar
+}while(numar > 0)
+
+Folosind while ar mai fi fost necesara citirea lui numar inca o data inainte de bucla pentru ca numar trebuie initializat cu o valoare inainte de comparatia cu 0.
+
+valoare = +prompt(“Introdu o valoare pozitiva”, 10)
+while(numar > 0)
+{
+  suma += numar;
+ numar = +prompt(“Introdu o valoare pozitiva”, 10)
+}
+
+Folosind do..while nu a mai fost necesara citirea lui numar inainte de bucla pentru ca testarea lui numar este facuta la final si nu la inceput ca in cazul lui while.
+
+///////////
+Intrebari raspunsuri:
+///////////
+
+
+Intrebari raspunsuri:
+
+Care este semnificatia fiecarei componente din sintaxa lui for?
+Instructiunea for imita comportamentul lui while asta insemnand ca exista un bloc de instructiuni de ciclat si un mecanism care determina ca ciclarea sa fie finita.
+Fara mecanismul de oprire ciclarea este infinita:
+for(;;){bloc instructiuni}
+Ceea ce se intampla intre parenteze are dublu rol: pregateste mecanismul de oprire si in al doilea rand ofera un contor care poate fi folosit in blocul de instructiuni.
+
+a)
+Unde se initializeaza contorul?
+Pentru simplitate vom denumi contorul ca variabila i dar poate avea orice nume. Este declarat si initializat in prima parte:
+for(let i = 0;;){bloc de instructiuni)
+
+b)
+Cum este integrat contorul in conditia de oprire?
+Parte din mecanismul de oprire este stabilirea valorii maxime pe care o poate avea contorul i si este a doua expresie dintre paranteze reprezentata de conditia logica de oprire, de exemplu limitam pe i la valoarea maxima 10, “i<=10”.
+for(let i = 0; i<=10;){bloc instructiuni}
+
+c)
+Cum poate fi modificat contorul astfel incat sa determine conditia de oprire sa devina falsa?
+Conditia de oprire in momentul acesta va ramane tot timpul adevarata. Trebuie finalizat mecanismul de oprire prin adaugarea unei operatii care sa asigure ca valoarea contorului i ajunge la un moment dat sa fie mai mare decat 10 si conditia i<=10 sa devina falsa. Tot ceea ce este necesar este o instructiune de incrementare, i++.
+for(let i=0;i<=10;i++){bloc instructiuni}
+
+Se poate rescrie instructiunea for ca sa aiba aceeasi forma cu while?
+Sintaxa lui for ofera o anumita flexibilitate, se pot scoate in afara parantezelor cateva dintre componente. Singura care este necesar sa ramana in interiorul parantezelor este conditia de oprire.
+
+let i =0
+for(;i<=10;){
+   bloc instructiuni
+   i++
+}
+Dar modificarea in felul acesta a instructiuni for nu este recomandata. Insa se poate observa asemanarea cu while. De aici se poate trage concluzia ca in fiecare situatie in care se foloseste for se poate rescrie codul cu while. Insa instructiunea for, fiind mai concisa, permite organizarea codului mai bine mai ales cand se parcurg intervale de numere naturale precum cel din exemplu, [0..10].
+
+Care este rolul instructiunii break?
+Daca se intalneste instructiunea break in interiorul blocului de instructiuni atunci executia buclei se opreste si se iese complet din instructiunea de ciclare in care se afla.
+
+Daca exista deja conditii de oprire pentru instructiunile de ciclare care este rostul lui break?
+Sunt situatii de exceptie unde se doreste blocarea executarii restului de cod din blocul de instructiuni pana se ajunge din nou la evaluarea conditiei de oprire. Acele instructiuni dintre break si finalul blocului nu mai sunt executate desi celelalte instructiuni pana la break sunt executate.
+Un alt motiv este tratarea unor conditii suplimentare care ar complica prea mult conditia de oprire a lui while daca ar fi adaugate si ele. In schimb aceste conditii sunt adaugate in interiorul blocului prin intermediul unor instructiuni if care pot intrerupe executia buclei folosind break.
+
+Cand exista doua bucle una in alta cum se poate iesi din ambele deodata.
+Se ataseaza mai intai o eticheta la prima bucla, cea exterioara
+out: for(;;){
+            for(;;){
+ if(conditie) break out
+}}
+In momentul in care conditie este true se executa instructiunea break care acum are asociata si o eticheta.  In acest fel i se spune aplicatiei ca nu va iesi doar din bucla in care este apelata instructiunea break ci va iesi pana la nivelul buclei la care este eticheta asociata cu break si va iesi si din aceasta.
+
+Ce se intampla in codul de mai sus cand in loc de break se foloseste continue?
+out: for(;;){
+            for(;;){
+ if(conditie) continue out
+}}
+
+Si instuctiunea continue iese din bucla si in mod normal aplicatia ar continua cu urmatoarea iteratie in aceeasi bucla. Daca insa se foloseste o eticheta se va sari pana la bucla unde se afla eticheta si i se va spune sa sara la urmatoarea iteratie in bucla cu eticheta. 
+
+Adica daca exista un contor i cu valoarea 4 pentru bucla cu eticheta out se va trece la i = 5 si se va relua executia buclei interioare.
+
+Instructiunea continue permite reluarea executarii buclei dar trecand la urmatoarea iteratie. Care este beneficiul?
+Este o varianta “light” a lui break, adica se renunta la executia restului de bloc dar nu se renunta definitiv la bucla. E selectiv, se pot lasa anumite iteratii sa se finalizeze iar altele sa fie intrerupte. Exemplu sa se afiseze toate numerele pana la 100 care NU sunt divizibile cu 4.
+
+for(let i = 1; i< 100 ;i++){
+    if(i % 4==0) continue 
+        // se sare peste fiecare numar divizibil cu 4 dar restul pana la 100 sunt afisate
+    console.log(i)
+}
+
+############################
+
+//Aplicatii #1
+#############################
+/////////////////////////////////////////////////
+//(1)
+//Care este valoarea afisata de urmatorul cod?
+
+let i = 2;
+
+while(i){
+  console.log(i--)
+}
+
+//Se afiseaza 2, 1. Se observa ca i-- nu modifica valoarea lui i pentru ca e in interiorul lui console.log, instructiunea curenta, si pentru instructiunea curenta i-- (postfixat) nu modifica valoarea lui i. E vorba de doua instructiuni scrise ca o singura instructiune ceea ce nu e recomandat.
+//Este echivalent cu
+
+let i = 2;
+
+while(i){
+  console.log(i)
+  i--
+}
+
+
+
+////////////////////////////////////////////
+//(2)
+//Dar pentru cazul in care console.log se afla dupa i-- ?
+
+let i = 2;
+
+while(i){
+  i--;
+ console.log(i)
+}
+
+//Se afiseaza 1, 0 . 
+
+/*
+In concluzie:
+- daca se doreste folosirea valorii curente pentru i, instructiunea pentru decrementare(i--) trebuie pusa la finalul blocului. 
+- daca se doreste folosirea valorii decrementate, instructiunea de decrementare (i--) trebuie pusa la inceputul blocului.  
+*/
+
+////////////////////////////////////////////
+//(3)
+//Dar pentru folosirea decrementarii in instructiunea for ? 
+//(A)
+for(let i = 2; i > 0; i--)
+{
+console.log(i)
+}
+
+//Se afiseaza 2, 1. Pentru decrementarea i-- folosita in for  nu se poate folosi decat valoarea curenta care nu este decrementata. Intregul bloc este considerat o singura instructiune care se executa pentru valoarea curenta a lui i, si abia dupa executia intregului bloc i se decrementeaza.  Este un comportament convenabil, de obicei ne intereseaza valoarea curenta a lui i si apoi i se decrementeaza dupa ce s-a executat tot blocul, pregatit fiind pentru urmatoarea iteratie.
+
+/////////////////////////////////////////////
+//(4)
+//Dar cand folosim decrementarea prefixata? 
+//(B)
+for(let i = 2; i>0 ; --1)
+{
+console.log(i)
+}
+
+//In acest caz mai intai se decrementeaza si apoi se executa blocul.
+//Se va afisa 1, 0.
+
+//(A) este echivalent cu
+
+let i = 2;
+while(i>0)
+{
+   console.log(i)
+   i--         // i-- se afla la finalul blocului
+}
+
+//iar  (B) este echivalent cu:
+
+let i = 2;
+while(i>0)
+{
+   i--    // i-- se afla la inceputul blocului
+   console.log(i)
+}
+
+/////////////////////////////////////////////
+//(5)
+//Afisati numere impare pana la 10(cateva metode inclusiv o metoda folosind continue)
+
+//Cu while
+//a)
+//verificare rest, pentru rest = 1 se afiseaza numarul impar
+let i = 0;
+while(i<=10)
+{
+ if(i % 2 == 1) console.log(i)
+}
+
+//b)
+//verificare rest, pentru rest = 0 se sare peste acel numar pentru ca e par
+let i = 0;
+while(i<=10)
+{
+ if(i % 2 == 0) continue
+  console.log(i)
+}
+
+//c)
+//saritura din 2 in 2
+let i = 1;
+while(i<=10)
+{
+   console.log(i)
+   i+=2
+}
+
+
+//Cu for, variantele de mai sus convertite din while in for
+
+//a) 
+//verificare rest, pentru rest = 1 se afiseaza numarul impar
+
+for(let i = 0; i<=10; i++)
+{
+ if(i % 2 == 1) console.log(i)
+}
+
+//b)
+//verificare rest, pentru rest = 0 se sare peste acel numar pentru ca e par
+for(let i = 0; i<=10; i++)
+{
+ if(i % 2 == 0) continue
+}
+
+//c)
+//saritura din 2 in 2
+for(let i = 0; i<=10; i++)
+{
+console.log(i)
+i+=2
+}
+
+##############################
+//Aplicatii #2
+############################
+//////////////////////
+// (6)
+
+//Inlocuiti bucla for cu while astfel incat sa-si pastreze modul de executie, sa aiba acelasi rezultat.
+
+for(let i = 0; i< 3; i++) {
+console.log(`numar ${i}`);
+}
+
+//raspuns
+
+let i = 0;
+while(i<3){
+ console.log(`numar ${i}`);
+ i++ //i++ este pus la finalul blocului, ne intereseaza valoarea curenta ca in cazul lui for
+ }
+
+//(7)Creati o bucla care sa ceara un numar mai mare decat 100. Daca se introduce alt numar sa se ceara numarul din nou.
+
+//raspuns
+let nr;
+
+do {
+  nr = prompt("Introdu un numar mai mare decat 100", 0);
+} while (nr <= 100 && nr);
+
+// de ce este utila folosirea lui do..while in loc de while?
+//din cauza verificarii numarului, cu while ar trebui sa-l verificam inainte de al citi in interiorul blocului si am fi fortati sa adaugam o prima citire inainte de while;
+
+let nr;
+nr = prompt("Introdu un numar mai mare decat 100", 0);
+while(nr <= 100 && nr) {
+ nr = prompt("Introdu un numar mai mare decat 100", 0);
+ }
+
+//deci nu mai arata asa de clar din cauza ca vedem doua citiri in loc de una.
+
+//Cum functioneaza varianta cu do..while? 
+//se declara nr si se executa prima iteratie iar nr primeste o valoare de la prompt. 
+//Daca se apasa Cancel nr primeste null care determina conditia (nr <= 100 && nr) sa fie falsa si se iese din bucla
+//Daca se introduce o valoare mai mare decat 100, care este valoarea ceruta, se considera cerinta indeplinita si se iese din bucla pentru ca din nou (nr <= 100 && nr) este falsa
+//Daca valoarea introdusa este mai mica decat 100, se considera ca utilizatorul nu a inteles ce trebuie sa faca, i se mai cere introducerea numarului pentru ca de data asta conditia (nr <= 100 && nr) este true, atat (nr) cat si (nr <= 100) sunt adevarate si bucla se va repeta pana cand utilizatorul va introduce numarul mai mare decat 100 sau va da Cancel.
+//Obs: Se presupune ca se introduc doar numere, altfel pentru conditia (nr <= 100 && nr) apar alte rezultate care nu au fost luate in calcul aici.
+
+// (8) Sa se afiseze numerele prime pana la un numar nr. Sa incercam rezolvarea folosind break ca sa intrerupem bucla interioara cand numarul verificat se gaseste ca nu e prim
+
+// Un numar i nu este prim cand gasim un divizor intre 2 si i. De aceea gasirea numerelor prime de la 2 pana la nr presupune doua bucle "nested". Una care sa parcurga cu o variabila i intervalul 2 .. nr si una care sa verifice daca i este prim
+
+let nr = +prompt("Introdu un numar pana la care se va cauta numerele prime",100)
+(A)urmatorulPrim: for(let i = 2; i <= nr; i++)
+{
+(B)    for(let div =2; div < i ;div++){                  
+(C)        if i % div == 0 continue urmatorulPrim
+        }
+(D)    console.log(i)
+}
+
+//Pe linia A se initializeaza variabila i cu fiecare numar de la 2 la nr
+// Pe linia B se alege cate un posibil divizor div intre 2 si i
+// Pe linia C daca se gaseste un divizor se iese din bucla interioara si se trece la urmatorul numar i din bucla exterioara care are eticheta "urmatorulPrim"
+// Linia D se executa daca nu s-a iesit din bucla (B), asta inseamna ca numarul i este prim si acest mod sunt afisate doar numerele prime pentru care bucla (B) se executa in intregime
+//Am fi tentati sa folosim pe linia C instructiunea break(fara label) dar asta nu ar rezolva problema, ar iesi intr-adevar din bucla curenta dar ar urma afisarea lui i oricum pentru ca linia D si bucla B nu sunt direct conectate
