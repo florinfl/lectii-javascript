@@ -13,6 +13,9 @@ part2:
 
 7. Comparatii, comparatii intre string-uri, string-uri si numere, valori booleene si numere. Conversii automate pentru comparatii intre tipuri diferite de date
 8. Instructiunea decizionala, cele doua tipuri if, if-else. Blocuri de instructiuni si greseli obisnuite de sintaxa. Conversii in boolean ale valorilor non-booleene folosite in conditii logice in instructiunea if. Inlantuiri de instructiuni if - else. Operatorul ternar
+9. Expresii logice, operatori logici, utilizarile secundare ale operatorului OR atribuirea default si scurtcircuitarea. Negatia aplicata unei expresii logice complexe, analizarea efectului negatiei asupra expresiilor logice complexe
+10. Operatorul "nullish coalescing", analizare situatiilor in care valorile "nullish" nu sunt tratate corespunzator cu operatorul OR
+11. Instructiunea repetitiva, instructiunile while si for, asemanari, deosebiri, conversii. Intreruperea buclelor cu instructiunile break si continue.
 
 
 
