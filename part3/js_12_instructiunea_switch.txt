@@ -1,0 +1,97 @@
+Instructiunea switch
+
+
+Instructiunea switch poate inlocui o insiruire de instructiuni if. Dar conditiile nu pot fi oricare ca la instructiunea if, trebuie sa fie vorba de o singura variabila care sa fie verificata pentru egalitate cu mai multe valori.
+
+Astfel insiruirea de if-uri:
+
+alert(“Trebuie sa ghicesti un numar, el se afla intre valorile 4, 5, 6”) 
+let a=+prompt(“introdu un numar”, 4)
+if(a==4) console.log(“mai mic”)
+   else
+   if(a==5)console.log(“ai ghicit numarul!”)
+        else
+         if(a==6)console.log(“mai mare)
+              else console.log(“nu ai ales un numar dintre cele trei pe care le-am stabilit”)
+
+
+poate fi rescrisa sub forma unei instructiuni switch:
+
+
+let a=5
+
+switch(a){
+   case 4: console.log(“mai mic”)
+                 break
+   case 5: console.log(“ai ghicit numarul!”)
+                 break
+   case 6: console.log(“mai mare”)
+                 break
+  default: console.log(“nu ai ales un numar dintre cele trei pe care le-am stabilit”)
+}
+
+Valoarea lui a este verificata pentru egalitate cu cele 3 valori. Daca se potriveste o valoare atunci se executa blocul dintre “case valoare:” si instructiunea “break”
+
+Sintaxa mai include posibilitatea unei optiuni default la final care se comporta ca un else daca nu se potriveste nici o valoare pana atunci. Si in plus instructiunea break poate lipsi daca se doreste comasarea a mai multor cazuri
+
+Exemplu de comasare:
+
+let day = prompt(“In ce zi poti sa faci excursia de care vorbesti ?”,”sambata”)
+
+switch(day){
+case “sambata”:
+case “duminica”: console.log(`Da, ${day} e o zi buna, e in weekend, am timp liber`)
+                              break
+default: console.log(`Nu pot sa ies ${day}, am alta treaba`)
+}
+
+Aici pentru day = “sambata” nu exista break si atunci se sare la urmatorul case care e “duminica”. Functioneaza ca o cascada daca nu se foloseste break ca si cand ar fi instructiuni normale, fara vreo delimitare, trecandu-se de la case la case fara vreo restrictie.
+Aici pentru sambata nu am lasat sa se execute nici o instructiune pentru ca stim ca va ajunge la urmatorul case pentru “duminica, amandoua zilele se potrivesc cu instructiunea care afiseaza ca e zi de weekend.
+Deci am putut comasa doua zile folosind doua case-uri separate dar care se potrivesc aceluiasi scenariu. Avem grija sa punem la ultima zi din scenariu, duminica, instructiunea break ca sa semnalizam ca scenariul nu se mai potriveste pentru restul zilelor care sunt reprezentate de default.
+
+Tipul de date conteaza
+Pentru evaluarea variabilei a in switch(a) conteaza tipul de date a variabilei a ca si cand ar fi comparata folosind egalitatea stricta pentru fiecare case.
+Adica
+
+let a = 3
+switch(a){
+    case 3: console.log(“functioneaza, variabila a este comparata cu valoare intreaga 3”)
+    break
+    case “3”: console.log(“nu se va executa, e un string care contine caracterul ‘3’. ”)
+    break
+}
+
+S-ar putea rescrie cu doua instructiuni if:
+let a = 3
+if(a===3) console.log(“functioneaza, variabila a este comparata cu valoare intreag 3”)
+else if(a===”3”)  console.log(“nu se va executa, e un string care contine caracterul ‘3’. ”)
+
+Sau un alt exemplu de rescriere cu if:
+let a = +prompt(“Introdu un numar intre 1 si 4”,3)
+
+switch(a){
+case 1: console.log(“unu”)
+             break
+case 2: console.log(“doi”)
+             break
+case 3:
+case 4: console.log(“trei sau patru”)
+             break
+}
+ 
+rescris cu if devine:
+
+let a = +prompt(“Introdu un numar intre 1 si 4”,3)
+if(a===1){
+  console.log(“unu”)
+}else if(a===2){
+               console.log(“doi”)
+           }else if(a===3 || a===4){
+                           console.log(“trei sau patru”)   
+                         {
+                           
+Se poate observa ca la conversia in if comasarea cazurilor case 3: si case 4: devine o conditie logica combinata cu operatorul or || : (a===3 || a===4)
+
+Si atunci urmeaza intrebarea: Daca e atat de simplu de inlocuit cu if de ce se mai foloseste switch? 
+Pentru claritatea codului e mai bun switch atunci cand se acumuleaza if-uri. Cand se aduna mai mult de 3 sau 4 if-uri e incepem sa ne gandim daca nu cumva putem sa inlocuim insiruirea de if-uri cu un switch. Doar sa fie vorba de o variabila care sa fie comparata cu valori folosind egalitatea. Pentru inegalitati sau cand sunt implicate mai multe variabile nu vom putea folosi switch. Devine mai evident de ce in urma conversiilor de la switch catre if.
+Acum insa nu putem gasi exemple bune pentru switch. Valoarea lui switch devine mai clara cand trebuie sa construim un sistem amplu de decizii cum ar fi un meniu cu multe optiuni intr-o aplicatie mai mare. Deci switch nu e o instructiune care sa fie de mare ajutor acum dar poate fi utila mai tarziu.

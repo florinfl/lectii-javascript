@@ -1,0 +1,994 @@
+//////////////////////////
+Functii
+/////////////////////////////
+
+
+
+
+Functiile sunt cele de la matematica. Doar ca in programare au devenit cat se poate de generalizate ca sa serveasca oricarui scop.
+De la matematica stim ca o functie poate avea forma
+f(x) = 2*x + 3
+
+Poate fi rescrisa in Javascript 
+
+function f(x){
+   return 2*x +3
+}
+
+Avantajul principal al functiilor e ca se pot construi o singura data si apoi se refolosesc oriunde in cod si ori de cate ori este nevoie.
+De aceea sunt considerate ca fiind principala metoda de constructie si organizare a aplicatiilor(“main building blocks”)
+
+Deja ne-am intalnit cu functiile cand am facut conversii de date, cand am afisat datele in consola, cand am citit date cu prompt. Chiar si instructiunile if, while, for sunt la baza niste functii native Javascript. Deci totul in programare e realizat cu functii, fie ca sunt gata create, fie ca le cream noi.
+
+Declararea unei functii
+
+Pentru crearea unei functii se foloseste metoda “declararii” (function declaration)
+
+Sintaxa este:
+
+function nume_func(){
+   bloc instructiuni
+}
+
+Exemplu:
+
+function greeting(){
+      console.log(“Good morning!”)
+    }
+
+Mai intai se scrie cuvantul cheie function
+Apoi urmeaza numele functiei tot asa cum sunt denumite si variabilele.
+Dupa numele functiei sunt adaugate parantezele rotunde. Scopul lor este sa permita adaugarea de parametri
+Adaugarea parametrilor se face in interiorul parantezelor rotunde, fiecare parametru fiind despartit de urmatorul folosind virgula. 
+Urmeaza definirea corpului functiei care nu este altceva decat un bloc de instructiuni. Acesta este creat ca si blocul de instructiuni obisnuit, folosind acolade.
+
+Parametri pentru functie
+
+In matematica pentru o functie nu se poate accepta lipsa parametrilor, a variabilelor dintre parantezele functiei, adica trebuie sa fie macar unul ca date de intrare. In programare se pot crea functii si fara parametri la fel ca in exemplul de mai sus, functia greeting(){...}, pentru ca nu intotdeauna e nevoie de date de intrare.
+
+Exemplu de declarare functie cu mai multi parametri:
+
+function felicitare(nume, nota)
+{
+   console.log(`Felicitari ${nume} pentru nota ${nota}`)
+}
+
+La modul general o functie cu n parametri are forma
+
+function func_name(param1, param2, ... paramN){
+  //corpul functiei
+}
+
+O functie odata declarata nu are nici un efect fara a fi apelata. Apelarea unei functii create de noi este la fel ca apelarea unei simple instructiuni, se scrie numele functiei insotita de paranteze rotunde si de eventualii parametri.
+
+function greeting(){
+      console.log(“Good morning!”)
+  }
+
+greeting()
+greeting()
+
+sau pentru functia felicitare() de mai sus
+
+felicitare(“Dan”, 10)
+
+Putem sa apelam o functie creata de noi de mai multe ori. Astfel codul din functie poate fi refolosit ori de cate ori este nevoie chiar daca a fost scris o singura data. 
+Acesta este unul din scopurile utilizarii functiilor, evitarea duplicarii codului.
+
+Obs: Incepand cu functiile intalnim manifestari “functionale” ale lui Javascript. Javascript este limbaj functional si in crearea  de aplicatii sunt necesare aceste caracteristici. Pentru invatare algoritmica nu sunt atat de necesare, se poate folosi doar partea “clasica” a lui Javascript. 
+
+
+////////////////////
+Variabile locale si externe
+////////////////////
+
+
+Variabile locale si externe
+
+Variabile locale
+O variabila care este declarata in interiorul unei functii vizibila doar in interiorul acelei functii. Este denumita variabila locala pentru acea functie pentru ca exista doar pentru acea functie are si o durata de viata in memorie doar cat timp functia este executata.
+
+   <script>
+  function test_local(){
+    let numar = 3
+    console.log(numar)
+}
+
+test_local()
+
+</script>
+
+Am declarat o functie test_local() care contine o variabila numar si instructiunea console.log() pentru afisarea variabilei numar.
+
+Variabila numar este locala pentru functia test_local() pentru ca a fost definita in blocul functiei. Pot fi definite oricate variabile locale. Vom considera totusi ca variabilele locale pentru functie sunt cele definite pe nivelul 0 al functiei pentru a putea fi vizibile peste tot in functie. Acele variabile care sunt definite in blocuri de instructiuni in interiorul functiei nu mai sunt vizibile de pe nivelul 0 al functiei
+
+Exemplu:
+<script>
+function test_bloc(){
+//bloc nivel 0
+let numar = 3
+  
+   {//bloc nivel 1
+     let numar_par = 4
+   }
+
+console.log(numar)//3
+console.log(numar_par)// Uncaught ReferenceError: numar_par is not defined
+}
+
+test_bloc()
+</script>
+
+Avem deci o situatie in care variabilele definite in interiorul blocului “nivel 1” nu se vad din blocul functiei test_bloc(), pe nivelul 0. Dar variabilele din exteriorul blocului se vad in interiorul blocului. Are legatura cu asa-zis-ul domeniu de vizibilitate. 
+
+Obs. Domeniul de vizibilitate este un concept cheie privind legaturile dintre functii in orice limbaj de programare. Pentru moment nu vom face referire la domenii de vizibilitate (scope/lexical scope).
+
+Variabile externe
+
+Variabilele externe sunt variabile definite in exteriorul unui bloc sa a unei functii. Ele sunt vizibile din interiorul blocului sau a functiei.
+
+<script>
+let outer_nr = 2
+
+function test_extern(){
+    let local_nr = 3
+    console.log(local_nr)//3
+    console.log(outer_nr)// 2
+}
+
+test_extern()
+</script>
+
+Variabila outer_nr a fost declarata in afara functiei dar este vizibila in interiorul functiei.
+
+Atat local_nr cat si outer_nr sunt vizibile in functie. Deci nu este nici o problema cu vizibilitatea catre un nivel extern pana la nivelul 0 al functiei parinte, si bineinteles nici cel local, ci doar catre blocurile sau functiile interioare.
+
+
+Mai mult, variabila outer_nr poate fi modificata in interiorul functiei test_extern():
+
+<script>
+let outer_nr = 2
+
+function test_extern(){
+   outer_nr+=8
+    console.log(outer_nr)// 10
+}
+
+test_extern()
+</script>
+
+
+Sau un exemplu cu mai multe functii pe mai multe niveluri
+
+<script>
+let outer_nr = 2
+
+function nivel_0(){
+
+    function nivel_1(){
+      outer_nr++ //(A)
+    }
+
+nivel_1()
+
+outer_nr++ //(B)
+}
+ 
+nivel_0()
+
+console.log(outer_nr)//4 
+//ambele incrementari, de pe linia (A) si (B), s-au aplicat pentru outer_nr
+
+</script>
+
+Aici se acceseaza outer_nr din mai multe functii pe mai multe nivele, functie nivel_0 si functia nivel_1 care se afla in nivel_0. Ambele au modificat pe outer_nr.
+
+Deci variabilele externe pot fi atat accesate cat si modificate. Nu conteaza cate niveluri sunt intre o functie parinte si o functie interioara, functia interioara poate accesa si modifica variabilele externe definite pe nivelul functiei parinte.
+
+
+Aici variabila outer_nr este si variabila globala pentru ca este declarata la nivelul 0 in script. Variabilele globale se comporta ca variabile externe pentru orice functie din script.
+
+
+Ce se intampla daca sunt declarate doua variabile cu acelasi nume, una intr-o functie parinte si alta intr-o functie interioara?
+
+Exemplu:
+<script>
+
+function demo_extern(){
+
+let nr = 2  // (A)
+
+   function demo_intern(){
+     let nr = 3 //(B)
+     console.log(nr)//3, are prioritate variabila locala 3, 
+     }
+
+demo_extern()
+
+</script>
+
+Variabila definita in functia demo_extern(), nr = 2, pe linia (A),  este diferita de cea definita in functia demo_intern(), pe linia (B), fiind in functii diferite. Prioritate o au variabilele locale si doar atunci cand nu se gaseste acea variabila printre variabilele locale se cauta in functia externa. Sau se mai spune ca variabilele locale “umbresc” (shadow) variabilele cu acelasi nume externe
+
+In concluzie,o variabila este vizibila daca 
+este definita in interiorul functiei pe acelasi nivel cu instructiunea care o foloseste(variabila locala)
+este definita in exteriorul functiei (variabila externa), fie in blocul in care este definita functia (nu unde se executa), fie intr-un al bloc sau altei functii parinte.
+
+Obs. Diferenta dintre locul unde este definita o functie si unde se executa e o subtilitate Javascript care tine de domenii de vizibilitate si care la randul lor depind de modul in care se executa Javascript. In Javascript exista doua faze de executie care determina modul in care sunt create domeniile de vizibilitate. Fiind o tema mai complexa trebuie analizata in momentul in care se ajunge la sectiunea domenii de vizibilitate.
+
+//////////////////////
+Variabile globale
+//////////////////////
+
+
+Variabile globale
+
+Revenim la variabile globale pentru ca desi sunt doar variabile externe pentru functiile definite pe nivelul 0 si automat pentru toate functiile din aplicatie, ele reprezinta mai mult de atat. Ele pot fi atat un beneficiu cat si o problema de securitate a codului. Fiind vizibile peste tot ele pot fi folosite ca o linie de comunicare pe toata lungimea aplicatiei dar aceeasi linie poate fi modificata neintentionat mai ales cand sunt mai multi programatori la acelasi proiect.
+
+
+Exemplu
+<script>
+let nr = 5
+
+function func1(){
+       console.log(nr) // 5
+       nr++  // (A)
+      console.log(nr)  // 6, variabila nr fost incrementata 
+}
+
+function func2(){
+     console.log(nr) // 6
+}
+
+func1() //afiseaza 5 apoi 6
+func2() //afiseaza 6
+</script>
+
+In acest exemplu variabila nr este globala pentru ca a fost declarata chiar dupa inceperea scriptului, pe nivelul 0, si este vizibila in toate functiile. Daca cineva insa o modifica din greseala, asa cum s-ar putea intampla pe lina (A), acea modificare va fi permanenta pentru variabila globala pe tot parcursul rularii aplicatiei, pentru toate functiile care o folosesc.
+
+In general se evita folosirea variabilelor globale. Sunt situatii cand exista date folosite de mai multe functii din aplicatie (date care “traverseaza” aplicatia) si atunci se accepta folosirea variabilelor globale. Insa de obicei se folosesc doar variabile locale pentru functii. Exista mai putine riscuri de modificare neintentionata a variabilelor globale daca acestea sunt reduse la minimum.
+
+Parametri - formali si efectivi
+
+Se pot transmite date catre functii folosind parametri
+Parametrii sunt adaugati chiar la declararea unei functii
+
+function suma(a,b){
+  let s = a + b
+   console.log(s)
+}
+
+Variabilele a si b sunt date intre paranteze si se cheama parametri (parameters). In romana li se mai spune parametri formali pentru ca nu servesc decat ca interfata de transmitere date catre interiorul functiei.
+
+La momentul apelarii functiei se folosesc insa valori concrete. Ele se numesc in engleza “arguments”. In romana li se spun parametri efectivi pentru ca intr-adevar, sunt valorile “efective”, datele utile, care sunt trimise functiei, a si b fiind doar intermediari, formali.
+
+Avem deci urmatoarele semnificatii pentru parametri;
+La declararea functii
+function nume_func(p1, p2, p3...){..}
+p1,p2, p3... sunt parametri formali, in engleza parameters
+
+La apel functii
+nume_func(val1, val2, val3.,..)
+val1, val2, val3 sunt parametri efectivi, valori efective, in engleza arguments
+
+Obs:
+Vom folosi uneori denumirea din romana(parametri efectivi si formali) dar folosind parametru si argument (parameters, arguments) e mai scurt, le vom folosi pe acestea mai des. Vom putea folosi si denumirea de valoare sau variabila pentru parametrii efectivi(arguments) de la momentul executiei unei functii dar intotdeauna pentru definirea unei functii ar trebui sa folosim doar denumirea de parametru (formal).
+
+Cand se apeleaza functia suma cu valorile concrete:
+suma(1,2)// afiseaza 3
+
+Aici valorile 1 si 2 sunt valorile efective
+
+parametrii a si b primesc valorile 1 si 2 ca si cand ar fi atribuiri
+
+a = 1
+b = 2
+
+Valorile “efective”, concrete 1 si 2 sunt transmise parametrilor(formali) a si b si acestia preiau rolul de variabile locale pentru functie si sunt folosite cu valorile primite in interiorul functiei.
+
+In cazul functiei suma() exista 3 variabile locale. Doua sunt chiar parametrii a si b iar a treia, variabila s, este definita in interiorul corpului functiei suma().
+
+Efectul apelarii functiei cu valorile 1 si 2 ar putea arata asa dupa inlocuire:
+
+function suma(a,b){
+  let s = a + b
+   console.log(s)
+}
+
+suma(1,2) 
+=>
+suma(1,2){
+  s = 1 + 2 
+  console.log(s)
+}
+
+Se poate apela functia suma si cu valori date prin variabile
+
+<script>
+function suma(a,b){
+  let s = a + b
+   console.log(s)
+}
+
+let nr1 = 3
+let nr2 = 7
+
+suma(nr1, nr2)// se afiseaza 10
+</script>
+
+Aici in loc de valori numerice folosim variabilele nr1, nr2 ca intermediari. Ele poarta numele de parametri efectivi (arguments)pentru ca sunt variabilele care contine datele utile, efective pentru functia suma(). Ei se afla intre paranteze la apelul functiei si nu la declararea functei.
+
+
+Functiile trebuie sa fie cat mai generale
+
+Se poate pune intrebarea:
+De ce avem nevoie de parametri daca putem accesa variabilele externe in interiorul functiei?
+
+<script>
+function suma(){
+  let s = nr1 + nr2
+   console.log(s)
+}
+
+let nr1 = 3
+let nr2 = 7
+
+suma()// se afiseaza 10
+</script>
+
+Se poate face si asta si de obicei vom face asta cu variabile globale pe care dorim sa le modificam. Dar vom evita legaturi cu variabile externe in interiorul functiilor pentru ca asta leaga functiile de acele variabile externe. Acele functii nu pot fi folosite decat in acel loc unde au fost declarate acele variabile externe. Deci functia nu mai poate fi refolosita in alte locuri. Functiile ar trebui sa poata fi refolosite de mai multe ori.
+In orice caz scopul nostru este sa facem functiile cat mai putin dependente de un loc anume din cod. Utilizarea parametrilor permite ca functiile sa fie generale si sa fie folosite oriunde. O functie este declarata cu parametri formali dar acei parametri formali pot primi orice valoare, inclusiv orice variabile externe, fara insa sa se faca o legatura definitiva cu acele variabile.  Astfel se permite ca functiile sa fie folosite nu doar in diferite locuri din aplicatie dar chiar si in aplicatii diferite.
+
+/////////////////////////
+Transfer prin valoare
+/////////////////////////
+
+
+
+Transfer prin valoare
+
+Se pot da aceleasi nume si pentru parametri formali si pentru cei efectivi. E bine sa se evite asta dar vom face lucrul acesta oricum, de obicei pentru ca nu mai dorim sa mai adaugam nume noi de variabile.
+
+<script>
+function suma (a, b) { //(A)
+let s = a + b
+console.log(s)
+}
+
+let a = 3 //(B)
+let b = 7
+
+suma(a,b) // afiseaza 10  (C)
+</script>
+
+Cineva ar vedea codul si ar crede ca sunt aceleasi variabile a si b, si in definirea functiei suma(A), si la apelul functiei (C). Dar am stabilit deja ca parametrii sunt variabile locale deci parametrii functiei a si b (A) sunt alte variabile fata de variabilele definite pe nivelul 0 al scriptului, a=3 si b=7 (B)
+
+Variabila a folosita pe linia (A) la definirea functiei este parametru formal si in acelasi timp variabila locala pentru functia suma()
+Variabila a declarata pe linia (B) este variabila externa pentru functia suma() si mai apoi este transmisa ca parametru efectiv la apelul functiei suma pe linia (C)
+
+Tipul acesta de transfer de la variabila a externa la variabila a interna se numeste transfer prin valoare. Astfel variabilele a si b transmise functiei ca parametri efectivi nu ajung la interiorul functiei, se opresc in zona cu parametri si cedeaza valorile celorlalte valori a si b care sunt parametrii formali ai functiei.
+
+De aceea la inceput, pana se intelege mecanismul transmiterii valorilor ca parametri, e bine sa fie folosite nume diferite pentru parametrii formali si cei efectivi (parameters vs arguments)
+
+Vom reface exemplu cu denumiri diferite pentru parametri formali si cei efectivi:
+<script>
+ function suma (a, b) {
+   let s = a + b
+  console.log(s)
+ }
+
+let nr1 = 3
+let nr2 = 7
+
+suma(nr1, nr2) // afiseaza 10
+</script>
+
+Aici se poate observa mecanismul transferului prin valoare folosind variabile denumite diferit. Avem a si b ca parametri formali si nr1 si nr2 ca parametri efectivi.
+La apelul functiei suma(nr1, nr2) se intampla urmatoarele atribuiri:
+a = nr1
+b = nr2
+In acest mod valoarea din nr1 ajunge in a, iar valoarea din nr2 ajunge in b. Ulterior parametrii a si b sunt folositi in interiorul functiei suma() ca niste variabile locale obisnuite.
+
+E ca la matematica
+
+f(x, y) = x + y
+daca avem
+x1 = 2 si y1=3
+atunci putem calcula valoarea functiei pentru cele doua valori x1, y1
+
+f(x1, y1) = x1 + y1 => 2 + 3
+
+Transfer prin valoare si referinta:
+
+Prin valoare
+Pentru valori primitive, Number, String, Boolean, null, undefinded, transferul se face doar prin valoare.  Variabilele de aceste tipuri de date nu vor pastra modificari daca au fost date ca parametri efectivi pentru functii dupa ce acestea se executa. Se transmit doar valorile de la o variabila externa la una interna, de la parametri efectivi catre cei formali, ca si cand ar fi o simpla atribuire.
+Prin referinta
+Obs: Transferul prin referinta are legatura cu tipuri de date non primitive pe care inca nu le-am parcurs, vom avea exemple concrete la obiecte/vectori.
+
+Pentru valori non primitive, Object, Array, transferul se face doar prin referinta. Valorile non-primitive daca sunt transmise ca parametrii efectivi pastreaza modificarile aduse de functii dupa ce acestea se executa. Atentie! vorbim de valori, NU de variabile. Adica modalitate de transmitere(valoare/referinta) depinde de tipul de date si nu de modul in care este declarata o variabila. 
+
+Pentru valorile primitive accesul se face direct asupra valorii, nu se poate cunoaste adresa de memorie, nu poate fi decat o singura variabila care sa fie asociata cu o valoare primitiva. Pe de alta parte o valoare non primitiva, de tip object, poate fi asociata cu mai multe variabile. 
+Valorile non primitive sunt accesate doar prin adresa de memorie. Iar acea adresa de memorie poate fi copiata in alte variabile.  Toate variabilele care contin acea adresa de memorie pot accesa valoarea non primitiva de la acea adresa.
+
+Daca adresa de memorie a valorii non primitive se afla in mai multe variabile atunci se poate accesa acea valoare prin intermediul tuturor variabilelor cu acea adresa de memorie. 
+
+Folosirea unei variabile efective non primitive la apelul unei functii inseamna transmiterea adresei de memorie din acea variabila catre parametrul functiei, asta insemnand crearea unui duplicat pentru acea adresa de memorie. Deci prin preluarea de catre parametrul formal a acelei adrese de memorie parametrul formal devine  o variabila “alias”, duplicat,  pentru valoarea non primitiva transmisa functiei. Atat variabila efectiva cat si parametrul formal au acces direct catre valoarea non primitiva. Daca parametrul formal este modificat, modificarea este facuta asupra valorii non primitive originale a carei adresa se afla acum in ambele variabile, variabila efectiva si parametrul formal. Cand functia se termina si parametrul formal dispare din memorie, variabila efectiva va “vedea” in continuare valoarea non primitiva modificata de catre parametrul formal al functiei care tocmai a fost sters din memorie.
+
+
+
+Obs:
+Cei care au lucrat in C++ vor descoperi ca in Javascript nu exista un mecanism de transmitere prin referinta folosind adrese de memorie ale variabilelor. Ci doar ale valorilor de tip Object(aici se incadreaza si vectorii Array)
+
+In alte limbaje de programare precum C++ exista mecanisme permit transmiterea prin referinta folosind o sintaxa simpla (exemplu: void radical(int & n){...}) . Modificarile facute asupra variabilei de la acea adresa de memorie se mentin si dupa finalizarea functiei pentru ca se lucreaza direct la adresa de memorie a variabilei. In Javascript nu exista metoda asta cu lucrul pe adrese de memorie ale variabilelor ci doar pe adrese de memorie ale valorilor de tip Object(non primitive). Deci la definirea unei functii in Javascript nu exista un indicator visual pentru un parametru formal ca sa-l identifice ca parametru pentru transmiterea prin referinta. Acel parametru poate transmite orice. Doar prin folosirea valorilor de tip Object apare mecanismul de transfer prin referinta. Si atunci transferul e doar prin referinta pentru ca o variabila cu un astfel de obiect poate contine doar adresa valorii de tip Object. Pentru valori din aceste tipuri de date nu exista transfer prin valoare.
+
+Faptul ca nu se poate copia corpul obiectului intr-o variabila, ci doar adresa lui, creaza cateva dificultati. Pentru rezolvarile care tin de acest comportament se poate cauta “object shallow copy” sau “object deep copy” si exista metode care functioneaza bine pentru obiecte nu foarte complexe. In ultimii ani (martie 2022) instructiunea structuredClone(value) a fost creata pentru copierea exacta a obiectelor prin clonarea structurii. Fara aceasta instructiune algoritmul corect de copiere al obiectelor complexe e mai dificil, e nevoie de un algoritm recursiv pentru duplicarea structurii arborescente a obiectelor.
+
+(https://www.freecodecamp.org/news/clone-an-object-in-javascript/)
+(https://dev.to/dharamgfx/bye-bye-jsonstringify-and-obj-hello-structuredclone-2e4c)
+
+///////////////////////////
+Exemplu transfer prin valoare vs referinta: (optional)
+///////////////////////////
+
+
+Exemplu transfer prin valoare vs referinta: (optional)
+
+Transfer prin valoare:
+<script>
+//functie care aduna 3 la valoarea unei variabile
+   function aduna(x){
+    x = x + 3
+   }
+
+let a = 2
+aduna(a)
+console.log(a)//2, variabila efectiva a ramane neschimbata
+</script>
+
+Transfer prin referinta 
+<script>
+//functie care aduna 3 la valoarea unei proprietati a unui obiect
+   function aduna(x){
+    x.a = x.a + 3
+   }
+
+let a = 2
+
+//cream un obiect cu proprietata ‘a’ care va transporta informatia utila din variabila a
+let obj = {a}
+
+console.log(obj) // {a:2}, valoarea initiala a lui obj inainte de a fi transferat catre functie
+aduna(obj)
+console.log(obj) // {a:5}, obj a iesit din functia aduna pastrand modificarea
+
+a = obj.a // se transfera valoarea stocata in obj inapoi in a
+console.log(a)//5
+</script>
+
+
+Sa-l punem pe Tabnine la treaba ca sa explice codul cu transferul prin referinta. Tabnine e o extensie AI din VS Code care ne poate ajuta cu corectare, autocomplete, documentare si chiar cu explicatii. 
+
+Puteti face si dvs acelasi lucru (dupa ce instalati extensia Tabnine), luati codul si il copiati in VS Code, il selectati, apoi clic dreapta, din optiunea “Tabnine” alegeti “Explain this code”
+
+Tabnine:
+
+The selected code snippet demonstrates the concept of passing by reference in JavaScript. Here's a breakdown of the code:
+1.
+A function aduna(x) is defined, which takes an object x as an argument. Inside the function, the value of the property a of the object x is incremented by 3.
+2.
+A variable a is declared and assigned the value 2.
+3.
+An object obj is created with a property a that holds the value of the variable a.
+4.
+The initial value of obj is logged to the console, which displays {a: 2}.
+5.
+The aduna(obj) function is called, passing obj as an argument. This function modifies the property a of obj by adding 3.
+6.
+The modified value of obj is logged to the console, which displays {a: 5}. The function has successfully modified the object's property.
+7.
+The value of the property a of obj is assigned to the variable a using a = obj.a.
+8.
+The final value of a is logged to the console, which displays 5. The value has been successfully transferred from the object's property to the variable.
+This example demonstrates that when an object is passed as an argument to a function, any modifications made to the object's properties inside the function are reflected outside the function as well. This is because JavaScript passes objects by reference, not by value.
+
+/////////////////////////
+Valori implicite - default
+/////////////////////////
+
+
+Valori implicite - default
+
+
+Atunci cand o functie este apelata dar lipseste un argument (parametru efectiv), valoarea corespunzatoare transmisa parametrului (parametrului formal) este undefined.
+
+De exemplu felicitare(de_la, catre) 
+
+function felicitare(de_la, catre)
+{
+  let text = `Felicitari de la ${de_la} pentru ${catre} !`
+  console.log(text)
+}
+
+In mod normal o vom apela cu doua valori.
+
+felicitare(“Bogdan”, “Dana”)
+//afiseaza: `Felicitari de la Bogdan pentru Dana !`
+
+Dar poate fi apelata cu un singur argument:
+
+felicitare(“Bogdan”) //afiseaza: `Felicitari de la Bogdan pentru undefined !`
+
+Nu se genereaza o eroare insa pentru al doilea argument care lipseste nu se mai transmite nici o valoare parametrului catre si atunci parametrul catre ramane undefined
+
+Se poate specifica la declaratia functiei o valoare implicita care este folosita automat daca argumentul corespunzator lipseste.
+
+function felicitare(de_la, catre=”cineva”)
+{
+  let text = `Felicitari de la ${de_la} pentru ${catre} !`
+  console.log(text)
+}
+
+Daca vom apela functia felicitare() fara al doilea argument
+
+felicitare(“Bogdan”)
+se afiseaza `Felicitari de la Bogdan pentru cineva !`
+
+Aici pentru parametrul catre se lasa ca default un text simplu “cineva” dar se pot lasa functii mai complexe care sa returneze o valoarea la momentul evaluarii. In momentul in care nu se gaseste argumentul corespunzator se atribuie parametrului valoarea evaluarii functiei
+
+function felicitare(de_la, catre=toataClasa() )
+{
+  let text = `Felicitari de la ${de_la} pentru ${catre} !`
+ console.log(text)
+}
+
+iar functia toataClasa() returneaza un text “toti colegii din clasa”
+
+function toataClasa(){
+return “toti colegii din clasa”
+}
+
+atunci daca lipseste al doilea argument:
+
+felicitare(“Bogdan”)
+afiseaza: `Felicitari de la Bogdan pentru toti colegii din clasa !` 
+
+
+Parametri default in stilul vechi, cu atribuire in interiorul functiei
+(si ca exercitiu pentru atribuirea default)
+
+Parametrii default nu au putut fi folositi dintotdeauna, inainte sa apara in Javascript se folosea metoda cu comparatii sau atribuire default.
+
+metoda cu if()
+function felicitare(de_la, catre)
+{
+
+  if(catre === undefined){
+    catre = “cineva”
+  }
+
+    let text = `Felicitari de la ${de_la} pentru ${catre} !`
+   console.log(text)
+}
+
+Se va accepta orice valoarea pentru parametrul catre, inclusiv sirul vid sau chiar null, mai putin lipsa unui argument pe pozitia lui catre caz in care catre primestre valoarea “cineva”
+
+felicitare(“Bogdan”, null)// ‘Felicitari de la Bogdan pentru null !’
+felicitare(“Bogdan”)// ‘Felicitari de la Bogdan pentru cineva !’
+
+metoda cu atribuire default
+
+function felicitare(de_la, catre)
+{
+    catre = catre || “cineva”
+
+    let text = `Felicitari de la ${de_la} pentru ${catre} !`
+   console.log(text)
+}
+
+felicitare(“Bogdan”)// afiseaza ‘Felicitari de la Bogdan pentru cineva !’
+felicitare(“Bogdan”,null)// afiseaza ‘Felicitari de la Bogdan pentru cineva !’
+felicitare(“Bogdan”, ””) // folosind sirul vid operatorul OR|| nu-l va accepta, va returna tot “cineva”, se va afisa acelasi lucru,  ‘Felicitari de la Bogdan pentru cineva !’
+
+
+Daca totusi se accepta sirul vid, in loc de operatorul OR || ar trebui folosit operatorul nulish coalescent
+
+function felicitare(de_la, catre) {
+            catre = catre ?? "cineva si"
+
+            let text = `Felicitari de la ${de_la} pentru ${catre} toata clasa !`
+            console.log(text)
+        }
+
+        felicitare("Bogdan", "Dana si")//afiseaza: `Felicitari de la Bogdan pentru Dana si toata clasa !`
+        felicitare("Bogdan")//afiseaza: `Felicitari de la Bogdan pentru cineva si toata clasa !`
+
+        felicitare("Bogdan", "")//afiseaza: `Felicitari de la Bogdan pentru toata clasa !`  
+
+La ultimul apel de functie, sirul vid “”, ca argument pentru parametrul catre, a fost acceptat si atribuit lui catre datorita operatorului nulish coalescent ??. Operatorul OR || nu l-ar fi acceptat.
+
+
+///////////////////////////
+Returnarea unei valori din functie
+///////////////////////////
+
+
+Returnarea unei valori din functie
+
+
+O functie trebuie sa fie capabila de a returna o valoare. Asta este scopul ei de la matematica. Fara returnarea unei valori o functie nu are sens. 
+f(x) = x**2 , in acest caz datele de intrare sunt reprezentate de o valoare oarecare x iar datele de iesire reprezinta valoarea obtinuta in urma ridicarii la puterea a doua a lui x
+
+Returnarea se face adaugand cuvantul cheie return urmat de valoarea de returnat din functie.
+
+function patrat(x){
+   let y = x**2
+   return y
+}
+
+sau daca expresia de calculat e de mici dimensiuni ca in cazul nostru se poate returna direct
+
+function patrat(x)
+    return x**2
+}
+
+Cand executia ajunge la “return” executia functiei se opreste si se returneaza valoarea de dupa return daca exista. Adica se poate folosi si return fara nici o valoare si atunci functia returneaza undefined. E ca si cand ar returna false
+
+function ecuatie(a,b){
+  if(a==0) return
+  return (-b/a)
+}
+
+let a = 0
+let b = 2
+
+if(ecuatie(a,b))
+{
+ console.log(`Ecuatia are solutia ${ecuatie(a,b)}`)
+} else {
+ console.log(“Nu exista solutie pentru ecuatie”)
+}
+
+Pot fi mai multe aparitii a lui return intr-o functie, se pot afla pe diferite ramuri in mai multe instructiuni if:
+
+function verificaVarsta(varsta)
+{
+   if(varsta >= 18){
+ return true
+   }  else {
+      return confirm(“Ai acceptul scris al parintilor pentru a merge in excursie?”) 
+   }
+}
+
+let varsta = prompt(‘Ce varsta ai?’, 18)
+
+if(verificaVarsta(varsta))
+{
+  console.log(“Poti merge in excursie”)
+}
+else
+{
+ console.log(“Nu indeplinesti conditiile pentru a merge in excursie”)
+}
+
+O functie care nu returneaza nimic sau nu contine “return” returneaza undefined
+
+functie nuFaceNimic(){
+}
+
+console.log(nuFaceNimic())//undefined
+
+sau
+
+functie nuReturneazaNimic(){
+ return // functia foloseste cuvantul ‘return’ insa neinsotit de o valoare , ramane undefined 
+}
+
+console.log(nuReturneazaNimic()) // undefined
+
+
+Returnarea expresiilor complexe
+
+Probabil ca la inceput vom crea functii care returneaza valori simple. Poate cu timpul vom returna expresii din ce in ce mai complexe. Este recomandat? La inceput nu. Dar cautand raspunsuri pe Internet se pot gasi uneori exemple in care o functie este creata foarte succint, uneori cu un singur rand, cel cu return. 
+De exemplu
+
+function verificaVarsta(varsta)
+{
+   if(varsta >= 18){
+ return true
+    }  else {
+      return confirm(“Ai acceptul scris al parintilor pentru a merge in excursie?”) 
+   }
+}
+
+poate fi rescrisa
+
+function verificaVarsta(varsta){
+return varsta>=18 ||  confirm(“Ai acceptul scris al parintilor pentru a merge in excursie?”) 
+}
+
+Intreaga instructiune if se reduce la o expresie OR||, in acest caz o scurtcircuitare.
+Aici se scurtcircuiteaza executia lui confirm(), daca varsta >=18 este true evaluarea expresiei logice se opreste si se returneaza true.
+
+Nu se returneaza o expresie pe mai multe randuri
+
+Valoarea returnata de return trebuie sa fie pe acelasi rand ca si return. Daca dorim sa returnam o expresie de mari dimensiuni pe mai multe randuri atunci expresia trebuie pusa intre paranteze, ca o expresie obisnuita care urmeaza sa fie evaluata.
+
+function func1(){
+return (
+ “o expresie ” +
+“pe mai multe ”+
+“randuri”)
+}
+
+
+//////////////////////////
+Functii ca intermediari pentru alte functii
+//////////////////////////
+
+
+Functii ca intermediari pentru alte functii
+
+In programare functiile sunt create pentru a fi cat mai generale. Se incearca modularizarea astfel incat o functie sa nu fie incarcata cu multe sarcini. De aceea functiile sunt descompuse in functii mai mici care pot fi gestionate. Dar asta inseamna ca functiile care compun o problema  mai mare trebuie sa colaboreze intre ele, adica sa-si transmita datele.  Functiile primesc date de intrare prin parametrii si returneaza datele procesate care la randul lor sunt primite de alte functii. Astfel majoritatea functiilor devin intermediari (“middleman” sau “middleware”) intre functiile care returneaza date si cele care accepta . Datele de iesire de la o functie sunt date de intrare pentru alta.
+
+f1(f2(f3(f4(x))))
+sau
+a = f4(x)
+b = f3(a)
+c = f2(b)
+d = f2(c)
+
+Chiar daca la inceput aplicatiile vor fi simple vom incerca sa facem functiile cat mai usor de gestionat si in loc sa cream functii de mari dimensiuni vom imparti rezolvarea problemelor in functii mici care returneaza rezultatul catre alte functii. Acest lucru nu este stabilit in vreo regula dar strategiile se creaza in timp odata cu experienta.
+
+Exemplu de expresie cu doua operatii. Suma de doua numere ridicate la patrat
+S = a**2 + b**2
+
+function suma(x,y){
+return x + y
+}
+
+function patrat(x){
+return x**2
+}
+
+Combinand cele doua functii avem:
+S = suma(patrat(a), patrat(b))
+sau
+n = patrat(a)
+m = patrat(b)
+S = suma(n,m)
+
+
+
+Nume pentru functii
+
+Functiile sunt actiuni deci ar trebui denumite dupa actiunea pe care o face fiecare. Ar trebui folosit un verb care sa descrie actiunea. De exemplu functiile care incep cu “afiseaza” sau “show” vor afisa un rezultat. 
+
+ “creaza/create” creaza ceva
+“get” - returneaza o valoare
+“calc” - calculeaza ceva
+“check” - verifica ceva si returneaza o valoarea booleana
+
+Exemple:
+“afisMesaj”, “calcMedie”, “getAge”, “createRecord”, “checkPasword”
+
+O functie trebuie sa faca o singura actiune nu mai multe
+
+Astfel daca avem dificultati sa denumim o functie pentru ca face prea multe lucruri atunci inseamna ca trebuie sa impartim acea functie in mai multe functii
+
+In plus nu trebuie adaugate actiuni suplimentare chiar daca par minore
+
+Exemple de actiuni care nu respecta numele functiei
+getAge - nu ar fi bine sa afiseze varsta, functia ar trebui doar sa returneze varsta
+createForm - nu ar fi bine sa adauge un formular in pagina, doar sa genereze, concateneze tag-urile HTML intr-un singur obiect(element, string) si sa-l returneze
+checkPermission - nu ar fi bine sa afiseze un mesaj “acces permis / refuzat”, doar ar trebui sa faca o verificare si sa returneze true/ false.
+
+
+
+//////////////////
+Intrebari raspunsuri
+//////////////////
+
+
+Intrebari raspunsuri
+
+De unde vine notiunea de functie?
+Din matematica, rolul unei functii este sa primeasca o valoare, sa relizeze calcule asupra ei si sa o returneze. 
+
+Cum se calculeaza cu ajutorul unei functii?
+Se folosesc parametri pentru functii. De exemplu x este parametru pentru functia f(x) = 2*x + 1. Pentru valori concrete se furnizeaza valori efective
+f(1) = 3, f(5) = 11
+sau folosind variabile
+x1 = 1, f(x1) = 3
+x2 = 5, f(x2) = 11
+
+Cum se creaza o functie in Javascript?
+Exista cateva metode de a crea o functie in Javascript. Prima metoda e cea a declararii(function declaration)
+
+Care e sintaxa pentru declararea unei functii?
+Se scrie cuvantul cheie “function” urmat de numele functiei si apoi de paranteze rotunde. Dupa numele functiei se ataseaza blocul de instructiuni care se afla intre acolade.
+function func1() {
+  bloc instructiuni
+}
+
+Rolul parantezelor este sa permita adaugarea de parametri pentru functie. Chiar daca nu sunt parametri de adaugat la functie parantezele sunt obligatorii.
+
+Care este sintaxa pentru adaugarea parametrilor?
+Parametrii se adauga intre paranteze despartiti prin virgula, la fel ca la matematica
+function suma(x,y){ 
+console.log(x+y)
+}
+
+Cum se realizeaza apelarea functiei?
+Se scrie numele functiei si paranteze
+mesaj()
+Sau daca sunt valori de transmis ca parametri acestia se adauga intre paranteze.
+suma(2,3)
+
+La declararea functiei, in blocul de instructiuni al functiei, pot exista variabile definite local?
+Se pot declara variabile ca si pe nivelul 0 al scriptului. Cele declarate in functie se cheama locale(locale raportat la functie). Cele declarate pe nivelul 0 al scriptului se cheama globale.
+
+<script>
+  let a = 2 // variabila globala pe nivelul 0
+  
+    function adunare(x){
+      let b = 3 // variabila locala, in interiorul functiei
+      console.log(x+b)
+   }
+
+  adunare(a) // apel functie
+  console.log(b)//eroare, variabila locala b nu este vizibila din exteriorul functiei
+</script>
+
+Se pot accesa variabilele locale ale unei functii din exteriorul ei?
+Nu se pot accesa variabilele locale din exterior. In exemplul de mai sus incercarea de afisare a variabilei b din exteriorul functiei genereaza eroare.
+
+Variabilele locale se aplica doar functiilor?
+Nu doar functiilor, orice variabila declarata intr-un bloc de instructiuni este locala pentru acel bloc.
+
+    <script>
+        let a = 1
+        {
+            let b = 2
+            {
+                let c = 3
+            }
+            console.log(b)//2
+            //console.log(c)//daca se executa genereaza eroare
+        }
+        console.log(a) // 1
+        console.log(b) // eroare
+        console.log(c) // eroare, executia nu mai ajunge aici
+    </script>
+
+Ce sunt variabilele externe?
+Sunt opusul variabilelor locale, sunt acele variabile din exteriorul unei functii sau al unui bloc. Ne vom referi la variabile externe de obicei la cele care sunt definite in functia parinte al unei functii. Pot fi si alte variabile externe care nu se afla in functii parinte, acelea nu mai sunt externe, nu au nici o relatie cu functia.
+
+Variabilele externe ale unei functii sunt vizibile in interiorul functiei?
+Da, orice variabila intr-o functie parinte este vizibila. Vizibilitatea merge pana la functia de pe nivelul 0 daca aceasta este parinte.
+
+Variabilele externe de pe nivelul 0 al scriptului sunt mai speciale?
+Variabile externe de pe nivelul 0, chiar pe nivelul scriptului, se numesc globale. Ele se afla in asa-zis-ul context global vizibil de catre orice functie. Orice variabila globala poate accesata de catre orice functie si poate fi modificata.
+
+Ce se intampla daca sunt declarate doua variabile cu acelasi nume, un locala si una externa?
+Se permite existenta variabilelor cu acelasi nume doar sa fie in blocuri diferite. Ele sunt variabile diferite atat timp cat sunt in blocuri diferite.
+
+Conteaza vizibilitatea variabilelor externe pentru functii care sunt executate in alt loc fata de locul unde sunt declarate?
+Vizibilitatea depinde doar de locul unde sunt declarate si NU unde se executa. Deci depinde doar de locul unde functia “sta”, unde se afla scrisa.
+
+///
+Intrebari raspunsuri
+///
+Intrebari raspunsuri
+
+Ce reprezinta variabilele globale?
+Sunt variabile externe pentru toate functiile adica sunt vizibile din orice functie. Asta este echivalent cu a fi definite pe nivelul 0 al aplicatiei. De obicei variabilele globale sunt definite la inceputul scriptului.
+
+De ce variabilele globale pot reprezenta o problema de securitate si o sursa de erori in aplicatie?
+Varaibilele neprotejate nu sunt binevenite in aplicatii. De-a lungul timpului in limbajele in limbajele de programare s-au dezvoltat mecanisme pentru ascunderea variabilelor sensibile la accesul altor functii. Un mecanism deja il stim, variabilele locale nu pot fi accesate din exterior. Un alt mecanism se gaseste la obiecte care permit crearea de variabile private. Si asta ca sa ajute procesul de testare si eliminare a erorilor sau pentru imbunatatirea securitatii codului. In schimb variabilele globale sunt create tocmai pentru a nu pune nici o piedica in accesarea lor. Asta inseamna ca toata lumea care lucreaza la un proiect trebuie sa stie de existenta acelori variabile si trebuie sa aiba grija cum le acceseaza. Modificarea unei variabile globale prin intermediul unei functii oarecare poate influenta comportamentul intregii aplicatii intr-un mod neprevazut. Prin urmare cu cat sunt mai putine variabile globale cu atat mai bine.
+
+Ce sunt parametrii formali pentru o functie?
+Sunt parametrii pe care ii are o functie la declarare. Parametii formali sunt scrisi intre paranteze. Ei reprezinta poarta de intrare a valorilor intr-o functie la fel cum variabila x este poarta de intrare pentru valori in functia f(x) = x + 2. Parametii formali scris intre parantezele functiei inseamna in aceasi timp ca sunt declarati in interiorul functiei, deci sunt locali pentru acea functie.
+
+function welcome(persoana){
+console.log(`Bine ai venit ${persoana} !`)
+}
+
+Aici variabila persoana este parametru formal, va primi orice valoare si in acest mod functia poate fi folosita oriunde, in orice loc din aplicatie. Existenta parametrilor determina ca functiile sa fie generale. Functiile primind valorile prin parametrii si nu prin variabile externe devin independente. Prin contrast daca s-ar folosi de variabile externe functiile nu ar putea fi folosite decat in acel bloc unde au fost definite si unde exista acele variabile externe. 
+
+Ce sunt parametii efectivi?
+Sunt variabile sau valori date la apelul functiei.
+Apelul functiei de mai sus cu o valoare efectiva (in engleza argument).
+welcome(“Alex”) // afiseaza ‘Bine ai venit Alex’
+
+Care este legatura dintre parametri efectivi si cei formali?
+La momentul apelulu functiei cu parametri efectivi se face transferul de valoare de la cei efectivi la cei formali. Este ca si cand ar fi atribuire. Functia ulterior este executata asa cum este ea declarata dar acum in interiorul functiei parametrii formali se comporta ca variabile locale care contin valorile din parametrii efectivi.
+
+Apelul functie welcome cu valoarea efectiva “Alex”
+wecome(“Alex”)
+determina ca parametrul formal persoana sa primeasca valoarea “Alex” ca si cand ar fi atribuire
+persoana = “Alex”
+Din acest moment functia se executa iar valoarea variabilei persoana este “Alex”. Variabila persoana este si variabila locala pentru functia welcome()
+
+Ce este transferul varibilelor prin valoare?
+La momentul apelarii functiei cu variabile efective, acestea cedeaza valorile catre parametrii formali ai functiei. Cedarea valorilor se face ca o simpla atribuire de la variabilele efective catre cele formale. Odata ce functia se termina de executat variabilele formale dispar iar cele efective raman neschimbate. 
+
+Dar daca avem nevoie ca variabilele efective sa se modifice? Nu este un neajuns faptul ca variabilel originale nu pot fi modificate?
+Exista cateva metode, prima e returnarea unei valori si apoi acea valoare va inlocui valoarea din variabila efectiva. Sau se pot folosi variabile externe sau globale care sa memoreze valori necesare si dupa executia functiei. De asemeni se pot returna obiecte complexe cu valorile de care avem nevoie care mai apoi sa inlocuiasca valorile originale din variabile efective.
+
+Care este cea mai directa metoda pentru modificarea variabilelor efective?
+Transferul prin referinta
+Prin folosirea unor valori non-primitive, din categoria Object, pentru ca acestea permit accesul la adresa lor de memorie si devin astfel accesibile prin orice variabila care contine acea adresa de memorie. Transferul in acest caz nu mai este pe baza de valoare ci pe baza de referinta pentru ca referinta la valoarea obiectului din memorie este “valoarea” unui obiect.
+Tipul acesta de transfer se cheama prin referinta. La momentul apelului unei functii cu variabile efective ce contin obiecte, se face transferul prin valoare a adresei de memorie. Adica e transfer clasic prin valoare doar ca acum e transfer de adresa de memorie. Asta inseamna ca atat variabila efectiva cat si cea formala au acces la adresa de memorie a obiectului. Facand modificari asupra obiectului prin intermediul variabila formale nu se modifica adresa de memorie ci valoarea de la acea adresa. La final, dupa executarea functiei, variabila efectiva va avea adresa de memorie neschimbata, ca si variabila formala care tocmai a disparut, insa la adresa respectiva obiectul a pastrat modificarile. Altfel spus ambele variabile adreseaza aceeasi locatie de memorie, cea a obiectului transferat prin referinta, si ambele beneficiaza de modificarile aduse obiectului de la acea adresa de memorie.
+
+///
+Intrebari raspunsuri
+///
+Intrebari raspunsuri
+
+Ce sunt valorile implicite pentru parametri formali?
+Sunt valorile care sunt automat atribuite parametrilor formali daca parametrii efectivi lipsesc pe acele pozitiii
+
+Cate metode pentru parametri formali exista?
+Exista doua abordari, cea moderna si cea veche.
+Cea moderna reprezinta o sintaxa noua si presupune specificarea valorii default intre parantezele functei la declarare:
+function aduna(a,b =3 ){...}
+Metoda veche foloseste verificare variabilelor in interiorul codului. Daca variabila e undefined ii atribuie o valoare.
+Varianta noua este mai curata, separa logica functiei de verificarea parametrilor.
+
+Folosind metoda veche exista avantaje?
+Exista un avantaj folosind atribuire default. Se poate rafina pentru cazurile in care parametrul formal este nulish si dorim sa-l tratam separat.
+
+function impartire(a,b){
+  b = b || 1 //in caz ca b este egal cu 0, pentru a evita impartirea la 0 i se da alta valoare
+  console.log(a/b)
+}
+
+Ce inseamna returnarea unei valori din functie.
+O functie la matematica are sens doar daca returneaza o valoare. Returnare inseamna a da inapoi o valoare. In programare nu e nevoie totdeauna de returnare valori. Dar de multe ori vom avea nevoie sa returnam rezultatul operatiilor din functie catre o alta variabila care la randul ei poate fi parametru efectiv pentru alta functie. In Javascript vom folosi cuvantul cheie “return” urmat de valoarea de returnat
+
+function suma(a,b){
+return a + b
+}
+
+let s1 = suma(2,3) // se stocheaza valoarea calculata in functia suma
+console.log(s1) // 5, se afiseaza valoare returnata de functie in variabila s1
+
+
+Se pot folosi variabile globale in loc de return?
+Se pot folosi variabile globale si in loc de parametri formali si in loc de returnarea valorilor dar o functie trebuie sa fie independenta deci nu se vor folosi variabile globale daca e posibil.
+
+//Nu se recomanda in acest fel:
+let a=2,b=3,s1
+
+function suma(){
+s1 = a + b
+}
+
+suma()
+console.log(s1)
+
+Care este efectul instructiunii return?
+Instructiunea return face doua lucruri. 
+In primul rand opreste executia functiei si cedea controlul functiei din care a fost epelata sau contextului global daca a fost apelata de acolo. Daca nu exista nici o valoare dupa “return” functia returneaza undefined.
+In al doilea rand daca dupa cuvantul “return” exista o valoare sau o variabila aceasta va fi oferita ca valoare pentru atribuire catre alta variabila sau alta functie dupa finalizarea executiei. Daca functia nu este atribuita la executie atunci valoarea returnata este ignorata.
+Ex:
+function suma(a,b) {return a + b }
+suma(2,3)// nu se intampla nimic dupa returnare, se returneaza valoarea 5 dar nu e preluata de nici o variabila sau de vreo functie
+
+Ce se intampla daca se omite cuvantul “return”?
+Fara return functia se executa pana la final si se finalizeaza fara returnarea nici unei valori. Valoarea returnata este undefined.
+
+Ce regula se impune la denumirea unei functii?
+O functie trebuie denumita dupa ceea ce face. De obicei se foloseste un verb care desemneaza actiunea functiei. O denumire corecta poate fi substitut pentru un comentariu la acea functie.
+
+Cat de complexa poate fi construita o functie?
+Daca numele unei functii e de exemplu getName() atunci trebuie sa fim preocupati doar de returnarea unei valori string care reprezinta un nume. Nu ne intereseaza sa adaugam in functie si operatia de afisare. Deci functia trebuie sa fie cat mai simpla si sa faca doar ce spune numele ei.
+
+Ce se poate face daca o functie devine prea complexa?
+Se incearca descompunerea in functii mai mici. Metoda implica crearea de functii mai mici care sa descompuna problema mare in subprobleme mai mici. Astfel functiile vor recompune problema mare rezolvand fiecare subproblema mai mica si returnand valoarea calculata urmatoarei functii de pe traseul de rezolvare.
+
+Asfel daca functie_mare(params) poate fi descompusa in functii mai mici f1, f2, f3, ... fn vom avea urmatoarea echivalenta:
+functie_mare(params) = f1(f2..(fn(params))) 
+
+Este ceva asemanator cu compunerea functiilor la matematica
+
+In realitate situatiile pot fi complexe si descompunrea nu va fi deloc atat de liniara. Vor putea fi pe traseu functii care sa primeasca rezultatul de la alte trei functii, nu exista reguli. Oricum ar fi, descompunerea in subprobleme este una din abilitatile cele mai importante in programare.
