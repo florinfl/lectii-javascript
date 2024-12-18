@@ -17,6 +17,11 @@ part2:
 10. Operatorul "nullish coalescing", analizare situatii in care valorile "nullish" nu sunt tratate corespunzator cu operatorul OR
 11. Instructiunea repetitiva, instructiunile while si for, asemanari, deosebiri, conversii. Intreruperea buclelor cu instructiunile break si continue.
 
+part3:
+
+12. Instructiunea switch
+13. Functii: declarare, parametri. Variabile locale, externe, globale. Parametri formali, efectivi (parameters, arguments). Transfer prin valoare, referinta. Exemplu transfer referinta. Utilizare extensie AI Tabnine. Valori default. Returnarea valorilor din functii. Nume corecte pentru functii
+
 
 
 
