@@ -1,0 +1,649 @@
+==============================
+Domeniu de vizibilitate vs Lexical Scope
+Este o clarificare pentru situatiile din lectiile anterioare cand fost folosit denumirea de domeniu de vizibilitate pentru mai multe situatii.
+
+Domeniul de vizibilitate este denumirea in limba romana pentru Lexical Scope in Javascript si nu numai.
+
+Vom stabili ca atunci cand facem referire la domeniu de vizibilitate, inseamna “function local scope”. Pentru toate celelalte domenii de vizibilitate vom cauta alte denumiri specifice. Probabil ca nu este foarte corect sau strict dar e mai usor pentru explicatii.
+
+Asta pentru ca exista 4 tipuri de domenii de vizibilitate(scopes) si mai ales se pot referi atat la vizibilitatea pe care o are o functie in raport cu variabile locale, externe si globale dar si vizibilitatea pe care o poate avea o variabila pentru alte functii. 
+Deci avem atat de multe posibilitati incat apare confuzie. De aceea pe tot parcursul discutiei despre vizibilitate functii si variabile vom face referire doar la domeniul de vizibilitate local pentru o functie, local scope, asta insemnand lista de variabile locale pentru o functie.
+Cand ne vom referi la variabile vom specifica exact ce variabila este vizibila intr-o anumita functie deci nu vom folosi denumirea de domeniu de vizibilitate pentru o variabila.
+De asemeni cand vom vorbi despre functii nested e posibil sa le denumim si ca functie descendent, functie interioara. La fel si pentru blocuri. In limba romana mai apare denumirea de “imbricat” dar nu o vom folosi.
+
+Inainte de analiza tipurile de domenii sa stabilim cum se realizeaza legaturile dintre domenii in prima faza de executie Javascript.
+
+Avem functiile f0, f1, f2
+f2 nested pentru f1 nested pentru f0
+sau
+Daca o functie f0 contine o functie f1 care la randul ei contine o functie f2 atunci se creaza o lista cu domenii astfel:
+
+
+domeniu f2 - > domeniu f1 - > domeniu f0
+
+Vizibilitatea e in sensul sagetilor
+
+Adica functia f2 vede variabilele din f1 si f0 
+f1 vede pe f0 dar nu pe f2
+f0 nu vede nimic in afara de propriile variabile locale
+
+
+Sa analizam cate tipuri de domenii exista:
+Global scope: variabile definite pe nivelul 0, vizibile de orice functie de pe nivelul 0 sau nested, de aici nu se vad variabilele din interiorul altor functii, domeniul global este ultimul din lista de domenii. Vom face referire la acest domeniu ca fiind multimea variabilelor globale. Toate functiile au acces la acest domeniu fiind ultimul de sus din arborele de domenii. Fiind ultimul in acelasi timp nu se poate vedea de aici nici o variabila din alte domenii ale altor functii.
+
+Local scope: variabile din interiorul unei functii sau bloc accesibile doar in interiorul acelei functii sau bloc. Acesta e domeniul de care vom vorbi aproape tot timpul.
+
+Nested scope: functiile nested au acces la variabilele functiilor parinte.  Vorbim tot timpul despre asta si spunem ca functiile nested vad domeniul functiilor parinte. Variabilele functiilor parinte sunt variabile externe pentru functiile “nested”. 
+Functia f2 vede domeniul lui f1 si a lui f0, f2 fiind nested in f1 care la randui este nested in f0. Nu ne vom referi la denumirea de nested scope. Vom spune ca functia “nested” / descendent f2 vede variabila x din functia parinte f1.
+
+Block scope: domeniile de viziblitate nu se limiteaza la functii, ele exista chiar si in blocuri. Exista atat domenii de vizibilitate pentru blocuri cat si contexte de executie. Deci exista acelasi mecanism ca si in cazul functiilor. Dar nu ne vom referi la acest tip de domeniu, aduce prea multa complexitate in discutie dar vom sti ca el exista. 
+De exemplu declararea cu “let” a unei variabile determina existenta acelei variabile intr-un domeniu la nivel de bloc in timp ce declararea cu “var” determina existenta variabilei la nivel de functie, ca si cand ar fi declarata in blocul principal al functiei.
+
+In concluzie singurul domeniu la care vom face referire este cel local si despre acesta este vorba cand intalnim denumirea de “function scope”. 
+
+Vom intalni si denumirea de lexical scope. Lexical se refera la pozitia intr-un dictionar, sau vocabular, in cazul nostru pozitia in cod.
+Lexical scope se refera la locul unde sunt declarate variabilele si functiile, adica faptul ca este important locul in cod unde sunt declarate.
+==================================
+Expresii in Javascript
+==================================
+Din acest moment intram pe teritoriul programarii functionale. Atunci cand functiile sunt considerate expresii, adica sunt evaluate pentru textul reprezentat de corpul functiei, ele devin in acel moment simple valori. De aici Javascript ia o alta directie catre programarea functionala. Ne vom intoarce tot timpul la notiuni din programarea clasica care se aplica la toate limbajele de programare insa crearea aplicatiilor va urma stilul programarii functionale
+
+Pana acum iata care au fost situatiile cand am intalnit expresii. E vorba de acele situatii cand este necesara evaluarea:
+valorilor din dreapta operatorului atribuire, 
+comparatii,
+expresii logice, 
+termeni dintr-o expresie complexa in functie de prioritatea operatorilor, 
+evaluarea parametrilor pentru functii, 
+evaluarea valorilor la returnarea din functii 
+sau chiar evaluare a unei expresii “in place”, fara sa fie preluata de vreo variabila asa cum este cazul scurtcircuitarii pentru OR||
+
+Ideea de expresie apare asociata cu evaluarea valorii produsa de catre multimea operatorilor si operanzilor din acea expresie.
+Mai ales cand vorbim de atribuire, operatorul de atribuire avand cea mai mica precedenta, orice se afla in dreapta operatorului este denumita expresie pentru ca este evaluata(redusa la o singura valoare) inainte de atribuire.
+
+Functiile expresie din Javascript sunt functii care nu sunt executate dar sunt atribuite altor variabile. Prin atribuire se evalueaza corpul functiei si se returneaza functia, asa cum a fost creata la declarare, ca un simplu text.
+
+Deoarece este vorba de atribuire de functii, daca intalnim functii in partea dreapa a operatorului de atribuire vom denumi acele functii ca fiind “functii expresii”. Totusi trebuie facuta distinctie intre functii care se executa si functii care sunt tratate ca valoare.
+
+function func(){
+return 10
+} 
+
+
+Atribuire functii care se executa
+let a = func();// variabila a primeste valoarea 10, nimic deosebit, e ceea ce stim deja ca trebuie sa faca o functie, se se execute si sa returneze o valoare.
+
+Functia func() in acest caz are paranteze si se executa. O putem considera expresie pentru ca in urma executiei este evaluata ca orice tip de expresie in Javascript dar in acest caz, in care se executa, nu o vom denumi asa. O vom denumi simplu “functie executata iar valoarea returnata este atribuita variabilei din stanga operatorului de atribuire”.
+
+
+Atribuire functie care nu se executa
+
+Dar ce se intampla cand avem
+let b = func 
+de data asta fara paranteze asociate lui func?
+
+E o mare diferenta cand functia nu se mai executa.  Functia fara paranteze este evaluata pentru corpul de functie creat la declarare, pentru acel text pe care l-am scris la crearea ei, acel text va fi returnat cand functia este evaluata. 
+Deci functia cand este utilizata fara paranteze este ca o simpla valoare ce contine corpul functiei sub forma de text
+
+let b = func; // Variabila b primeste o valoare cu textul care reprezinta corpul functiei
+console.log(b)
+
+Se afiseaza
+ƒ func(){
+ return 10
+}
+
+Ce se afiseaza la consola este un text cu functia in sine si este pus caracterul ƒ in fata textului specificand ca nu e doar un text, e o functie.
+
+Functia scrisa fara paranteze, func, o vom considera expresie. Fara sa fie executata functia func este evaluata, nu pentru ce valori returneaza ca functie la momentul executiei, ci pentru ce contine la declarare, pentru textul format din numele functiei si blocul de instructiuni al functiei.
+
+Astfel de ficare data cand vom folosi functii fara paranteze, ca expresie, inseamna ca ne intereseaza sa stocam sau sa transmitem acea functie ca text, nu sa o executam. 
+In realitate o functie este un obiect, dar vom reveni la asta.
+
+Obs. Functiile expresie chiar se comporta ca string-uri. In operatiile de concatenare a unei functii expresie cu valori numerice, valorile numerice sunt convertite in string si atasate textului functiei asa cum se intampla cu textele obisnuite in cazul concatenarii.
+
+console.log(func+99)
+//Afiseaza:
+function func(){
+return 10
+}99
+
+
+Sa analizam cateva cazuri in care apar functii expresie:
+
+Functie expresie
+
+Atribuire si declarare in acelasi timp. Este metoda de creare a functiilor expresie prin atribuire. Despre asta vom discuta imediat.
+
+let func1 = function(){...}
+
+variabila func1 primeste o functie fara nume care tocmai se declara. Acestea sunt functiile expresie pentru ca sunt create prin atribuirea unei functii care nu se executa, se atribuie corpul acesteia.
+
+Stocare functii in variabile
+
+
+let func2 = func1;
+variabila func2 primeste corpul functiei func1 deja declarata. Si aici se creaza o functie expresie func2 care este identica cu func1. Dar pentru ca deja exista functia func1 vom spune ca func2 doar stocheaza/ memoreaza functia func1.
+
+Obs. Functiile sunt obiecte si comportamentul obiectelor la copiere este acela ca fac duplicat pentru adresa se memoriei a aceluiasi obiect. Deci variabilele care contin valoarea functiei contin adresa de memorie a acelei functii, acelasi obiect functie. Astfel func si func2 sunt aceasi functie pentru ca stocheaza adresa de memorie a aceleiasi functii.
+
+====================================
+Functii expresie
+==================================
+
+Deoarece o functie poate fi declarata dar si stocata este posibil un al doilea stil de creare functii, prin stocarea directa a unei functii “no name” intr-o variabila. Iar acea variabila, pe langa faptul ca e variabila, devine si functie. Va fi doua lucruri in acelasi timp.
+
+O functie se declara
+Asta e metoda clasica, ce-a pe care am folosit-o deja
+
+function mesaj(pers){
+ return (`Bine ai venit ${pers}`)
+}
+
+O functie poate fi  stocata intr-o variabila
+Atribuirea unei functii fara nume unei variabile genereaza o functie. O denumim functie expresie pentru ca se afla in partea din dreapta a operatiei de atribuire si este evaluata ca o expresie oarecare.
+
+let msg_expr = function(pers){
+ return (`Bine ai venit ${pers}`)
+}
+
+Astfel variabila msg_expr stocheaza o functie si poate fi executata la randul ei ca functie daca i se ataseaza parantezele.
+
+msg_expr(“John”) // Bine ai venit John
+
+Atat functia mesaj de la primul exemplu cat si variabila msg_expr din al doilea contin functia sub forma de string (sau o forma speciala de string)
+
+Putem afisa “stringul” fiecarei functii:
+
+console.log(mesaj)
+
+ //(A)
+ƒ mesaj(pers){      
+ return (`Bine ai venit ${pers}`)
+}
+
+console.log(msg_expr)
+
+//(B)
+ƒ (pers){               
+ return (`Bine ai venit ${pers}`)
+}
+
+Diferenta de afisare dintre cele doua functii e ca functia stocata in variabila msg_expr este afisata fara nume (linia B).  E corect, a fost creata de la bun inceput fara nume si apoi stocata in variabila msg_expr.
+
+Dar, atat timp cat amandoua functiile fac acelasi lucru cand sunt executate, care este totusi diferenta dintre ele, de ce trebuie un al doilea stil, cel cu functie expresie?
+
+Un motiv poate fi faptul ca folosind la declarare o variabila in stanga, ca nume pentru functie, e mai usor de vazut in timp ce verificam codul. Poate da sau nu, depinde de fiecare programator.
+
+Un alt motiv e faptul ca lumea incet se obisnuieste cu stilul functional in care functiile devin valori obisnuite. Unii programatori incep sa vada functiile ca simple valori si declararea unei functii devine mai mult sau mai putin acelasi lucru cu declararea si initializarea unei variabile. Pentru ca asa si este, folosind functiile ca functii callback sau valori returnate de alte functii, devine o obisnuinta sa fie considerate simple valori de tip Function, ocazional valori similare cu cele de tip Object, care pot fi stocate in variabile.
+
+Unii totusi recomanda declararea unei functii in stil clasic
+function numeFunc(){..}
+
+Exista un motiv pentru asta si anume mecanismul hoisting. Este specific pentru Javascript dar beneficiile sunt discutabile.
+
+Pe scurt hoisting permite functiilor declarate in stil clasic sa fie executate inainte de fi declarate. Nu se aplica functiilor expresie din cauza ca functiile expresie sunt create folosind operatia de atribuire. Iar atribuirile valorilor catre variabile au loc la un alt moment fata de declararea clasica a functiilor. De aici apare si diferenta cea mai importanta dintre cele doua tipuri de functii si anume la momentul executiei functiile declarate clasic sunt deja in memorie iar cele de tip expresie asteapta inca sa fie atribuite variabilelor.
+
+Nu creaza un mare avantaj folosirea acestui mecanism hoisting dar problema merita studiata oricum. Ne ofera ocazia sa analizam ce se intampla in timpul celor doua faze de executie in Javascript
+
+Concluzie:
+Vom folosi declararea clasica pentru functii cand nu ne intereseaza aspectul functiei ca valoare ci doar ca functie clasica.
+Vom folosi functii expresii cand vom lucra cu functii ca valori pe care le vom stoca in variabile locale, externe, globale, le vom putea transmite ca parametri pentru alte functii sau le vom putea returna din alte functii, putand astfel profita de tot ce ofera lucrul cu variabile in general. Vom putea astfel extrage si combina ce e mai bun din ambele lumi, cea a variabilelor ce stocheaza si manipuleaza valori si cea a functiilor care pot fi executate, pot primi sau returna valori.
+
+====================================
+Cele doua faze de executie in Javascript (optional)
+=====================================
+Javascript este un limbaj care se executa in mod interpretat. Adica fiecare linie de cod se executa independent de ce urmeaza dupa ea. Pot fi erori sau nu, executia continua pana la prima eroare sau pana se termina de executat codul. Nu se intampla asa in alte limbaje de programare unde se creaza un fisier binar, cod masina, care este garantat corect din punct de vedere sintactic inainte de executie.
+
+Acest mecanism de interpretare si executie a codului a fost conceput sa ruleze la randul lui in doua faze. In prima faza se creaza o lista de variabile si functii si tot acum se colecteaza informatiile pentru domeniile de vizibilitate ale variabilelor in raport cu functiile care le “vad”.
+Abia in a doua faza se executa codul. Executie inseamna atribuiri catre variabile, executia instructiunilor decizionale si repetitive(bucle) si a functiilor.
+
+Ce se intampla in prima faza?
+Se stabilesc care sunt variabilele, se stiu numele lor, se incarca in memorie alocandu-se pentru moment doar “un pic” de memorie. Inca nu se stie ce valori ajung in variabile, atribuirile vor fi abia in faza a adoua de executie si abia atunci se aloca memoria completa necesara pentru valori.
+Se incarca in memorie functiile declarate prin metoda clasica: function numeFunc(){}. Prin urmare din acest moment functiile “clasice” vor gata incarcate in memorie pentru faza a doua.
+
+Deci acum, dupa prima faza, avem atat variabile cat si functii clasice incarcate in memorie. Cu o diferenta intre ele totusi, in timp ce functiile clasice sunt incarcate complet in memorie, variabilele inca nu isi cunosc valorile, sunt doar declarate dar neinitializate. Vor fi initializate cu valori in faza a doua de executie, dupa executia atribuirilor.
+
+Ce se intampla in faza a doua?
+Singurele care sunt complet cunoscute in aceasta faza, inca de la inceputul ei, sunt functiile clasice. De aceea functiile pot fi apelate acum de oriunde din cod fara nici o restrictie. 
+Adica putem de la bun inceput, cand lucram la cod,  sa le declaram oriunde vrem noi si sa le apelam de oriunde atat timp cat declararea si apelul sunt in acelasi domeniu de vizibilitate, ca la variabile. Nu pot fi vizibile la executie decat functiile declarate in acealasi bloc sau in functii parinte. 
+Exista deci aceasta libertate de a declara o functie indiferent de locul din cod unde urmeaza sa fie apelata. Acest lucru, desi nepermis in alte limbje de programare, este posibil aici si chiar apreciat de unii programatori.
+Acesta este mecanismul de hoisting si este un produs secundar al existentei celor doua faze de executie in Javascript, prima faza permite incarcarea in memorie a functiilor care vor fi astfel disponibile pentru faza a doua, faza de executie.
+
+Urmatorul script e corect
+<script>
+hello()// hello de oriunde din cod
+
+function hello(){
+console.log(“hello de oriunde din cod”)
+}
+</script>
+Se observa ca functia hello() este apelata inainte de declarare, functioneaza fara nici o problema
+
+Acum ca stim ce se intampla cu functiile, la fel se intampla si cu variabilele?
+Nu, pentru ca variabilele depind de atribuirile valorilor catre ele. Iar aceste atribuiri sunt doar in faza a doua de executie, operatorul de atribuire este executat doar in faza a doua. Variabilele pot fi accesate si inainte de atribuiri dar vor fi nedefinite, vor avea valoarea undefined de la declararea din prima faza. Deci nu va exista eroare dar nu e nici un folos sa fie folosite atat timp cat sunt nedefinite. 
+
+Urmatorul cod nu genereaza eroare dar nu se poate accesa valoarea 10 a variabilei a inainte de initializarea acesteia
+<script>
+ console.log(a)// undefined
+
+let a = 10
+</script>
+
+Am ajuns unde aveam nevoie. Functiile de tip expresie se creaza folosind atribuirea si atunci vor avea aceeasi problema ca si variabilele, nu vor contine valoarea decat dupa atribuire. Deci nu vor putea fi folosite inainte de crearea lor.
+
+<script>
+
+hello_expresie()// Eroare: Uncaught ReferenceError: Cannot access 'hello_expresie' before initialization
+
+let hello_expresie = function(){
+console.log(`Atentie, nu pot fi afisat decat dupa atribuire!`)
+}
+</script>
+Spre deosebire de functiile declarate clasic, functiile expresie genereaza eroare daca sunt apelate inainte de atribuire
+
+
+In schimb functia ruleaza fara probleme daca este apelata dupa creare
+
+<script>
+//(A)
+let hello_expresie = function(){
+console.log(`Atentie, nu pot fi afisat decat dupa atribuire!`)
+}
+
+hello_expresie() //`Atentie, nu pot fi afisat decat dupa atribuire!`
+</script>
+Aici functia expresie este apelata dupa crearea ei prin atribuire, se comporta similar cu o variabila, poate fi folosita doar dupa ce i s-a atribuit corpul functiei pe linia (A)
+
+
+Recapitulam:
+Functiile declarate prin metoda clasica (function nume(){}) sunt incarcate in memorie in prima faza. Si variabilele sunt cunoscute acum dar numai sub forma de nume si li se aloca niste memorie insa nu sunt initializate cu valori. 
+Dar spre deosebire de variabile functiile declarate sunt incarcate in memorie complet, cu tot cu numele parametrilor dintre paranteze si corpul functiei.
+
+Functiile expresie sunt incarcate in memorie a doua faza pentru ca depind de operatia de atribuire care este executata abia in faza a doua de executie. E la fel cum se intampla si cu variabilele aplicatiei pentru ca functiile expresie sunt create prin atribuirea catre o variabila.
+
+Astfel functiile declarate pot fi folosite peste tot in cod in faza a doua de executie pentru ca au fost incarcate in memorie in prima faza de alocare a memoriei odata cu variabilele din aplicatie, acestea din urma incarcate in memorie doar partial, declarate dar neinitializate.
+
+Dar functiile expresie nu pot fi folosite decat in faza a doua, si abia dupa ce au ajuns sa fie stocate in variabilele asociate pentru ca depind de operatorul de atribuire “=” care este executat in faza a doua de executie.
+
+Deci functiile declarate in mod clasic au acest avantaj al executiei independent de locul declararii pentru ca sunt deja in memorie la momentul executiei. Asta inseamna hoisting. Hoist in limbaj engleza inseamna a ridica (an act of raising or lifting)
+Adica in Javascript “ridicarea” apelului functiei inainte de declararea ei. 
+
+Dar oricat ar fi apreciat acest mecanism de catre unii, nu este totusi recomandat. Indiferent de modul cum sunt declarate functiile ele ar trebui sa fie folosite(executate) tot timpul dupa ce au fost declarate si nu inainte. Regulile ne ajuta sa citim si sa testam codul mai usor de aceea regula executiei functiei doar dupa declarare ne ajuta sa cautam mai usor locul declararii unei functii aceasta aflandu-se doar inainte de locul din cod unde este executata. Insa sunt si alte pareri, poate sunt motive bune pentru care unii prefera folosirea acestui mecanism “hoisting”, poate trimiterea declaratiilor functiilor la finalul codului face ca acesta sa fie mai usor de scris, cel putin in faza de dezvoltare orice e permis ca sa ne fie mai usor sa scriem cod si sa-l testam.
+Chair daca apelam sau nu la acest hoisting, e mai importanta intelegerea mecanismului cu cele doua faze de executie in Javascript pentru ca are implicatii pe care le vom descoperi mai tarziu cand vom vorbi despre domenii de vizibilitate obisnuite si domenii de vizibilitate pentru functii closures.
+Obs:
+Am gasit deja o consecinta a celor doua faze de executie, la discutia despre variabile externe si locale. Functiile “vad” variabilele externe in functie de locul unde se declara, nu unde se executa.
+
+==============================
+Functii calback
+==============================
+
+Reprezinta un mecanism de transmitere, stocare si apelare functii. 
+
+Mecanismul de utilizare a functiilor callback poate fi schematizat:
+
+a)Functile callback pot fi  transmise ca parametri efectivi si stocate in parametri formali.
+b) Prin intermediul parametrilor formali, evaluati ca functii, functiile callback pot fi executate.
+c) Functiile care primesc alte functii callback ca valori efective la executie se numesc functii de nivel inalt(higher order functions)
+
+Trimiterea functiilor ca parametri si utilizarea in interiorul unei functii este consecinta stocarii in variabile discutata la functii expresii. Cand se transmite o functie ca valoare efectiva pentru o alta functie asta inseamna ca parametrul formal al functiei care se executa stocheaza functia data ca valoare efectiva.
+
+Declarare functie func_high() 
+// func_high de la “higher order function”
+//cbk de la “functie callback”
+
+function func_high(cbk1, cbk2){ 
+cbk1()
+cbk2()
+}
+
+Sa consderam functiile g si e
+function g(){..}
+function e(){..}
+
+Ele devin functii callback cand sunt transmise ca parametri
+
+Sa apelam functia func_high cu valori efective g si e
+
+func_high(g,e)
+
+Fiind transmise ca valori efective pentru functia func_high se intampla urmatoarele operatii la executia lui func_high:
+cbk1 = g
+cbk2 = e
+
+Variabilele cbk1 si cbk2 care sunt parametri formali primesc valorile data la executie, g si e. Dar g si e sunt functii asta inseamna ca si cbk1 si cbk2 devin functii. Mai mult, ele sunt executate cand func_high se executa pentru ca in corpul functiei func_high functiile cbk1 si cbk2 sunt apelate.
+
+Functile g si e au denumiri speciale cand sunt transmise functiei func_high, se cheama functii callback. Se cheama asa pentru ca odata stocate in parametrii cbk1 si cbk2, functile g si e pot fi apelate(called back) oricand prin intermediul parametrilor cbk1 si cbk2.
+
+Iar functia func_high este si ea o functie speciala denumita functie de nivel inalt (higher order function) pentru ca primeste alte functii ca parametri. Este o functie care executa alte functii transmise prin intermediul parametrilor, prin urmare e de nivel superior.
+
+Acest tip apel functii cu parametri alte functii il vom intalni tot timpul in Javascript. Tratarea functilor ca simple valori si apoi executate in interiorul altor functii este principala caracteristica a lui Javascript ca limbaj functional. Vom identifica aceste functii ca fiind functii callback  cand sunt transmise ca parametri efectivi, asa cum sunt g si e, .
+
+
+Obs1: Functiile callback sunt transmise intotdeauna prin referinta pentru ca ele sunt obiecte, ca orice alta functie. Dar metoda de transmitere prin referinta nu are importanta in cazul acesta, functiile callback nu sunt modificate de obicei in interiorul functiilor unde se executa. Totusi merita stiut ca functiile g si cbk1 reprezinta aceeasi functie stocata in memorie (la fel e si cbk2)
+
+Obs2: Utilizarea functiilor callback este o varianta de compunere de functii. Dar functiile callback duc compunerea de functii la un alt nivel si anume se poate alege momentul din timp in care sa se execute functia callback in interiorul functiei apelante.
+
+Sa spunem ca avem doua functii 
+function f(g) { 
+... 
+  if (conditie)
+  {
+    g(x)
+  }
+...
+}
+
+function g(x) {
+ rezultat = procesare x
+return rezultat
+}
+
+Desi f(g(x)) este compunere de functii nu este totusi utilizare de functie callback si in cazul nostru chiar ar genera eroare. Functia g(x) se executa si returneaza instant valoarea in urma evaluarii catre functia f. Dar functia f asteapta ca parametru o functie g pe care sa o execute in interior nu o valoare.
+Mai mult, ne intereseaza nu doar functia g sa fie transmisa in interiorul functiei f ci si sa avem noi control cand functia g se executa. Dorim sa aducem pe g in interiorul lui f dar sa fie executata doar in anumite conditii, uneori chiar dupa terminarea executiei lui f (in cazul operatiilor asincrone).
+
+Javascript se bazeaza pe crearea de functii care sa reactioneze la evenimente generate de utilizatori sau alti factori cum ar fi evenimentele de mouse. Deci totul in jurul functiilor callback are legatura cu conditionarea sau temporizarea executiei functiilor callback. Nu ne intereseaza pentru functii callback varianta f(g(x)) ci varianta f(g) sau f(g,x). 
+
+Varianta cu parametru x, f(g,x),  este utilizata atunci cand, pe langa functia callback g, se furnizeaza si valoarea pe care aceasta o va primi ca parametru efectiv la momentul rularii. (aceasta este varianta cel mai des intalnita)
+
+Atunci cand este rulata functia f cu parametrii g si x , f(g,x), functia g este doar o simpla valoare, este transmisa functiei f, si functia f va decide cand o va executa pe g cu valoarea x.
+
+Forma pentru declararea lui f care sa includa si valoarea pentru g
+f(g,x)
+{
+....
+   if(conditie){
+      g(x)
+  }
+...
+}
+
+
+Exemplu:
+
+function g(x) { return x + 1}
+
+function f(g,x) {
+ if(x%2 == 0) // se ruleaza g(x) doar pentru x par
+  {
+    return g(x)
+  } 
+   else
+  {
+    return 0
+  }
+}
+
+f(g,4)// returneaza 5
+f(g,5)// returneaza 0
+
+=====================================
+Functii returnate din alte functii
+====================================
+
+Vom intalni si un alt tip de manifestare a functiile de nivel inalt. Functiile de nivel inalt pot returna functii.
+
+Exemplu:
+
+function g(){
+...
+   return function(){...}
+}
+
+
+let func = g()
+
+Se observa ca de data asta variabila func primeste ca valoare functia returnata de functia g cand aceasta se executa. Functia returnata in acest caz este fara nume dar ar putea avea si nume daca ar fi declarata in interiorul lui g.
+
+function g(){
+  let intern_func()
+   {
+     ...
+   }
+
+  return intern_func
+}
+
+let func = g()
+
+ Acea functie de la momentul returnarii ajunge sa fie stocata in variabila func si  astfel func devine prin atribuire functie expresie.
+
+Exemplu
+
+function g(){
+
+//sectiunea de creare si returnare functie
+    return function(){
+       return 10
+    }
+
+}
+
+func = g() // func primeste functia creata la interior
+
+Executam func
+console.log(func()) // afisam valoarea returnata de func, 10 
+
+Nu trebuie neaparat ca functia din g sa fie fara nume, creata la return, poate fi declarata inainte.
+
+function g(){
+
+  function e(){
+   return 20  
+  }
+
+ return e
+}
+
+func = g(); // in func ajunge functia e creata in interiorul lui g
+
+console.log(func());  // apelarea lui func returneaza 20
+
+
+Functii Closure(optional)
+
+Sa facem un exercitiu legat de domenii de vizibilitate.
+Declaram functia e in interiorul functiei g  si functia e foloseste o variabila locala a functiei g, variabila contor. 
+
+Daca functia e este stocata in variabila func prin returnare din functia g, atunci functia func va avea acces la variabila contor chiar si dupa executia functiei g.
+
+
+function g(){
+ let contor = 0  // (A)
+
+  function e(){
+    contor ++
+    return contor
+}
+
+return e
+}
+
+let func = g()  // (B)
+
+console.log(func())
+console.log(func())
+console.log(func())
+console.log(func())
+
+Se afiseaza:
+1
+2
+3
+4
+
+Se afiseaz de fiecare data valoarea contor incrementata si returnata de functia e care dupa lina (B) a fost stocata in variabila func.  Apar cateva probleme
+ 1) contor nu e declarata in functia e, cum mai poate fi accesata de functia func oriunde in cod atat timp cat functia g s-a terminat de executat odata cu returnarea functiei e in variabila func? 
+2) Inca si mai important e faptul a daca totusi variabila contor poate fi accesata de catre functia e, contor fiind externa pentru functia e la momentul declararii functiei, si daca acest lucru a fost transferat si lui func, totusi cum se poate ca func sa controleze valoarea stocata in contor, sa o incrementeze de fiecare data cand este executata?
+
+Este una dintre ciudateniile din Javascript si are legatura iarasi cu domenii de vizibilitatea care sunt influentate de cele doua faze de executie din Javascript. Pentru moment este optionala intelegerea mecanismului dar regula de functionare e bine sa fie stiuta.
+
+Functia e care este stocata in func se numeste “functie closure” pentru ca mentine o legatura permanenta cu functia parinte unde a fost creata. Legatura se creaza prin folosirea de catre functia “nested” e, creata intern si apoi returnata, a variabilelor externe declarate in functia parinte. Prin returnarea si stocarea a acestei functii,  functia “nested”, intr-o variabila, sa-i spunem func, aceasta legatura devine permanenta. Functia parinte s-a terminat de executat odata cu returnarea functiei e dar functia func va avea control asupra variabilelor externe din functia parinte. 
+Se creaza o legatura permanenta intre domenii de vizibilitate fortand domeniul de vizibilitate a functiei parinte care s-a terminat de executat sa ramana inca in memorie si sa fie accesat de functia closure.
+Aceasta legatura dintre domenii se creaza in prima faza de executie in Javascript, cand se creaza legaturile dintre domenii de vizibilitate, dintre cel al functiei nested si cel al functiei parinte. Dat fiind ca functia closure va avea un pointer catre domeniul de vizibilitate a functiei parinte Javascript nu va distruge domeniul parinte.
+
+Asa functioneaza la modul general si garbage collection, mecanismul de curatarea a memoriei in Javascript. Cand exista o variabila activa care referentiaza un obiect, acel obiect va fi pastrat in memorie pe parcursul executiei aplicatiei in timp ce alte variabile nereferentiate sunt consideratea “garbage” si eliminate din memorie.
+
+
+
+================================
+Functii rulate in place (IIFE Immediately Invoked Function Expression)(optional)
+=================================
+
+
+Functiile IIFE au fost folosite acum multi ani in Javascript pentru repararea unor probleme genereate de declararea cu var a variabilelor. Nu se mai folosesc in forma initiala dar ies la suprafata mai tot timpul pentru ca sunt la baza expresii din functii no-name sau stocate in variabile. Mai ales sunt un exercitiu bun pentru intelegerea evaluarii functiilor ca expresii. Pot fi folosite pentru crearea de functii closure. Exista si o tehnica denumita currying care se bazeaza pe crearea de closures.
+
+IIFE inseamna ca luam o functie oarecare, func, adauga paranteze in jurul ei, (func) , si apoi o executam, (func)(). Daca func are si parametri atunci adaugam si valori la executie, 
+(func)(5)
+
+Exemplu:
+
+let func = function(a){
+console.log(a*a)
+}
+
+(func)(5); //afiseaza 25
+
+sau fara nume, si asta inseamna de fapt “immediately invoked” 
+(
+function(a){
+console.log(a*a)
+}
+)(5)  // afiseaza 25, e acelasi lucru
+
+
+
+Sa ne intoarcem la functia g cu care am lucrat pana acum
+Sa punem paranteze in jurul ei si sa o afisam la consola
+ 
+let a = (function g(){
+  function e(){
+   return 20  
+  }
+ return e
+})  
+console.log( a )
+
+Afiseaza:
+
+ƒ g(){
+  function e(){
+   return 20  
+  }
+ return e
+}
+
+Adica functia g, acum stocata si in variabila a, este evaluata ca expresie si apoi afisata ca si text
+
+Putem sa o rulam? Sa incercam sa adaugam paranteze si sa afisam rezultatul tot in consola
+
+
+ 
+let a = (function g(){
+  function e(){
+   return 20  
+  }
+ return e
+})  () 
+// am adaugat paranteze pentru ca functia g evaluata ca expresie sa fie executata
+
+console.log(a)
+
+Afiseaza:
+ƒ e() {
+          return 20
+        }
+
+Deci afiseaza functia e definita la interiorul lui g si apoi returnata de g.
+Si acum mai adaugam un set de paranteze
+
+
+let a = (function g(){
+  function e(){
+   return 20  
+  }
+ return e
+})  () () 
+// al doilea set de paranteze executa functia e care este returnata
+
+console.log( a )
+
+//Afiseaza 20
+
+Deci adaugand cate un set de paranteze pentru executie fortam functiile sa se execute si sa se returneze fiecare, una pe alta. O functie returneaza la executie o alta functie care poate fi executata la randul ei.
+
+
+Putem folosi metoda cu evaluare cu paranteze de tip expresie si la functiile stocate in variabile.
+
+function g(){
+
+  function e(){
+   return 20  
+  }
+ 
+ return e
+}
+
+func = g;
+
+Evaluare lui func este functia g
+(func) == g
+(func)() == e
+(func)()() == 20
+
+
+console.log(  (func)() )
+
+ƒ e(){
+ return 20  
+}
+
+console.log( (func)()() )
+//20
+
+
+
+Daca functia e  din interior are parametri
+
+function g(){
+
+ function e(param)
+ {
+   return param*param
+ }
+
+return e
+}
+
+let func = g
+
+putem apela pe func cu parametri care vor ajunge la functia e
+
+console.log( (func)()(10) )// afiseaza 100
+sau
+console.log( (g)()(10) )// afiseaza 100, g si func reprezinta aceeasi functie
+
+(functiile sunt obiecte si deci copiate prin referinta in alte variabile, deci func si g referentiaza aceeasi functi in memorie)
+
+
+In concluzie
+Adaugand paranteze in jurul unei variabile de tip functie activam acea functie, o scoatem din hibernare, creand in acelasi timp o expresie. Adaugand paranteze la dreapta acestei expresii executam functia scoasa din hibernare.  Daca sunt mai multe straturi de functii “nested” tot executam cate o functie care este declarata si returnata de pe un nivel “nested” tot mai adanc.
+
+Adica daca avem mai multe functii nested care se returneaza una pe alta am putea avea
+
+(func)()()()
+
+Obs:
+Exista o tehnica asemanatoare denummita currying care creaza un “wrapper” in jurul unei functii cu parametri pentru a genera o functie closure cu parametri furnizati complet sau partial. Asta pentru a beneficia de proprietatile functiilor closure realizand memorarea parametrilor efectivi in contextele lexicale(domenii viz) ale functiilor wrapper.  E o alternativa la parametri default. E mai usor de inteles evaluarea functiilor IIFE decat currying dar in esenta reprezinta acelasi lucru. Deci pentru a intelege currying, la momentul potrivit, trebuie sa ne intoarcem la evaluarea functiilor ca expresii si executia lor “in place”.
+(https://javascript.info/currying-partials)
+
+
+Experimentul pe care l-am facut aici cu functii IIFE ne ajuta deci cu intelegerea evaluarii expresiilor. Dar nu e o metoda foarte clara. Mai bine atribuim o functie unei variabile si apoi lucram cu acea variabila.
+
+adica 
+func = g()
+func()
+
+este mai usor de urmarit decat 
+
+( g() ) ()
+care este metoda IIFE
