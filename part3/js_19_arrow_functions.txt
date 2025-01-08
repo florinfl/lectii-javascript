@@ -1,0 +1,73 @@
+Arrow functions
+Functile de tip sageata( functii arrow)
+(https://www.freecodecamp.org/news/regular-vs-arrow-functions-javascript/)
+
+Functile arrow au forma
+let numeFunc = (param1, param2, ...) = > {bloc instructiuni}
+
+este echivalenta cu crearea unei functii expresie
+let numeFunc = function(param1, param1,....){ bloc instructiuni }
+
+Functiile arrow nu sunt intru totul echivalente cu o functie expresie, ele au fost create pentru a rezolva o problema de vizibilitate a valorii this a obiectelor. Atunci cand functiile normale sunt apelate din interiorul metodelor obiectelor atunci ele nu au acces la aceasta valoare this. Problema se poate rezolva folosind o variabila externa care sa memoreze valoarea lui this dar aceasta metoda este mai mult un “trick” decat o solutie oficiala oferita de limbaj. Functiile arrow rezolva aceasta problema.
+
+Deci putem considera ca functiile arrow sunt la fel ca celelalte functii dar rezolva problema lui “this”. Sunt si alte diferente dar asta e cea mai importanta. Deci este oarecum optionala folosirea lor. Totusi ele sunt foarte folosite in lumea Javascript, nu pentru ca ofera ceva in plus fata de functiile normale (in afara de rezolvarea lui this), ci pentru sintaxa simplificata.
+
+Functiile arrow au o sintaxa diferita fata de functiile clasice sau expresie si sunt prefertate uneori pentru stilul concis de scriere.
+
+Exemplu
+let sumaArrow = (a,b) =>{ return a + b };
+este echivalent cu
+let sumaExpresie = function(a,b) { return a + b };
+
+console.log(sumaArrow(2,3)); // 5
+
+Cand exista doar o  singura instructiune se pot eliminta acoladele dar si cuvantul cheie return daca acesta exista
+
+let sumaArrow = (a,b) => return a + b; //eroare de sintaxa
+let sumaArrow = (a,b) => a + b; // varianta corecta
+
+Se poate deja observa cat de concis tinde sa fie o functie care contine doar o linie de cod.
+Si se poate merge inca si mai departe cand exista doar un parametru pentru ca se poate renunta la parantezele rotunde pentru parametri.
+
+
+Exemplu: O functie care primeste ca argument o valoare si returneaza suma dintre acea valoare si 3.
+
+let adunare3 = a => a + 3
+console.log(adunare3(100)) // 103
+// Nu s-au mai folosit parantezele rotunde pentru parametrul a
+
+este echivalent cu
+let adunareExpr = function(a) { return a + 3 }
+console.log(adunareExpr(100)) //103
+
+
+Totusi atunci cand nu sunt parametri trebuie puse parantezele
+let mesaj = () => console.log(“Cand nu sunt parametri trebuie puse paranteze”)
+mesaj()
+
+Si acum un exemplu pentru functii callback
+Vom folosi parametrul patrat pentru a permite unei functii calback (denumita la fel, patrat) pentru a face operatii in interiorul functiei sumaPatrate.
+
+let patrat = x => x*x
+let sumaPatrate = (a, b, patrat) => patrat(a) + patrat(b)
+
+Sa dam ca argumente pentru sumaPatrate cele doua numere 3 si 4 si ca functie callback, functia “patrat”
+
+let rezultat = sumaPatrate(3,4,patrat)
+console.log(rezultat) //25
+
+Au fost furnizate ca valori pentru functia sumaPatrate atat functia callback patrat cat si argumentele ei, 3 si 4.
+
+Atunci cand exista mai multe randuri in functia arrow trebuie sa adaugam acolade.
+
+let sumaPatrate = (a,b,patrat) => {
+   let rezultat = patrat(a) + patrat(b)
+    console.log(rezultat)
+}
+
+Exista un numar de diferente fata de functiile normale asa ca va trebui sa revenim la functiile arrow chiar daca folosirea lor nu e obligatorie. 
+Se poate cauta “arrow functions vs regular functions Javascript”.
+Cateva diferente
+modul de accesare a valori this in obiecte, this in cazul functiilor arrow e luat de la functia parinte.
+in legatura cu valoarea this, nu pot fi constructori, tocmai din cauza lipsei lui this propriu
+au un mod diferit de accesare valori date ca parametri efectivi la executie, arguments pentru functii normale vs [...args] pentru functii arrow
