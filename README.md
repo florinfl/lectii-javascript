@@ -21,7 +21,7 @@ part3:
 
 12. Instructiunea switch
 13. Functii: declarare, parametri. Variabile locale, externe, globale. Parametri formali, efectivi (parameters, arguments). Transfer prin valoare, referinta. Exemplu transfer referinta. Utilizare extensie AI Tabnine. Valori default. Returnarea valorilor din functii. Nume corecte pentru functii
-
+18. Functii expresii: Lamurire privind domeniile de vizibilite. Expresii, functii expresie, cele doua faze de executie in Javascript, functii callback, functii returnate din alte functii, functii rulate "in place", IIFE, functii expresie returnate, stocate, rulate
 
 
 
