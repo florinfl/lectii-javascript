@@ -1,0 +1,748 @@
+==================
+Obiecte
+===================
+
+
+Obiectele reprezinta un tip de date. Tipul de date Object este cel mai general in Javascript si este incadrat la tip de date “non-primitive” pentru a face distinctie de restul tipurillor de date din categoria “primitive” string, number, null, undefined, boolean
+
+Exista doua mari diferente intre tipurile de date primitive(number, string, boolean, null, undefined) si cele non primitive (Object, Array).
+Valorile din tipurile de date primitive nu pot contine si altceva decat o singura valoare in timp ce valorile de tip Object pot contine oricate alte proprietati care la randul lor pot contine alte valori primitive sau obiecte.
+
+A doua mare diferenta este metoda de accesare. Am vorbit deja la functii ca obiectele nu pot fi accesate decat prin referinta, asta fiind si metoda de transfer prin referinta pentru parametri la functii. Cand un obiect creat se creaza in acelasi timp o variabila in zona Stack a memoriei care la randul ei stocheaza adresa corpului obiectului din zona Heap. Astfel se creaza posibilitatea ca mai multe variabile din zona Stack sa contina aceeasi adresa de memorie a obiectului memorat in zona Heap. Si asta inseamna acces si transfer prin referinta, se pot crea variabile care sa contina referinta la acelasi obiect, orice modificarea a obiectului putand fi vizibila prin intermediul oricarei variabile ce contine adresa din Heap a obiectului.
+
+Obiecte de tip literal
+
+Obiectele cu care vom lucra noi vor fi simple la inceput din categorie literal. 
+
+Obiectele pe care le vom putea crea sunt de doua tipuri.
+Obiecte literal, adica obiecte pe care le facem noi de la zero, folosind acolade si scriind in interior proprietati si valori.
+Obiecte generate “dinamic” folosind niste template-uri speciale denumite Clase. 
+
+Folosind ambele stiluri de creare obiecte ne incadram la un nou tip de programare, orientat obiect( OOP - Object Oriented Programming)
+
+Mai intai vom lucra cu obiecte de tip literal. Stilul acesta de creare obiecte nu se regaseste atat de clar in limbajele clasice din categoria C/C++. In Javascript se poate crea un obiect simplu fara nici o pregatire in prealabil.
+
+Pentru a crea un obiect literal simplu scriem doua acolade:
+let obj = {}
+iar in interior sunt proprietati si valori. 
+
+Intre proprietate si valoare se pune simbolul “doua puncte :” 
+let obj = {
+    prop1: "val1",
+    prop2: "val2"
+}
+
+Dupa fiecare pereche proprietate: valoare se pune “punct si virgula ;”
+console.log(obj)
+//
+{prop1: 'val1', prop2: 'val2'}
+
+Proprietatile pentru obiecte mai sunt denumite si chei (keys). 
+
+Literal se refera la faptul ca il scriem noi si nu este generat printr-o metoda speciala. Vom descoperi cand vom ajunge la generare dinamica de obiecte ca obiectele "literal" sunt la fel ca cele generate dinamic. Codul final nu difera intre obiecte literale si cele generate dinamic.
+(https://medium.com/@mazahar_shaikh/javascript-object-literal-v-s-new-object-difference-performance-ac8360dd6caf)
+
+Exemplu de obiect literal, contine proprietatea name si valoarea “John”
+let persoana = {nume:"John"}
+
+Pentru accesare proprietate nume scriem numele obiectului, apoi punct, apoi proprietatea name
+
+console.log(persoana.nume) // John
+
+Proprietati si valori si accesarea lor
+Un obiect contine proprietati si valori.
+Proprietatile sunt similare variabilelor doar ca nu sunt independente ci trebuie sa fie accesate folosind notatia cu punct, adica numele obiectului urmat de punct si numele proprietatii. /console.log(a.nume)
+
+objectName.propertyName
+
+let persoana = {
+   nume: "John"
+}
+
+Nu putem accesa direct proprietatea "nume"
+
+console.log(nume);// Error, nume is not defined
+
+In schimb se foloseste folosind notatia cu punct:
+console.log(persoana.nume)// John
+
+Adaugare proprietati dupa crearea obiectului
+
+Pot fi adaugate proprietati si dupa ce obiectul a fost creat folosind operatia de atribuire. O putem denumi adaugare “din mers” a proprietatilor pentru ca e o metoda care poate fi folosita oriunde in cod, in orice faza a executiei aplicatiei, atat timp cat variabila care contine obiectul poate fi accesata.
+
+let persoana = {
+   nume: "John"
+}
+
+persoana.adresa = “my new city”
+console.log(persoana) //{nume: 'John', adresa: 'my new city'}
+
+
+Trailing coma
+
+Deoarece se pot sterge si adauga proprietati in obiecte se poate lasa o virgula dupa ultima pereche “proprietate: valoare” dintr-un obiect deoarece e mai usor de adaugat o noua linie daca deja linia anterioara se termina cu o virgula.
+
+Aceasta virgula se cheama “trailing coma”, e o virgula pe ultima pozitie care nu are alt rol decat de a face mai usoara operatia de adaugare proprietati la finalul obiectului.
+
+let persoana = {
+nume: “John”,
+varsta: 30, //trailing coma
+}
+
+Obiecte ca valori pentru proprietati:
+
+Exista si posibilitatea de a folosi obiecte ca valori pentru proprietati:
+
+  let persoana = {
+      nume: "John",
+      adrese: {
+        adr1: "Bucuresti",
+        adr2: "Timisoara",
+        adr3: "Cluj",
+      }
+    }
+
+//proprietatea adrese contine la randul ei un obiect format din 3 proprietati, adr1, adr2, adr3
+//pentru a acesa una din adrese folosim tot notatia cu punct
+     console.log(persoana.adrese.adr3) // Cluj
+
+==================
+Paranteze patrate
+==================
+
+Proprietatile din obiecte pot deveni complexe mai ales daca sunt folosite concatenari de text, numere si alte variabile pentru generarea de proprietati.
+Sa alegem o proprietate formata din doua cuvinte despartite de un spatiu:
+Sa alegem string-ul “adresa temporara” ca proprietate pentru obiectul persoana
+
+let persoana = {
+nume: “John”,
+varsta: 30,
+adresa temporara: “Timisoara”, //eroare
+}
+
+Proprietatile formate din mai multe cuvinte trebuie puse intre ghilimele formand un singur string:
+
+let persoana = {
+nume: “John”,
+varsta: 30,
+“adresa temporara”: “Timisoara”, 
+}
+
+Proprietatea “adresa temporara” nu poate fi accesat prin notatia cu punct, notatia cu punct nu foloseste ghilimele. Trebuie sa apelam la notatia cu paranteze patrate
+
+Notatia cu punct e mai stricta, presupune lipsa de spatii in numele proprietatii (desi se accepta caracterul underscore “_” ). De asemeni numele proprietatii nu trebuie sa inceapa cu o cifra si nu trebuie sa contina caractere speciale.
+
+Pentru proprietati formate din mai multe cuvinte sau a caror nume nu se incadreaza la notatia cu punct se folosesc parantezele patrate pentru accesarea si chiar crearea lor:
+
+persoana[“adresa temporara”] = “Bucuresti”
+console.log(persoana[“adresa temporara”]) // “Bucuresti”
+
+Computed properties
+Aceasta metoda de generare a proprietatilor prin combinatii de valori text si care nu pot fi accesate prin notatia cu punct se numeste generare proprietati folosind expresii( computed properties). Parantezele patrate au rol aici de parantezele rotunde putandu-se genera expresii din operatii cu string-uri, numere, variabile, iar expresiile generate vor avea rol de proprietati ale obiectelor.
+
+
+O proprietate “computed” a unui obiect poate fi creata din mers, prin atribuire, la fel cum se procedeaza folosind notatia cu punct.
+
+    let pers = { nume: "James" }
+
+//cream doua proprietati
+    pers["adresa temporara2"] = "myTown 2" 
+    pers.adresa3 = "my city 3"
+
+//le putem accesa ulterior
+    console.log(pers["adresa temporara2"])// myTown 2
+    console.log(pers.adresa3)// my City 3
+
+//obiectul initial are acum mai multe proprietati
+    console.log(pers)//{nume: 'James', adresa temporara2: 'myTown 2', adresa3: 'my city 3'}
+
+Stergerea proprietatilor
+Tot la fel cum au fost create, proprietatile pot fi sterse
+
+    delete (pers["adresa temporara2"])
+    delete (pers.adresa3)
+    console.log(pers)//{nume: 'James'}
+
+Utilizare variabile pentru proprietati
+Dat fiind ca orice expresie este evaluata intre parantezele patrate se pot folosi si variabile
+
+Variabile trebuie puse intre paranteze patrate la randul lor pentru ca trebuie evaluate
+
+let persoana = {nume:”John”,  “adresa temporara”: “Timisoara”}
+
+let prop_nume = “nume”
+console.log(persoana[prop_nume]) //John
+
+let prop_adr = “adresa temporara”
+console.log(persoana[prop_adr]) // Timisoara
+
+
+Daca numele proprietatii poate fi compus din concatenarea mai multor variabile atunci expresia de concatenare poate fi inserata intre paranteze patrate.
+
+   let persoana = {
+      nume: "John",
+      varsta: 30,
+      "adresa1": "Bucuresti",
+    }
+
+    let prop_adr = "adresa"
+    let numar = 1
+
+    console.log(persoana[prop_adr + numar])
+
+===========================================
+Proprietati create cu expresii la crearea obiectelor - “Computed properties” continuare
+=============================================
+
+Am vazut deja ca o expresie intre paranteze patrate este evaluata ca proprietate, se evalueaza expresia din interior ca o expresie obisnuita
+
+        console.log(persoana["my" + "Address"]) // myTown
+
+Dar se poate crea o proprietate folosind acelasi mecanism de evaluare si la crearea obiectului literal
+
+     let persoana = {
+            nume: "John",
+            varsta: 30,
+            ["my" + "Address"]: "myTown",
+        }
+
+
+   console.log(persoana.myAddress) // myTown
+
+Este acelasi lucru ca si crearea unei proprietati expresie din mers, cu atribuire:
+
+    persoana["my" + "Adress2"] = "my City 2"
+
+    console.log(persoana)//{nume: 'John', varsta: 30, myAddress: 'myTown', myAdress2: 'my City 2'}
+
+Adica toate operatiile pe care le-am folosit pentru compunerea unei proprietati la accesarea ei se pot folosi si la crearea ei.
+
+   let obj1 = {
+      ["tot felul de operatii"]: "valoare"
+    }
+
+    console.log(obj1)// {tot felul de operatii: 'valoare'}
+
+Suntem deja obisnuiti cu realizarea de expresii folosind paranteze rotunde. Insa nu sunt acceptate ca sintaxa valida la crearea obiectelor. Adica nu functioneaza:
+
+let persoana = {
+  ("my" + "Address"): "myTown",
+}
+
+Pentru crearea proprietatilor sunt acceptate doar paranteze patrate:
+
+let persoana = {
+  ["my" + "Address"]: "myTown",
+}
+
+chiar daca putem folosi paranteze rotunde in interior 
+let persoana = {
+  [("my" + "Address")]: "myTown",
+}
+
+Deci parantelezele patrate din interiorul obiectelor au acelasi rol ca generator de expresii la fel ca parantezele rotunde folosite oriunde in alta parte.
+
+
+Atat timp cat nu sunt spatii in numele proprietaii aceasta poate fi accesata cu notatia cu punct dar daca apare macar un spatiu trebuie folosita notatia cu paranteze patrate:
+
+let persoana = {
+  ["my Address"]: "myTown",
+}
+
+ console.log(persoana["my Address"]) // myTown
+
+Dat fiind ca valoarea dintre parantezele patrate este evaluata ca expresie atunci avem libertatea sa folosim variabile sau operatii pe care le intalnim in mod obisnuit in expresii
+
+
+        let string1 = "my"
+        let string2 = "Address"
+        let prop = string1 + string2
+
+        let persoana = {
+            [string1 + string2]: "myTown",
+        }
+
+        console.log(persoana["myAddress"]) // myTown
+        console.log(persoana[prop]) // myTown
+        console.log(persoana[string1 + string2]) // myTown
+
+Sau se poate crea proprietatea direct cu o variabila
+
+        let string1 = "my"
+        let prop = string1 + "Address";
+
+        let persoana = {
+            [prop]: "myTown",
+        }
+
+        console.log(persoana["myAddress"]) // myTown
+        console.log(persoana[prop]) // myTown
+
+
+Atat timp cat se foloseste notatia cu paranteze patrate se pot folosi orice expresii. Deci notatia cu paranteze patrate e mai puternica decat cea cu punct insa adauga mai multa complexitate codului si de aceea de obicei ne rezumam la crearea de proprietati simple care pot fi accesate prin notatia cu punct.
+
+Insa notatia cu paranteze patrate fiind atat de flexbila permite tratarea unui obiect ca un vector asociativ.
+
+Obs: Vectorii asociativi reprezinta o structura de date folosita in anumite limbaje precum PHP. Vectorii asociativi imprumuta caracteristici si de la obiecte si de la vectori. Cea mai importanta caracterestica a unui vector asociativ este ca are indexuri de tip text. In Javascript obiectele suplinesc avantajele vectorilor asociativi pentru ca obiectele din Javascript permit accesarea proprietatilor cu aceasi metoda, paranteze patrate si numele proprietatilor de tip text intre ghilimele.
+De exemplu, in PHP un element al vectorului global $_SESSION poate fi accesat prin intermediul unei proprietati de tip text folosind notatia cu paranteze patrate specifica vectorilor:
+$_SESSION["userName"] = “John” 
+la fel cum am procedat cu obiecul persoana in Javascript, 
+persoana[“myAdress”] = “Town 1”
+
+Desi obiectele din Javascript nu au anumite metode pe care le au vectorii asociativi totusi pot fi parcurse similar vectorilor sau au metode pentru manipulare proprietati si valori. Iar alte metode pot fi create. Deci se poate gasi in Javascript un corespondent destul de apropiat pentru vectori asociativi.
+
+=========================================
+Proprietati si valori create direct cu variabile
+(Property value shorthand)
+===================================
+
+
+Avand la dispozitie variabile obisnuite, de exemplu a = 1, b = “test”, se poate construi un obiect doar folosind numele variabilelor:
+let obj1 = {a,b}
+
+este echivalent cu 
+
+let obj1 = {
+“a” :1,
+“b”:”test”
+}
+
+Adica numele varibilei devine proprietate iar valoarea variabilei devine valoarea proprietatii.
+Este o metoda rapida “shorthand” de ca crea obiecte din variabile. 
+
+Are sens pentru ca de obicei variabilele au nume cu o anumita semnificatie. Si atunci se foloseste aceasi semnificatie ca proprietati in interiorul obiectelor.
+
+Exemplu:
+let nume = "John"
+let adresa = "Cluj"
+let varsta = 30
+
+let john = {
+nume,
+adresa,
+varsta
+}
+
+console.log(john) 
+//{nume: 'John', adresa: 'Cluj', varsta: 30}
+
+Este deja un mod standard de creare a obiectelor, se foloseste de fiecare data cand dorim ca o variabila sa devina parte dintr-un obiect si se poate folosi metoda “shorthand” in combinatie cu metoda clasica:
+
+let nume = “John”
+
+let john={
+nume,
+hobby : ”programming”
+}
+
+console.log(john)
+//{nume: 'John', hobby: 'programming'}
+
+
+Testarea existentei proprietatilor cu  operatorul “in”
+
+Accesand o proprietate inexistenta pentru un obiect nu este generata nici o eroare chiar daca valoarea returnata este undefined.
+Adica orice proprietate poate fi accesata chiar daca in realitate aceasta nu exista.
+let obj= {}
+console.log(obj[“proprietate inexistenta”])// undefined
+
+Astfel, accesand o proprietate care nu este inca creata, fara sa se genereze eroare, cum vom sti daca acea proprietate exista sau nu in acel obiect?
+
+Metoda 1: testare cu undefined
+Se poate testa o proprietate daca returneaza undefined:
+
+ let persoana = { nume: "John" }
+ if (persoana.age === undefined)
+      console.log("proprietatea ‘age’ nu exista")
+
+Sunt totusi cazuri foarte rare cand totusi o proprietate exista dar i se atribuie accidental valoarea undefined. Si atunci verificarea cu undefined nu mai ajuta.
+
+ let persoana = { 
+nume: "John",
+age:30 }
+
+persoana.age = undefined // atribuire accidentala a valorii undefined
+
+if (persoana.age === undefined)
+      console.log("proprietatea ‘age’ nu exista") 
+// nu mai e adevarat, proprietatea age exista chiar daca are valoarea undefined
+
+De aceea atribuirea intentionata a lui undefined este o practica gresita, si pentru variabile, si pentru proprietati in obiecte. Cand se doreste crearea unei proprietati fara valoare sau nule se foloseste valoarea null.
+
+O alternativa la verificarea cu undefined este operatorul “in”
+
+let obj = {}
+console.log(“proprietate inexistenta” in obj) // false
+
+  let persoana = { nume: "John" }
+  console.log(“nume” in persoana)//true
+
+De data asta nu mai conteaza daca proprietatea nume contine undefined, se va retura true pentru testarea cu operatorul “in”.
+
+  persoana.nume = undefined
+  console.log("nume" in persoana)//true
+
+Trebuie folosita proprietatea intre ghilimele, (“nume” in persoana), 
+fara ghilimele genereaza eroare:
+console.log(nume in persoana)//eroare, nume is not defined, nume e tratat ca variabila si nu exista sub forma de variabila
+
+====================================
+Parcurgerea unui obiect cu “for .. in”
+=====================================
+
+Pentru a parcurge un obiect accesand fiecare proprietate in parte se foloseste instructiunea de ciclare for..in
+Este o instructiune cu ajutorul careia se poate accesa pentru fiecare iteratie cate o proprietate a obiectului pentru care este aplicata instructiunea.
+
+Sintaxa este:
+for(let prop in obj){
+bloc de instructiuni in care se poate folosi variabila prop
+}
+
+Fiecare proprietate a obiectului obj este incarcata in variabila prop si astfel variabila prop este vizibila in blocul de instructiuni care este ciclat.
+
+
+     let persoana = {
+            nume: "John",
+            varsta: 30,
+            myAddress: "myTown",
+        }
+
+for(let prop in persoana)
+{
+console.log(prop) //nume varsta myAdress
+}
+
+Vom folosi notatia cu paranteze patrate pentru a accesa valoarea continuta de proprietatea stocata in variabila prop, persoana[prop]. Nu se poate folosi notatia cu punct, ca in cazul oricarei variabile.
+
+for(let prop in persoana)
+{
+console.log(persoana[prop]) //John 30 myTown
+}
+
+Obs: Modul de executie pentru for..in este asemanator cu cel al lui for(;;) de care am vorbit la instructiuni de ciclare. Si pentru for..in exista o varibila care parcurge un set de date, dar de data asta for..in este limitat la proprietatile dintr-un obiect. Insa la fel ca in cazul instructiunii for(;;) unde se cicleaza un bloc pentru o valoare care contorizeaza iteratiile, instructiunea for..in cicleaza un bloc de instructiuni pentru fiecare proprietate a obiectului pentru care este aplicata.
+
+Se pot folosi orice denumiri pentru variabila prop. Uneori gasim folosita variabila key in loc de prop, cheie si proprietate reprezinta acelasi lucru pentru obiecte.
+
+for(let key in persoana)
+{
+console.log(`${key}: ${persoana[key]}`)  
+}
+//nume: John          varsta: 30         myAddress: myTown
+
+
+
+===========================
+Folosirea valorilor numerice
+========================
+
+Desi valorile numerice nu sunt acceptate in obiecte folosind notatia cu punct totusi ele pot fi folosite folosind notatia cu paranteze patrate pentru ca sunt convertite automat in string. Si atunci cand accesam o proprietate care e numar, aceasta este convertita in string chiar daca nu este un proces vizibil
+
+let adrese = {
+  1: "Bucuresti",
+  2: "Timisoara",
+  3: "Cluj",
+}
+
+este convertit automat in 
+     adrese: {
+       “1”: "Bucuresti",
+       ”2”: "Timisoara",
+       ”3”: "Cluj",
+      }
+
+Valoarea insa poate fi accesata folosind numere pentru ca la randul lor acestea sunt convertite in text.
+
+adrese[1] 
+este echivalent cu 
+adrese[“1”]
+
+Se poate crea astfel un obiect cu aspect de vector. 
+
+Exemplu pentru un obiect fructe care contine pentru fiecare proprietate 0, 1, 2 cate o denumire de fruct:
+
+<script>
+let fructe = {} // (A)
+fructe[0] = “mar”
+fructe[1] = “struguri”
+fructe[2] = “prune”
+
+console.log(fructe[1]) // struguri
+
+//Poate fi parcurs in mod asemanator cu un vector.
+
+for(let i = 0; i< 3; i ++ )
+{
+console.log(fructe[i])
+}
+//mar struguri prune
+
+console.log(fructe.length)
+// undefined, nu se poate accesa proprietatea length pentru un obiect
+</script>
+
+Dat fiind ca proprietatile 0,1,2 sunt in ordine crescatoare se poate folosi intructiunea for(;;). Insa proprietatea “length” specifica vectorilor nu exista in obiecte obisnuite.
+
+Asta ne spune in acelasi timp cat de apropiati sunt vectorii de obiecte.
+
+Proprietatile numerice sunt automat ordonate crescator
+
+O caracteristica a proprietatilor de tip numar in obiecte este aceea ca sunt ordonate crescator.
+Sa cream un obiect in care valorile numerice sunt adaugate aleator
+
+let adrese = {
+  4: "Bucuresti",
+  100: "Timisoara",
+  3: "Cluj",
+  2: “Brasov”,
+  200: “Pitesti”,
+  0: “Iasi”,
+}
+
+Daca se foloseste pentru parcurgere instructiunea for..in proprietatile vor fi accesate in ordine crescatoare.
+
+for(let prop in adrese){
+ console.log(`${prop} : ${adrese[prop]}`)
+} 
+
+0 : Iasi
+2 : Brasov
+3 : Cluj
+4 : Bucuresti
+100 : Timisoara
+200 : Pitesti
+
+Chiar si ordonarea crescatoare a proprietatilor de tip numeric este o caracteristica a vectorilor. Deci avem inca un caz in care obiectele tind sa se comporte ca vectorii cand sunt tratate ca niste vectori.
+
+Pastrarea ordinii de inserarea a proprietatilor numerice.
+
+Exista totusi situatii in care nu dorim reordonarea automata a proprietatilor de tip numar. De exemplu cand proprietatile pot fi numere de telefon sau coduri de telefon pentru tari, sau coduri postale, sau id-uri pentru persoane sau produse. In astfel de situatii nu ne dorim ca proprietatile numerice sa fie tratate ca numere si mai ales sa nu fie reordonate. O solutie este adaugarea unui caracter text inainte sau dupa numar, in acest mod proprietatile nu mai sunt tratate ca numar si se pastreaza ordinea originala.
+
+let adrese = {
+      ["^4"]: "Bucuresti",
+      ["^100"]: "Timisoara",
+      ["^3"]: "Cluj",
+      ["^2"]: "Brasov",
+      ["^200"]: "Pitesti",
+      ["^0"]: "Iasi",
+    }
+
+Dar daca totusi se doreste la un moment dat folosirea proprietatii ca numar? Exista o solutie folosind simbolul ‘+’. Initial Javascript va trata proprietatea ca fiind doar de tip text dar va fi usor de convertit in numar ulterior folosind o functie de conversie.
+
+   let adrese = {
+      ["+4"]: "Bucuresti",
+      ["+100"]: "Timisoara",
+      ["+3"]: "Cluj",
+      ["+2"]: "Brasov",
+      ["+200"]: "Pitesti",
+      ["+0"]: "Iasi",
+    }
+
+    for (let prop in adrese) {
+      console.log(`${prop} : ${adrese[prop]}`)
+    }
+
+// Se afiseaza:
++4 : Bucuresti
++100 : Timisoara
++3 : Cluj
++2 : Brasov
++200 : Pitesti
++0 : Iasi
+
+Iar daca dorim conversia in numar folosim o metoda de conversie in numar, se poate folosi tot simbolul ‘+’,  +prop este convertit in numar daca contine o valoare numerica de forma “+4”. Sau se poate folosi conversia explicita Number(prop), parseInt(prop)
+
+let suma = 0
+    for (let prop in adrese) {
+      suma +=  +prop 
+    }
+console.log(suma) // 309
+
+=================================
+Obiecte de tip literal - recap
+================================
+
+
+Obiectele pot fi create in doua moduri, direct, folosind acolade, aceste obiecte sunt de sine statatoare si au numele obiecte “literal”
+let obj1 = {
+prop1:val1,
+prop2:val2,
+...
+}
+
+Cealalta metoda de creare obiecte foloseste un mecanism de template-uri pentru obiecte denumit clase(in Javascrip e un mecanism tip prototip).
+
+Indiferent cum e creat un obiect este descendent din tipul de date general Object.
+Un obiect poate fi chiar creat cu tipul Object si este alternativa la obiectele literale:
+obj2 = new Object()
+echivalent cu 
+obj2 = {}
+
+Obiectele pot fi folosite ca vectori asociativi daca se foloseste notatia cu paranteze patrate si string-uri intre ghilimele pentru proprietatilor obiectului.
+
+Obiectele constau din perechi (proprietate - valoare) delimitate de virgula. Proprietatea este separata de valoare prin simbolul “doua puncte :” 
+
+Proprietatea este intotdeauna de tip string si chiar daca se pot folosi numere, numerele sunt convertite in string. Pentru proprietati se mai pot folosi valori de tipul de date Symbol. Tipul de date Sympol permite crearea de proprietati unice pentru obiecte, urmeaza sa fie discutat.
+
+Notatia cu punct are forma 
+obj1.prop1 unde prop1 este proprietatea “prop1” din obiect
+Acelasi lucru se poate obtine cu notatia cu paranteze patrate:
+obj1[“prop1”]
+
+Daca se doreste folosirea proprietatilor text cu spatii si alte caractere trebuie folosita notatia cu paranteze patrate si la crearea proprietatilor in obiect:
+  let obj2 = {
+      ["prop nr 1"]: "valoare 1",
+    }
+    //Valoarea corespunzatoarea proprietatii se acceseaza doar prin paranteze patrate:
+    obj2["prop nr 1"]// valoare 1
+
+    //Perechi (proprietate - valoare) pot fi adaugate si dupa crearea obiectului, din mers, oricand in timpul executiei aplicatiei
+    obj2["prop nr 2"] = "valoare 2"
+
+    //Sau se poate apela la o variabila:
+    let key = "prop nr 3"
+    obj2[key] = "valoare 3"
+
+    //Testarea existentei unei proprietati se poate face cu operatorul "in"
+    console.log("prop nr 3" in obj2)//true
+
+  //Se poate sterge o proprietate folosind operatorul delete
+    delete obj2["prop nr 3"]
+
+    console.log("prop nr 3" in obj2)//false
+
+Parcurgerea unui obiect inseamna stocarea fiecarei proprietati intr-o variabila folosind o instructiune de ciclare asemanatoare cu for(;;)
+Parcurgerea cu for..in
+
+for( let key in obj2){
+console.log(obj2[key])
+}
+// valoare 1 
+    valoare 2
+
+Se pot folosi si valori de tip number pentru proprietati. Acestea insa sunt convertite automat in text. Chiar si asa folosirea proprietatilor de tip number determina ca acestea sa fie ordonate crescator dand obiectului aspect de vector cand acesta este parcurs.
+
+   let fructe = {
+      1: "mere",
+      3: "portocale",
+      2: "visine",
+      0: "prune"
+    }
+
+    for (let index in fructe) {
+      console.log(` ${index} : ${fructe[index]}`)
+    }
+// 0 : prune
+    1 : mere
+    2 : visine
+    3 : portocale
+
+Exista cateva tipuri de date care au la baza obiecte si care au metode avansate de prelucrare date: Array pentru stocare de colectii de date, Date pentru lucrul cu timp si data calendaristica, Error pentru gestionarea erorilor, Event pentru evenimente si sunt inca si alte tipuri de date care au la baza tipul Object.
+
+
+=================================
+aplicatii
+=================================
+
+
+<!--
+aplicatii
+////////////////////////
+
+1.
+Sa se creeze un obiect vid
+Sa se adauge 3 proprietati
+Sa se modifice a doua proprietate
+Sa se stearga a treia proprietate
+Sa se parcurga obiectul obtinut afisand atat proprietatile cat si valorile
+-->
+<script>
+    let persoana = {
+      nume: "John",
+      varsta: 30,
+      adresa: "Bucuresti"
+
+    }
+
+    persoana.varsta = 25
+    delete persoana.adresa
+
+    for (let prop in persoana) {
+      console.log(` ${prop} : ${persoana[prop]}`)
+    }
+
+    /*
+    nume:John
+    varsta:25
+    */
+</script>
+
+<!--
+2. 
+Sa se creeze o functie care sa verifice daca un obiect este vid
+
+Rezolvare:
+Se incearca parcurgerea obiectului, daca se realizeaza macar o ciclare atunci obiectul nu este vid
+-->
+
+<script>
+    function checkEmptyObj(obj) {
+
+      for (let prop in obj) {
+        return false
+      }
+      return true
+    }
+
+
+    let persoana = {
+      nume: "John",
+    }
+
+    console.log(checkEmptyObj(persoana)) //false
+
+    let listaProduse = {}
+
+    console.log(checkEmptyObj(listaProduse)) //true
+ 
+</script>
+
+
+<!--
+3. 
+Sa se creeze o functie care sa faca suma valorilor dintr-un obiect cosCumparaturi. Obiectul cosCumparaturi contine valorile pentru diferite produse adaugate in cos, fiecare proprietate fiind numele unui produs iar fiecare valoare numerica fiind pretul acelui produs. 
+Functia va crea si o proprietate in obiectul cosCumparaturi care retine valoarea cosului.
+
+-->
+
+<script>
+     function calculValoareCos(cos) {
+
+            let pretTotal = 0
+            for (let produs in cos) {
+                pretTotal += cos[produs]
+            }
+
+            cos.valoareCos = pretTotal
+            return pretTotal
+        }
+
+
+        let cosCumparaturi = {
+            paine: 5,
+            ulei: 10,
+            lapte: 9,
+            fructe: 7,
+        }
+
+        calculValoareCos(cosCumparaturi)
+        console.log(cosCumparaturi.valoareCos)//31, reprezinta valoare calculata a cosului
+
+        // Se remarca faptul ca variabila "cosCumparaturi" a retinut modificarea adusa de functia "calculValoareCos()"
+        //si anume dupa executia functiei se poate accesa noua proprietate a variabilei cosCumparaturi,
+        //cosCumparaturi.valoareCos, care a fost adaugata de catre functie.
+
+        //Acest lucru e posibil datorita transferului prin referinta a variabilei obiect
+        // "cosCumparaturi" catre functia "calculValoareCos()", asta permitand pastrarea modificarilor si dupa
+        //terminarea executiei functiei
+ 
+</script>
