@@ -26,6 +26,7 @@ part3:
 
 
  part4: 
+ 
  20. Obiecte: doua metode de creare, obiecte de tip literal, cele doua metode de accesare proprietati - punct si paranteze patrate, computed properties, obiecte create direct cu variabile (property value shorthand), verificare apartenenta proprietate folosind operatorul "in", parcurgere obiect cu for..in, simulare vector folosind proprietati numerice, ordonarea automata a proprietatilor numerice, metoda de evitarea a ordonarii automate a proprietatilor numerice
 
 
