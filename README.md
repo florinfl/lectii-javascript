@@ -38,7 +38,7 @@ De verificat
 Valabil in toate lectiile: Cand este vorba de domenii de vizibilitate, cel mai probabil este vorba de domeniul de vizibilitate local al unei functii. Nu vom face referire direct la domeniul de vizibilitate pentru o variabila ci doar pentru functii. Mai multe lamuriri la inceputul lectiei 18.
 
 
-La sectiunea 9, Conversii de tip Boolean, e o scapare:
+La sectiunea 9, Conversii de tip Boolean:
 
 Exista o exceptie pentru comparatii cu numere asa cum se vede la sectiunea 11 Comparatii (Comparatii cu valori booleene):
 
