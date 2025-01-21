@@ -1,0 +1,582 @@
+Obiecte
+===========================
+Recap obiecte vs primitive
+=============================
+
+
+Cu diferite ocazii a trebuit sa facem referire la modul in care sunt create obiectele mai ales din perspectiva transferului prin referinta in cazul parametrilor efectivi la executia functiilor.
+
+Zona Stack este zona unde sunt memorate contextele de executie ale functiilor la momentul executiei. Este un mecanism de tip stiva care permite organizarea executiei functiilor corespunzator nivelului de “nesting”. Variabilele isi primesc valorile la momentul executiei functiilor indiferent daca contin valori primitive sau de tip obiect. Doar ca, prin natura crearii obiectelor, se stocheaza in variabile la momentul crearii si atribuirii doar adresa catre corpul obiectului, acesta stocandu-se in zona Heap nu in Stack. Astfel toate variabilele din zona Stack functioneaza pe principiul transferului prin valoare doar ca variabilele care contin obiecte reprezinta un lant format din doua elemente. Primul element e variabila din stack iar al doilea element e obiectul propriu-zis din Heap la care trimite adresa de memorie memorata in variabila din Stack. Incercarea de a copia o astfel de variabila creaza duplicat nu la obiectul din Heap ci la adresa de memorie catre acel obiect. 
+
+Operatiile:
+let ob1 = {}
+let obj2 = obj1
+
+creaza rezultatul:
+
+obj1 (in Stack) -> corp obiect in Heap <- obj2 (in Stack)
+
+Atat obj1 cat si obj2 contin aceasi adresa de memorie a corpului obiectului din Heap.
+Daca se creaza o a treia variabila
+let obj3 = obj1
+
+Nu se face deca crearea inca a unei variabile in Stack care sa adreseze corpul obiectuli din zona Heap
+
+                                  obj3(in Stack)                                     
+                                            |
+obj1 (in Stack) -> corp obiect in Heap <- obj2 (in Stack)
+
+
+Prin contrast valorile primitive odata ce sunt create si atribuite unor variabile nu mai au nimic in comun
+
+let var1 = 3 //se creaza variabila var1 in Stack si i se da valoarea 3
+let var2 = var1 // creaza o valoarea duplicat 3 pentru variabila var2 in zona Stack
+
+Varibilele ce contin primitive incep si se termina in zona stack avand o singura componenta, adresa de memorie din stack si la acea adresa de memorie din Stack se afla valoarea primitiva.
+In acest moment var1 si var2 nu au nimic in comun, valorile lor, ambele avand valoarea 3, sunt separate in zona Stack.  Asta e valabil si pentru string-uri, valori booleene, null, undefined.
+
+Valorile primitivele sunt imutabile
+
+Valorile primitive sunt imutabile, adica ele nu pot fi modificate, chiar daca aparent se pot face incrementari, adaugari de valori, concatenari.
+
+Astfel pentru 
+a = 1
+incercand modificarea
+a=a+1 // 2
+valoarea initiala (1) din a este abandonata, dar lasata in memorie nemodificata, si este inlocuita cu noua valoare, (2). Abia cand se activeaza mecanismul “garbage collection” se va sterge din memorie valoarea intiala (1) si astfel se elibereaza acea zona de memorie din stack.
+
+La fel e si pentru string-uri dar va fi o discutie separata cand se va ajunge la string-uri si metode pentru string-uri, imutabilitatea pentru string-uri e in sine o manifestare aparte de care trebuie sa se tina cont cand se incearca modificarea a unor parti din string-uri.
+
+Adresele de memorie sunt si ele imutabile, obiectele la care fac referinta insa nu sunt imutabile, pot fi modificate
+
+La fel de imutabila este si o variabila de tip obiect, mai exact partea care contine adresa la obiectul propriu-zis. Dar cum nu se fac operatii cu adrese de memorie in Javascript, nu are sens sa vorbim despre imutabilitatea adreselor de memorie. Insa ele pot fi complet inlocuite atunci cand se atribuie un alt obiect acelei variabile.
+
+Pentru
+let obj = {prop:”obj1”}
+in obj se stocheaza o adresa (obj = adresa1) pentru obiectul “o1” creat in Heap
+
+Daca se creaza un alt obiect si se atribuie lui obj
+obj = {prop:”obj2”}
+in obj se stocheaza o alta adresa(obj = adresa2) pentru obiectul “o2” creat in Heap
+
+La fel ca la primitive, adresa1 este abandonata, va fi stearsa din memorie cand se activeaza mecanismul “garbage collection”.
+
+Obs:
+Nu se stie insa intotdeauna daca obiectul de la adresa1 din Heap, “o1”, va fi sters din memorie. 
+Poate in alte situatii, daca adresa1 a fost stocata si in alta variabila din Stack, conform mecanismului de adrese partajate de mai multe variabile, atunci obiectul de la adresa1 va continua sa existe. Daca nu exista insa nici o variabila din Stack care sa contina adresa1 atunci si obiectul “o1” din Heap, de la adresa1, va fi sters.
+
+In general “garbage collection” functioneaza dupa regula “daca exista un spatiu de memorie ocupat de o valoare care nu este continuta de o variabila sau la care nu are referinta nici o variabila atunci acea zona de memorie poate fi eliberata” - echivalent cu a sterge acea valoare stocata acolo.
+
+Obiectele din Heap pot fi modificate
+In variabilele de tip obiect din Stack adresele de memorie sunt imutabile insa obiectele propriuzise din Heap la care fac referire pot fi modificate asa cum se va vedea cand se va discuta despre declararea variabilelor obiect cu ajutorul cuvantului cheie “const”.
+
+================================
+Obiectele sunt accesate prin referinta
+=================================
+
+Pentru obiecte crearea unei variabile in zona stack este doar jumatate din procesul de crearea a unui obiect
+
+let obj1 = {}
+A)prima parte a procesului de creare obiect:
+Atunci cand este creata variabila obj1 in prima faza de executie, ea primeste memorie in zona Stack, deocamdata nu are legatura cu obiectul, e o variabila oarecare
+
+B) Cand se face atribuirea obiectului catre variabila obj1 in faza a doua de executie se intampla cateva lucruri
+este evaluata expresia din dreapta operatorului de atribuire, Javascript constata ca e un obiect, creaza obiectul in zona Heap la o adresa de memorie
+variabila obj1 din zona Stack primeste valoarea adresei de memorie a obiectului din zona Heap
+
+Prin urmare acum avem doua lucruri, o variabila in Stack, un obiect in Heap. Variabila din Stack, cu nimic diferita de o alta variabila din Stack, contine acum adresa de memorie a obiectului din Heap.
+E ca si cand s-ar crea un stalp in zona Stack de care este ancorat un vas din zona Heap. Se pot crea astfel mai multi stalpi care sa ancoreze un singur vas prin crearea de noi stalpi si conectarea stalpilor cu locatia vasului.
+Primitivele, daca e sa mentinem comparatia, reprezinta doar simpli stalpi, fara legatura intrei ei sau cu alte vase.
+ 
+Variabila obj1 in sine este doar o variabila obisnuita din Stack, contine o valoare pe care o poatea atribui altei variabile. La momentul atribuirii catre alta variabila nu conteaza daca obj1 contine un numar, un string sau o adresa de memorie.
+
+Incarcand sa copiem valoarea din obj1 in variabila obj2 nu facem decat sa copiem acel continut din obj1 care intamplator este o adresa de memorie.
+let obj2 = obj1
+
+Abia cand se acceseaza obj2 se constata ca e vorba de o adresa de memorie care trimite catre un obiect, acelasi obiect la care trimite bineinteles si obj1.
+
+Deci obj1 si obj2 desi diferite, fiind in Stack la adrese de memorie diferite, deoarece contin aceeasi adresa de memorie a unui obiect, pot accesa aceeasi resursa, acelasi obiect.
+
+Intregul concept al transmiterii prin referinta inseamna de fapt transmiterea adresei de memorie a unui obiect stocata in variabila obj1 catre variabila obj2. Nu se poate cunoaste valoarea adresei de memorie, stim doar ca ambele variabile, obj1 si obj2, pot accesa acum acelasi obiect. 
+
+Iar adresele de memorie ale variabilelor de tip obiect nu sunt accesibilie din Javascript, incercand sa accesam o variabila ce contine un obiect accesam direct obiectul din Heap sau proprietatile acestuia. Nu se poate modifica adresa unei variabile de tip obiect decat atribuindu-i un alt obiect.
+
+Pentru accesarea unui obiect prin intermediul unei adrese se stocate in variabila obj1 se mai folosesc formulari ca 
+variabila obj1 este un pointer sau link catre obiectul x,
+obj1 “points to”, trimite catre un obiect, 
+obj1 references an object, referentiaza un obiect,
+obj1 adreseaza un obiect
+
+Dar pentru simplitate vom spune de obicei, 
+variabila obj1 este un obiect, 
+obj1 contine un obiect, 
+obj1 este de tip obiect,
+obj1 are proprietatile propr1, prop2...si metodele func1, func2....,
+obj1 este parcurs, destructurat, desfacut in parti componente, combinat cu, etc... 
+In general ne vom referi la o variabila ce contine un obiect ca si cand ar fi un singur element, variabila obiect, facand abstractie de faptul ca e compusa din doua componente, cea din Stack si cea din Heap. Vom sti insa tot timpul faptul ca acel obiect e o valoare care se acceseaza prin adresa, prin referinta.
+
+Obs: In alte limbaje precum C/C++ valoarea adresei de memorie reprezentata de un pointer se poate cunoaste, se poate afisa, incrementa, etc. In Javascript adresele de memorie sunt ascunse. Exista si un beneficiu, e mai sigur sa nu se lucreze direct cu pointeri catre adresele de memorie a variabilelor, obiectelor sau altor resurse.
+
+
+================================
+Recap: transfer valoare vs referinta
+==============================
+
+Primitive:
+let var1 = 10
+let var2 = var1
+
+Variabilele var1 si var2 sunt egale dar independente, ambele in zona Stack, la adrese diferite contin cate o valoare independenta care nu are legatura cu vreo alta valoare. Transferul valorii din var1 catre var2 s-a realizat prin valoare, valoarea din var1 a fost copiata in locatia lui var2. Cele doua variabile isi continua existenta fara sa stie una de alta.
+
+Atribuirea unei valori catre var1 nu influenteaza var2
+
+Obiecte:
+let obj1={}
+let obj2 = obj1
+
+obj1 contine adresa_obiect_obj1
+obj2 contine adresa_obiect_obj1
+
+Varaibilele obj1 si obj2 sunt egale dar nu sunt independente, contin aceeasi adresa de memorie, acceseaza aceeasi resursa de la acea adresa de memorie, obiectul de la adresa “adresa_obiect_obj1”. 
+Se spune ca variabila obj1 a fost transmisa/copiata prin referinta catre obj2.
+
+Obiectul referentiat de obj1 este vizibil de catre obj2, orice modificare facuta asupra lui obj1 este vizibila prin intermediul lui obj2.
+
+Testarea egalitatii celor doua variabile returneaza true pentru ca reprezinta aceeasi adresa de memorie, acelasi obiect.
+
+console.log(obj2 === obj1)// true
+
+Daca se creaza o proprietate in obj1 acest lucru se va reflecta si asupra lui obj2:
+
+obj1.prop1 = "test"
+console.log(obj2)//{prop1: 'test'}
+
+
+Ce se intampla daca cream separat doua obiecte?
+
+let o1 = {}
+let o2 = {}
+
+console.log(o1 == o2)// false
+
+Cele doua obiecte sunt diferite chiar daca aparent arata la fel. Au fost create la momente diferite in timp si pentru fiecare s-a generat un obiect separat, cu adresa de memorie separata in zona Heap. O proprietate creata in o1 nu mai este vizibila in o2, o1 si o2 referentiind obiecte diferite.
+
+Diferenta dintre cele doua perechi de variabile obj1 si obj2 fata de o1 si o2 e ca in primul caz, in obj2 doar a fost copiata adresa lui obj1 in obj2, in timp ce in al doilea caz o2 a fost creat separat de o1, pe alta linie de cod, fiind un obiect aflat intr-o alta zona de memorie fata de o1.
+
+obj1 --- > obiect1 < --- obj2
+
+o1 --- > obiect2
+o2 --- > obiect3
+
+Declararea obiectelor folosind const
+
+Atunci cand se creaza o constanta primitiva si se incearca modificarea ei se genereaza eroare. Am vazut deja la declararea variabilelor folosind cuvantul cheie “const”.
+
+Cu obiectele lucrurile stau diferit pentru ca ele sunt compuse din doua parti, partea din Stack cu adresa de memorie si partea din Heap cu obiectul de la acea adresa de memorie.
+
+Orice incercare de modicarea a unei proprietati dintr-o variabila de tip obiect nu modifica adresa continuta in variabila din Stack ci obiectul din Heap, adresa variabilei din Stack ramanand neatinsa.
+
+
+   const pers = {
+      nume: "John",
+      adresa: "Cluj",
+    }
+
+
+Ne-am astepta ca o eventuala modificare a obiectului pers sa genereze o eroare:
+    
+pers.adresa = "Brasov"
+    console.log(pers)//{nume: 'John', adresa: 'Brasov'}
+
+Insa modificarea este acceptata si se pastreaza. 
+
+Cu alte cuvinte nu s-a modificat adresa de memorie continuta de variabila pers, ci s-a modificat obiectul stocat la acea adresa de memorie. Variabila pers continua sa contina aceeasi adresa de memorie si nu poate sti ce modificari se aduc obiectului. Astfel Javascript nu depisteaza nici o modificare pentru variabila constanta pers ca sa genereze o eroare pentru modificarea acesteia.
+
+zona Stack                                                                                       zona Heap
+  
+const pers = adresa memorie din Heap        ----- >     {nume:”John”, adresa:”Cluj”}
+constanta pointer, nu se modfica                                       obiect care se poate modfiica
+
+Nici o modificare a continutului obiectului la care face referinta pers nu modifica valoarea adresei stocata in pers. 
+
+Noi vom continua sa denumim pers ca fiind constanta obiect pentru simplitatea exprimarii dar corect ar fi “constanta pers din Stack contine o referinta, care nu poate fi modificata, la un obiect stocat in Heap, care poate fi modificat”
+
+Singura metoda de a modifica adresa stocata in pers este crearea unui nou obiect, lucru care genereaza o noua adresa de memorie in Heap si care ar suprascrie vechea adresa din pers, lucru pe care Javascript il depisteaza si genereaza eroare:
+
+ pers = {}//Uncaught TypeError: Assignment to constant variable.
+
+==============================
+Clonarea si combinarea obiectelor
+==============================
+
+
+(shallow copy)
+Copiere element cu element
+==============
+
+Am vazut deja ca pentru a crea un obiect nou din altul nu putem doar copia un obiect existent in alta variabila. Nu ar face decat sa faca duplicat la adresa de memorie a obiectului, ar copia doar referinta.
+
+Copiere obiecte element cu element
+Pentru a crea un duplicat trebuie sa plecam de la crearea unui obiect nou si apoi sa copiem toate proprietatile din obiectul original in cel nou.
+
+//obiectul original persoana:
+
+let persoana = {
+nume:”John”,
+varsta:30,
+}
+
+//obiectul nou clona
+
+let clona = {}  // am creat un obiect nou independent de obiectul persoana
+
+
+//Urmeaza sa copiem toate proprietatile din obiectul “persoana” in noul obiect “clona”
+
+for(let prop in persoana){
+clona[prop] = persoana[prop]
+}
+
+Operatia clona[prop] = persoana[prop] produce cateva actiuni:
+se creaza in obiectul clona proprietatea continuta de variabila prop
+se atribuie catre proprietatea prop din clona valoare continuta de proprietatea prop din persoana
+Acesti doi pasi sunt repetati pentru fiecare proprietate din persona realizandu-se o copiere element cu element din obiectul persoana in obiectul clona.
+
+Acum daca modificam unul dintre obiecte modificarea nu se mai transmite celuilalt obiect pentru ca cele doua obiecte sunt independente.
+
+persoana.varsta = 20
+console.log(clona.varsta)//30
+
+Aceasta metoda nu este atat de buna pentru ca nu face decat sa copie primul nivel de proprietati din obiecte. Sa spunem ca obiectul obj1 este copiat element cu element in obj2. Daca o proprietate, propNested, din obj1 contine un alt obiect, sa-l denumim objectNested, adunci obiectul objectNested va fi partajat(shared) de catre ambele obiecte obj1 si obj2 prin intermediul proprietatii propNested din acelasi motiv al transmiterii prin referinta.
+
+obj1.propNested ---- > objectNested < ---- obj2.propNested
+
+Deci ajungem sa ne confruntam cu aceeasi problema doar ca acum nu se partajeaza obiectele in intregime ci doar obiecte care sunt pe un nivel descendent, nesting, in interiorul obiectelor parinte.
+
+Asta inseamna ca proprietatile din obiectul sursa nu sunt copiata in obiectul destinatie folosind metoda copierii prin valoare ci copierea se face tot prin referinta.
+
+Metoda de copiere element cu element poate fi folosita totusi pentru obiecte care nu au proprietati a caror valori sunt obiecte. Dar nu prea este cazul in aplicatiile care depasesc nivelul demonstativ.
+Deci ne trebuie alte metode de copiere.
+
+Acest tip de duplicarea a obiectelor dar in care proprietatile care contine obiecte nu sunt copiate prin valoare ci doar prin referinta se numeste “shallow copy”(copiere de suprafata). Nu exista o traducere exacta pentru “shallow”, in romana s-ar traduce “putin adanc”. 
+Pe de alta parte pe noi ne intereseaza acele metode care realizeaza “deep copy”, copiere de adancime, care copiaza prin valoare toate valorile din proprietati indiferent daca sunt obiecte sau primitive, astfel creand copii complet independente ale obiectului sursa.
+
+================================
+Clonarea si combinarea obiectelor
+=================================
+(shallow copy)
+Operatorul “spread”, metoda Object.assign
+=============
+
+Operatorul Spread
+Tot din categoria  “shallow copy” face parte si copierea cu operatorul “spread”, metoda folosita mult la vectori:
+
+let sursa = {a:1,b:2}
+let destinatie = {...sursa}
+console.log(destinatie)//{a: 1, b: 2}
+
+Aceasta metoda e preferata cand se lucreaza cu vectori sau cu obiecte ce contin doar primitive. Operatorul “spread” poate fi folosit pentru concatenare, inversare de valori, e un operator foarte util. Va fi un capitol special pentru operatorul “spread”.
+
+Tot din categoria shallow copy pentru creare/combinare obiecte avem metoda Object.assign()
+
+Object.assign(destinatie, ...obiecte_sursa) - optional
+
+Metoda assign nu mai este folosita dupa aparitia metodelor mai moderne de concatenare si clonare dar apare peste tot in aplicatiile mai vechi si e si un exercitiul bun pentru testarea copierii prin referinta si valoare.
+
+Obs: ce reprezinta sintaxa Object.assign?
+Object.assign() este o metoda statica care face parte din clasa Object. Discutia despre clase si tipuri de metode din clase va fi un capitol separat . In Javascript functiile native nu sunt independente, de obicei sunt legate fie de obiecte, asa cum instructiunea alert() e legata de obiectul window, window.alert(), fie sunt legate de clase ca metode statice, Object.assign(), Math.round(), Array.from() etc.. Chiar si functiile care aparent nu sunt asociate cu un obiect( ca de exemplu alert(), prompt(), confirm(), parseInt(), parseFloat() ), chiar si ele fac parte din obiectul global, window, si au forma completa window.alert(), window.parseInt()...
+
+Metoda Object.assign(destinatie, obiect1, obiect2...) concateneaza obiectele destinatie, obiect1, obiect2... intr-un singur obiect care este memorat in variabila destinatie.
+
+Iata un exemplu de pe MDN
+(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+
+<script>
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target); //(A)
+// Expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget === target); //(B)
+// Expected output: true
+</script>
+
+Se poate observa la afisarea obiectului target ca este rezultatul concatenarii celor doua obiecte, target si source. De asemeni obiectul returnat de metoda assign este acelasi cu obiectul target.
+
+A fost realizata copierea din source in target iar proprietatile comune, asa cum este proprietatea b, au fost suprascrise de proprietatile din source peste cele din target.
+
+Este utila metoda aceasta cand dorim sa concatenam doua obiecte, rezultatul fiind stocat in primul obiect, destinatie, asa cum este afisat pe linia (A).
+
+De asemeni obiectul returnat este acelasi cu obiectul destinatie - linia (B)
+
+Modificam exemplul de mai sus astfel incat obiectul destinatie, target, sa nu contina nici o proprietate.
+
+<script>
+const target = {};
+const source = { b: 4, c: 5 };
+
+Object.assign(target, source);
+
+console.log(target); //(A)
+// Expected output: Object {  b: 4, c: 5 }
+
+</script>
+
+Abia acum am realizat o cloana a obiectului source, target contine aceleasi proprietati ca si source dupa cum se vede pe linia (A) 
+
+Mai aducem o modificare ca sa vedem ce fel de copie se realizeaza cu adevarat.
+Lasam obiectul target fara nici o proprietate dar in source adaugam o proprietate prop1 care contine un obiect, {x:100}
+
+Intrebarea este, dupa copierea lui source in target, incercand sa modificam valoarea proprietatii x din {x:100}, aceasta modificare va fi vizibila si in target?
+
+<script>
+const target = {};
+const source = {prop1:  {x:100}  , c: 5 }; //(A)
+
+ Object.assign(target, source);
+
+source.prop1.x= "hello" //(B)
+
+console.log("target", target);
+// Expected output:  "target" Object { prop1: Object { x: "hello" }, c: 5 }
+
+console.log("source",source);
+// Expected output:  "source" Object { prop1: Object { x: "hello" }, c: 5 }
+</script>
+
+Pe linia (A) am creat obiectul source care contine proprietatea obiect, prop1:{x:100}
+Dupa clonarea cu assign, pe linia (B), modificam valoarea proprietatii x a obiectului stocat in prop1 in obiectul source.
+Pentru ambele afisari, atat pentru target cat si pentru source, se observa ca obiectul stocat in prop1 a devenit acum {x:”hello”} din valoarea initiala {x:100}
+
+Faptul ca aceasta modificare din source se reflecta si in target demonstreaza ca cele doua obiecte nu sunt independente dupa “clonarea” cu assign. Ele partajeaza acelasi obiect stocat in prop1. Asta inseamna ca s-a realizat o duplicarea doar a primului nivel de proprietati, obiectele de pe nivelul 2 au ramas la comun.
+
+Exista si un avertisment la acea adresa de pe MDN:
+“Warning for Deep Clone
+For deep cloning, we need to use alternatives like structuredClone(), because Object.assign() copies property values.
+If the source value is a reference to an object, it only copies the reference value.”
+
+================================
+Clonarea si combinarea obiectelor
+================================
+( deep copy)
+JSON parse/stringify
+===========
+
+Pe scurt metodele folosite sunt 
+
+structuredClone
+JSON stringify/parse
+parcurgere recursiva a obiectelor si copiere element cu element
+
+
+Am descoperit deja ca in cazul unui obiect a carui proprietati pot avea ca valori alte obiecte, nu se poate face clonarea completa folosind copierea proprietatilor doar de pe primul nivel
+
+Incercand sa copiem un obiect
+let obj1={prop1:{...obiect pe nivel 2}}
+let obj2 = {}
+
+for(let key in obj1){
+  obj2[key] = obj1[key]
+}
+
+nu facem altceva decat sa creem un prim nivel de proprietati duplicat in obj2 dar obiectul “obiect pe nivel 2” ramane partajat intre cele doua obiecte. Modificarea “obiectului pe nivel 2” va fi vizibila din ambele obiecte, obj1 si obj2, pentru ca “obiect pe nivel 2” nu a fost duplicat ci a fost copiata doar referinta la el - vechea problema cu copierea obiectelor.
+
+Copierea proprietatilor de pe primul nivel nu e suficienta. Trebuie copiate proprietatile si obiectele de pe nivelul 2. Dar ce se intampla atunci cu obiectele de pe nivelul 3. Si apoi dupa copierea element cu element a obiectelor de pe nivelul 3 ce se intampla cu cele de pe nivelul 4. Nu scapam niciodata de posibilitatea si pericolul ca obiectele de pe un nivel inlat de nesting sa fie partajate.  
+Apare o problema de parcurgere si duplicare a structurilor arborescente. Exista o ramura a programarii clasice (DSA data structures & algorithms) care se ocupa de implementarea si parcurgerea unor astfel de structuri, aceste fiind denumite chiar arbori. Pe scurt nu se poate rezolva problema parcurgerii sau copierii arborilor decat cu algoritmi recursivi(sau din aceasi categorie, backtracking). Algoritmii recursivi folosesc o structura de tip stiva ce controleaza adancimea de parcurgere a unei structuri permitant astfel parcurgerea arborilor oricat de complecsi ar fi si oricate nivele ar avea.
+
+O metoda ce clonare completa din categoria “deep clone” vine din utilizarea formatului JSON pentru fisiere care contin obiecte. Formatul JSON e putin diferit de obiecte in sensul ca proprietatile obiectelor in formatul JSON trebuie sa fie de tip text, adica scrise intre ghilimele. Insa exista o functie de conversie din obiect in JSON(stringify) si apoi din JSON inapoi in obiect(parse). Exact aceasta conversie determina crearea unui obiect duplicat, e ca un produs secundar al procesului de conversie in JSON si apoi inapoi in obiect. Nici nu ne intereseaza formatul JSON in acest caz, doar efectul secundar al operatiei de conversie. 
+
+Obs:Ca sa putem accesa aceste functii trebuie sa apelam la obiectul nativ JSON care contine aceste metode, la fel ca obiectul window in relatie cu console.log().
+
+Crearea unui astfel de obiect clona are forma
+let obj2 = JSON.parse(JSON.stringify(obj1))
+
+Prin stringify obj1 este transformat in text in format JSON si apoi prin parse se creaza un obiect cu totul nou.
+
+Exemplu:
+
+  let sursa = { a: 1, b: { x: "2", y: null } }
+    let destinatie = JSON.parse(JSON.stringify(sursa))
+
+    console.log(sursa == destinatie)// false, sursa si destinatie sunt doua obiect separate
+
+    console.log(destinatie)
+    console.log(sursa)
+
+Sursa si destinatie sunt obiecte diferite dar au aceeasi structura si nu partajeaza nici o parte din structura lor.
+{
+    a: 1,
+    b: {
+        x: "2",
+        y: null
+    }
+}
+
+Se poate rescrie mecanismul de conversie pe doua randuri, e acelasi lucru.
+
+  let sursa = { a: 1, b: { x: "2", y: null } }
+    let destinatieString =JSON.stringify(sursa)
+    let destinatie = JSON.parse(destinatieString)
+
+
+==============================
+Clonarea si combinarea obiectelor
+================================
+( deep copy)
+structuredClone, functii recursive
+=================
+
+
+Metoda cea mai rapida este structuredClone
+
+let obj1 = {a:1,b:{c:2}}
+let obj2 = structuredClone(obj1)
+console.log(obj2)
+
+//Copierea se face element cu element, in intregime, rezultand o copie identica a obiectului obj1, fara ca obj1 si obj2 sa mai contina obiecte partajate:
+
+obj2= {
+    "a": 1,
+    "b": {
+        "c": 2
+    }
+}
+
+DeepCopy cu referinte circulare
+
+Metoda JSON parse/stringify nu functioneaza tot timpul, e vorba de situatiile and exista referinte circulare in obiectul sursa. Este unul din motivele pentru introducerea in limbjaj a instructiunii structuredClone.
+
+Ce se intampla daca proprietatea “y”, din obiectul continut de proprietatea “b”, trimite inapoi catre proprietatea “b”
+
+        let sursa = { a: 1, b: { x: "2", y: null } }
+        sursa.b.y = sursa.b
+ 
+       let destinatie1 = JSON.stringify(sursa)
+     
+// Eroare: Uncaught TypeError: Converting circular structure to JSON
+        
+Apare o eroare din faptul ca Javascript depisteaza legatura circulara de la “sursa.b.y” la “sursa.b” si metoda JSON.stringify() nu este conceputa pentru conversia structurilor circulare.
+
+Ob1. Adaugarea referintelor circulare transforma o structura arborescenta in una de tip “graf”. Adauga un alt nivel de complexitate si exista un domeniu dedicat grafurilor cu proprii algoritmi si structuri de date. De aceea JSON.stringify se opreste cand intalneste referinte circulare.
+
+Problema insa este rezolvata prin folosirea instructiunii structuredClone()
+
+ let sursa = { a: 1, b: { x: "2", y: null } }
+ sursa.b.y = sursa.b
+  let destinatie2 = structuredClone(sursa)
+    
+ console.log(destinatie2)
+
+Se poate observa mai jos ca destinatie 2 este o structura de tip arborescent dar care nu se termina. In realitate este un graf care are un circuit. Dar asa trateaza Javascript un circuit, creaza o bucla infinita. Cel putin aceasta bucla infinita este gestionara fara eroare cu structuredClone()
+
+a: 1
+b:
+x: "2"
+y:
+x: "2"
+y:
+x: "2"
+y:
+x: "2"
+y:
+x: "2"
+y: {x: '2', y: {…}}
+[[Prototype]]: Object
+[[Prototype]]: Object
+[[Prototype]]: Object
+[[Prototype]]: Object
+[[Prototype]]: Object
+[[Prototype]]: Object
+
+Incercand sa dam click pe proprietatea y se deschide un obiect care contine proprietatea y care contine acelasi obiect si tot asa.
+
+Metodele deepCopy nu copie si metodele din obiecte
+
+Ma exista o limitare care de data asta e valabila si pentru JSON stringify/parse si pentru structuredClone, nici una dintre ele nu permite copierea metodelor din interiorul obiectelor.
+
+   let sursa = {
+      a: 1,
+      b: { x: "2", y: null },
+      afisare() {
+        console.log("metoda din obiect")
+      }
+    }
+
+    let destinatie1 = JSON.parse(JSON.stringify(sursa))
+
+    destinatie1.afisare()// Eroare: Uncaught TypeError: destinatie1.afisare is not a function
+
+Obs:
+Instructiunea structuredClone nu functioneaza cu obiecte ce contin functii/metode.
+Incercand sa clonam obiectul cu structuredClone() da eroare de cum gaseste o metoda in obiect, deci in acest caz metoda cu JSON parse/stringify e cea corecta.
+
+Insa se poate rezolva copiind manual metodele sau copiindu-le element cu element ca in cazul obiectelor cu un singur nivel.
+
+    let sursa = {
+      a: 1,
+      b: { x: "2", y: null },
+      afisare() {
+        console.log("metoda din obiect")
+      }
+    }
+
+    let destinatie = JSON.parse(JSON.stringify(sursa))
+
+    for (let key in sursa) {
+      if (typeof sursa[key] == "function") {//se verifica daca o proprietate este functie
+        console.log(sursa[key])//se afiseaza functiile din obiect
+        destinatie[key] = sursa[key]//se creaza noile functii in destinatie
+      }
+    }
+    destinatie.afisare()
+
+Crearea propriilor noastre functii recursive.
+Tocmai din cazul ca in decursul timpului au fost atatea dificultati legate de copierea obiectelor, programatorii au apelat la functii oferite de alte librarii 
+(lodash.com/docs/#cloneDeep)
+sau chiar au incercat cu propriile functii recursive.
+(javascript.info/object-copy#comment-6296694113)
+
+  let sursa = {
+      a: 1,
+      b: { x: "2", y: null },
+      afisare() {
+        console.log("metoda din obiect")
+      }
+    }
+//Varianta originala (A)
+    // function makeDeepClone(target, source) {
+    //   for (let key in source) {
+    //     target[key] = source[key]
+    //     typeof source[key] === 'object' &&  //!!! lipseste initializarea target[key] ={}
+    //       makeDeepClone(target[key], source[key]) 
+    //   }
+    // }
+
+    function makeDeepClone(target, source) {
+      for (let key in source) {
+        target[key] = source[key]
+        if (typeof source[key] === 'object') {
+          target[key] = {}//este esentiala crearea unui noi obiect pentru fiecare proprietate de tip obiect, se creaza o noua referinta
+          makeDeepClone(target[key], source[key])
+        }
+      }
+    }
+
+
+    let destinatie = {}
+
+    makeDeepClone(destinatie, sursa)
+    sursa.b.x = 5 // incercam modificarea unui obiect pe nivelul 2
+    console.log(destinatie) //{a:1,b: {x: '2', y: null}}
+    console.log(sursa)//{a:1,b: {x: 5, y: null}} , apare modificarea in sursa dar nu si in destinatie
+
+   // copie chiar si functiile din sursa in destinatie
+
+Obs. De testat modificare obiecte pe nivel 2 si cu varianta originala.
+
+Este doar o copiere element cu element dar, pentru ca aceasta copiere este recursiva, ea se realizeaza pe toata adancimea/inaltimea obiectului arbore eliminand pericolul sa ramana pe vreun nivel obiecte partajate. Bineinteles, nu rezolva referintele circulare, dar e un punct de plecare.
+
+Vom reveni la recursivitate, e parte integranta din mecanismul de executie a functiilor in general. Chiar si stiva Stack, cea care contine contextele de executie ale functiilor, e adaptata sa gestioneze functiile recursive(de aici si numele site-ului de discutii “stackoverflow.com”)
