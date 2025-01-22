@@ -39,6 +39,8 @@ Valabil in toate lectiile: Cand este vorba de domenii de vizibilitate, cel mai p
 
 Sectiunea 21, coloana 5 (de reluat la destructurare), shallow copy, operatorul spread: operatorul spread nu inverseaza valori, operatia de destructurare poate inversa valori: let a= 1,b =2;  [a,b] = [b,a];  sau   ({ c: b, d: a } = { c: a, d: b }); /  ({ b, a } = { b: a, a: b });  trebuie puse intre paranteze atribuirile cu obiecte pentru ca altfel le considera blocuri de instructiuni
 
+(https://www.freecodecamp.org/news/javascript-object-destructuring-spread-operator-rest-parameter/)
+
 
 La sectiunea 9, Conversii de tip Boolean:
 
