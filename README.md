@@ -37,6 +37,8 @@ part3:
 De verificat
 Valabil in toate lectiile: Cand este vorba de domenii de vizibilitate, cel mai probabil este vorba de domeniul de vizibilitate local al unei functii. Nu vom face referire direct la domeniul de vizibilitate pentru o variabila ci doar pentru functii. Mai multe lamuriri la inceputul lectiei 18.
 
+Sectiunea 21, coloana 5, shallow copy, operatorul spread: operatorul spread nu inverseaza valori, operatia de destructurare poate inversa valori [a,b] = [b,a]
+
 
 La sectiunea 9, Conversii de tip Boolean:
 
