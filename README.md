@@ -37,7 +37,7 @@ part3:
 De verificat
 Valabil in toate lectiile: Cand este vorba de domenii de vizibilitate, cel mai probabil este vorba de domeniul de vizibilitate local al unei functii. Nu vom face referire direct la domeniul de vizibilitate pentru o variabila ci doar pentru functii. Mai multe lamuriri la inceputul lectiei 18.
 
-Sectiunea 21, coloana 5, shallow copy, operatorul spread: operatorul spread nu inverseaza valori, operatia de destructurare poate inversa valori: let a= 1,b =2;  [a,b] = [b,a];  sau   ({ c: b, d: a } = { c: a, d: b });
+Sectiunea 21, coloana 5, shallow copy, operatorul spread: operatorul spread nu inverseaza valori, operatia de destructurare poate inversa valori: let a= 1,b =2;  [a,b] = [b,a];  sau   ({ c: b, d: a } = { c: a, d: b }); /  ({ b, a } = { b: a, a: b });  trebuie puse intre paranteze atribuirile cu obiecte pentru ca altfel le considera blocuri de instructiuni
 
 
 La sectiunea 9, Conversii de tip Boolean:
