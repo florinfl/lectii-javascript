@@ -1,0 +1,1473 @@
+
+#################
+Metode pentru obiecte, cuvantul cheie "this"
+#################
+
+
+======================
+Metode pentru obiecte
+======================
+
+In Javascript, sau orice limbaj de programare, se pot crea obiecte care sa inglobeze variabile si functii. Rolul variabilelor pentru obiecte este preluat de proprietati iar  functiile se numesc metode.
+
+Astfel un obiect nu contine doar proprietati care sa-l descrie dar poate contine si metode care reprezinta actiuni. In general vom trata proprietatile ca variabile iar metodele ca functii, pentru ca asta si sunt, doar ca sunt legate de obiectul in care au fost create.
+
+De exemplu un obiect “cub” poate fi din metal sau lemn, poate avea o anumita greutate. Acestea sunt proprietati. Actiuni sunt mutarea cubului sau returnarea unei proprietati.
+
+let cub = {}
+cub.dimensiune = 10
+cub.greutate = 5
+cub.culoare = “verde”
+cub.mutaLaDreapta(1)//muta cubul la dreapta cu un metru
+cub.afiseazaDimensiune()// afiseaza valoarea 10
+
+Pot fi obiecte in viata reala care pot avea mult mai multe proprietati si metode, cum ar fi o masina care are zeci de proprietati si metode, greutate, culoare, model, iar actiuni, porneste(), franeaza(), accelereaza(), vireazaStanga(), etc.
+
+In general putem considera ca obiectele din Javascript simuleaza obiectele din viata reala. Chiar si celor mai simple obiecte, care aparent nu au nici o actiune, li se poate atasa o actiune precum seteazaNume, returneazaProprietate.
+
+In Javascript exista doua abordari pentru crearea obiectelor literal, metoda de dinaintea update-ului ES6 si metoda de dupa.
+
+A)
+Metoda mai veche este creand proprietati dedicate
+let obj = {
+  prop1: 1,
+  prop2: 2,
+}
+
+In acest caz proprietatile sunt scrise explicit urmat de valori
+
+B)
+Metoda mai noua implica existenta a unor variabile care sa fie folosite pe post de proprietati (shorthand)
+
+let a =1, b=2
+let obj = {a,b}
+
+In acest ca se folosesc numele variabilelor ca sa devina direct nume de proprietati. Este convenabil daca avem deja nume de variabile si nu mai trebuie sa cautam alte nume pentru proprietati
+Este echivalent cu:
+
+let obj={
+  a:1,
+  b:2
+}
+
+Nu se foloseste ata de des pentru ca de obicei se scriu proprietatile cu valorile lor direct in obiectele de tip literal
+
+
+Si pentru crearea metodelor in interiorul obiectelor exista doua abordari
+
+A) Metoda clasica, declarare folosind cuvantul cheie function:
+Aceasta metoda era folosita inainte de ES6
+
+numeMetoda: function(){...}
+
+
+let obiect = {
+    proprietate1: valoare1,
+    proprietate2: valoare2,
+     ...
+    numeMetoda1 = function(parametri){...},
+    numeMetoda2 = function(parametri){...}
+}
+
+Exemplu:
+        let obj = {
+            numar1: 101,
+            numar2: 202,
+            mesaj: function () {
+                console.log("test")
+            }
+        }
+
+        obj.mesaj()
+
+
+B) Metoda noua, shorthand
+Pentru declararea metodelor, varianta noua(shorthand) renunta la cuvantul cheie “function”
+
+let persoana = {
+    nume: “John”,
+    greeting(){
+          console.log(“Hello”)
+    }
+}
+
+
+Odata inserata functia in interiorul obiectului aceasta poate fi apelata prin notatia cu punct, obiect.metoda(), persoana.greeting().
+
+Metodele shorhand pot fi combinate cu metodele clasice
+
+let obiect = {
+       variabila1,
+       variabila2,
+       ...
+       prop1: valoare1,
+       prop2: valoare2,
+        ...
+       numeMetoda1(param){...},
+       numeMetoda2(param){...},
+       ....
+       metoda3 : function(param){..},
+       metoda3 : function(param){..},
+       ...
+}
+
+
+Exista cateva diferente intre cele doua metode dar care nu influenteaza dezvoltarea aplicatiilor. Este totusi considerata mai sigura metoda mai noua, shorthand.
+
+(https://stackoverflow.com/questions/50378496/what-is-the-difference-if-any-between-the-different-function-declarations-with)
+
+=============================================
+Adaugarea metodelor dupa crearea obiectelor
+Accesarea si crearea metodelor folosind notatia cu paranteze patrate
+===============================================
+
+
+1)
+Ca si in cazul proprietatilor, obiectelor li se pot adauga metode si dupa ce au fost create. In acest caz metodele sunt create prin atribuire la fel ca in cazul functiilor expresie.
+
+O functie expresie este creata prin atribuirea catre o variabila
+let afisMesaj() = function(){
+  console.log(“hello”)
+}
+
+In mod similar se procedeaza si pentru crearea metodelor obiectelor
+
+let persoana = {nume: “John”)
+
+persoana.greetJohn = function(){
+     console.log(“Welcome John!”)
+}
+
+persoana.greetJohn() //“Welcome John!”
+
+2)
+Metoda poate fi creata inainte de crearea obiectului si apoi adaugata ca o simpla proprietate. Functiile pot fi tratate ca simple valori deci se comporta similar proprietatilor.
+
+  let greeting = function () {
+            console.log("Welcome John")
+        }
+
+        let pers = {
+            nume: "John",
+            salutare: greeting // (A)
+        }
+
+        pers.salutare()
+
+Pe linia (A) proprietatea “salutare” primeste ca valoare functia “greeting” si astfel “salutare” este atat proprietate cat si metoda.
+
+3)
+Metodele pot fi adaugate prin metoda shorthand atunci cand functiile expresie sunt stocate in variabile
+
+O metoda similara cu 2) provine din metoda shorthand cu variabile, de data asta folosind functii:
+
+   let greeting = function () {
+            console.log("Welcome John")
+        }
+
+        let pers = {
+            nume: "John",
+            greeting //(B)
+        }
+
+        pers.greeting()
+
+Se observa pe linia (B) ca s-a folosit direct numele variabilei in care este stocat numele functiei greeting().
+
+
+
+
+===============================================
+
+Crearea numelor de metode folosind notatia cu paranteze patrate
+Nume “computed” pentru metode
+================================
+
+Din moment ce metodele sunt tratate similar cu proprietatile atunci inseamna ca se pot accesa/crea folosind aceleasi metode ca in cazul proprietatilor.
+Deci se poate folosi si pentru metode notatia cu paranteze patrate si odata cu aceasta posibilitatea de creare nume de metode folosind expresii.
+
+        let pers = {
+            nume: "John",
+            ["greet" + "John"]() {
+                console.log("Welcome John")
+            }
+        }
+
+        pers["greetJohn"]() //"Welcome John"
+
+
+Sau dupa crearea obiectului
+       let pers = {
+            nume: "John",
+        }
+
+        pers["salutare" + 1] = function () {
+            console.log("Welcome")
+        }
+
+        pers.salutare1() //"Welcome"
+
+
+O singura metoda pentru creare si accesare
+Desi se pot face astfel de combinatii la crearea proprietatilor si metodelor, de obicei se vor crea proprietatile prin metoda clasica prop:valoare, iar metodele prin metoda shorthand la interiorul obiectelor:
+
+let obj = {
+  prop: valoare,...
+  numeMetoda1(param){...},
+  numeMetoda2(param){...},
+}
+
+Uneori dupa crearea obiectului prin metoda atribuirii cu functii expresie
+
+obj.numeMetoda = function(param){..}
+
+Iar accesarea metodei va fi aproape intotdeauna folosind notatia cu punct
+obj.numeMetoda(args)
+
+
+Obs: Metoda de accesare cu paranteze patrate a proprietatilor pentru obiecte permite verificarea obiectelor conform unui template. 
+
+Nu sunt multe exemple in care sa fie utila accesarea cu paranteze patrate. Nu o vom intalni pentru accesarea metodelor din obiecte insa pentru proprietati sunt uneori situatii cand este utila.
+
+Un exemplu poate fi gasit la adresa
+ (https://www.sitepoint.com/shorthand-javascript-techniques/), 
+articolul 18. “Object [key] Shorthand”
+
+Avem un obiect de forma
+let values = {first:'Bruce',last:'Wayne'}
+
+Obiectul este valid daca ambele proprietati, first si last sunt truthy
+
+In loc de o validare a unui obiect de forma
+
+function validate(values) {
+  if(!values.first)
+    return false;
+  if(!values.last)
+    return false;
+  return true;
+}
+
+console.log(validate({first:'Bruce',last:'Wayne'})); // true
+
+
+Se poate crea un obiect care sa contina o asa-zisa schema pentru validarea unui obiect. In aceasta schema proprietatile care trebuie verificate au la randul lor ca valoare un obiect care contine o lista de cerinte, in acest caz doar “required:true”
+
+
+// object validation rules
+const schema = {
+  first: {
+    required:true
+  },
+  last: {
+    required:true
+  }
+}
+
+// universal validation function
+const validate = (schema, values) => {
+  for(field in schema) {
+    if(schema[field].required) { //(A)
+      if(!values[field]) { //(B)
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+console.log(validate(schema, {first:'Bruce'})); // false
+console.log(validate(schema, {first:'Bruce',last:'Wayne'})); // true
+
+
+Testarea in functia validate() nu se poate realiza decat folosind notatia cu paranteze patrate, pe liniile (A) si (B). Se parcurge fiecare camp din schema folosind o variabila “field” si apoi tot aceasta variabila este folosita pentru accesarea proprietatii [field] si din obiectul schema, si din obiectul care este validat.
+
+O astfel de tehnica de validare este comuna in crearea bazelor de date MongoDB, iar libraria Mongoose, cu ajutorul careia se faciliteaza crearea si gestionarea bazelor de date MongoDB, foloseste in acelasi mod tipul aceste de obiecte de tip “schema” pentru validarea datelor care sunt introduse in baza de date.
+
+
+===========================
+Cuvantul cheie “this”
+===========================
+
+Este folosit pentru accesarea proprietatilor din interiorul functiilor metode ale obiectelor
+let persoana = {
+   nume:”John”,
+   greeting(){ console.log(this.nume)} 
+}
+persoana.greeting()//”John”
+
+Pana la obiecte am vazut ca aveam variabile si functii separate. Variabilele erau accesate individual si functiile la fel. Interactiunile dintre variabile si functii au loc prin
+transmiterea variabilelor ca parametri efectivi 
+declararea ca parametri formali la crearea unei functii. 
+accesare in interiorul unei functii atunci cand sunt declarate intr-o functie parinte fiind variabile externe. 
+Returnare din functii folosind cuvantul cheie “return”.
+
+
+Insa in cazul obiectelor functiile sunt stocate impreuna cu proprietati.
+let persoana = {
+  nume:”John”,
+  greeting(){console.log(“hello”)}
+}
+
+Daca proprietatile sunt stocate impreuna cu functiile in interiorul obiectelor si pentru ca aceasta unire a proprietatilor se functiilor se face pe baza unor legaturi dintre ele atunci ce posibilitati de interactiune exista intre proprietati si metode?
+
+ Proprietatile din obiecte au rol de variabile si se comporta la fel ca variabilele atunci cand:
+
+ sunt atribuite altor variabile sau primesc valori din alte variabile
+numePers = persoana.nume
+utilizator.parola = password
+
+pot fi folosite ca parametri efectivi pentru o functie
+console.log(persoana.nume)
+
+pot fi folosite in interiorul unei metode 
+let persoana = {
+ nume:”John”,
+   greeting(){
+    console.log(“Hello “ + persoana.nume)
+  }
+}
+
+sau returnate dintr-o metoda
+let persoana = {
+ nume:”John”,
+ getNume(){return persoana.nume}
+}
+
+(optional) obiectele pot fi folosite ca parametri pentru o functie si proprietatile pot deveni parametri formali in cadrul unui mecanism denumit “destructuring” - ne vom intoarce la el cand vom vorbi despre operatii mai noi introduse in ES6
+
+       let greeting = function ({ nume }) {
+            console.log(nume)
+        }
+
+        greeting({ nume: "John" }) // “John”
+
+
+Pe noi ne intereseaza cazurile 3) si 4) atunci cand proprietatile sunt folosite in interiorul unei metode.
+
+Obiectul “persoana” contine o proprietate “nume” iar aceasta proprietate poate fi accesata de oriunde folosind notatia cu punct, persoana.nume
+
+        let persoana = {
+            nume: "John",
+            greeting() {
+                console.log("Hello " + persoana.nume) //(A)
+            }
+        }
+
+        persoana.greeting()// "Hello John"
+
+Pe linia (A) se acceseaza proprietatea “nume” folosind notatia cu punct pentru obiectul persoana. Dar in interiorul obiectelor o proprietatea sau o metoda poate fi accesata folosind cuvantul cheie “this”.  
+
+Cuvantul cheie “this” este o referinta directa la obiectul din care este apelata metoda. Astfel nu mai este nevoie sa fie folosit numele obiectului, acesta poate fi inlocuit cu “this”.
+
+Cand valoarea unei proprietati din obiectul persoana este accesata cu this 
+this.nume
+este echivalent cu
+persoana.nume
+
+O metoda poate fi accesata similar daca este apelata din alta metoda a obiectului
+this.numeMetoda()
+Pentru moment nu vom apela metodele folosind this, de obicei se ajunge la asta cand obiectele devin mai complexe, fiind nevoie de cel putin doua metode, una sa o apeleze pe cealalta.
+
+
+Sa rescriem obiectul folosind cuvantul cheie “this” pentru a accesat proprietatea nume in interiorul metodei greeting.
+
+        let persoana = {
+            nume: "John",
+            greeting() {
+                console.log("Hello " + this.nume) //(A)
+            }
+        }
+
+        persoana.greeting()// "Hello John"
+
+Se observa o tendinta catre generalizare. Daca nu mai folosim numele obiectului in interiorul metodelor acestuia atunci nici nu mai conteaza cum se cheama obiectul.
+
+Daca redenumim obiectul atunci devine mai clar rolul lui “this”
+
+Se copie referinta obiectului persoana in variabila utilizator iar variabila persoana devine null. (este echivalentul redenumirii obiectului persoana)
+
+
+        let persoana = {
+            nume: "John",
+            greeting() {
+                console.log("Hello " + persoana.nume) //(A)
+            }
+        }
+
+  let utilizator = persoana
+  persoana = null
+
+  utilizator.greeting() //Uncaught TypeError: Cannot read properties of null (reading 'nume')  at Object.greeting
+
+Incercand sa accesam persoana.nume din interiorul lui greeting in obiectul utilizator Javascript nu gaseste persoana.nume pentru ca persoana este null iar obiectul acum se cheama utilizator.
+
+Aceasta eroare poate fi evitata daca nu folosim numele obiectului in interiorul metodei greeting, ci folosim cuvantul cheie this care tine loc de numele obiectului.
+
+        let persoana = {
+            nume: "John",
+            greeting() {
+                console.log("Hello " + this.nume) //(A)
+            }
+        }
+
+  let utilizator = persoana
+  persoana = null
+
+  utilizator.greeting() //”Hello John”
+
+Poate acum nu se observa clar rolul lui this pentru ca lucram cu obiecte literal care au nume dedicate. Dar nu va fi tot timpul la fel. Folosind mecanisme prin care se creaza in mod dinamic obiecte “no name”, prin functii constructor, clase sau functii generatoare de obiecte(factory functions), se va vedea mai bine rolul lui this pentru ca nici macar nu vom avea nume pentru obiecte, vom fi obligati sa folosim this in loc de numele obiectelor ca sa accesam proprietatile si metodele interne.
+
+
+===================================
+“this” nu este legat de metodele obiectului
+===================================
+
+
+
+Functiile in Javascript sunt la fel de libere ca variabilele. Atunci cand sunt considerate variabile si sunt atribuite altor variabile atunci se comporta ca obiecte iar partea care se copie este o referinta la obiectul de tip functie care contine si corpul functiei.
+
+Obs: De fapt functiile sunt dependente de locul unde au fost declarate daca folosesc variabile externe declarate in acel loc, insa se creaza asa-zisele closures si functiile au access la acele variabile externe indiferent unde sunt copiate sau executate. Prin urmare isi pastreaza libertatea sa fie folosite ca simple obiecte si apoi executate oriunde in cod avand in permanenta acces la variabilele externe initiale.
+
+Faptul ca metodele sunt de fapt functii, iar functiile sunt libere sa fie copiate oriunde(prin referinta), poate crea o anumita libertate in folosirea metodelor in afara contextelor in care au fost definite in interiorul obiectelor.
+
+Daca e sa facem o comparatie, variabilele, functiile, metodele obiectelor sunt ca si electronii liberi, se pot misca oriunde si nu sunt dependente de locul unde sunt declarate, folosite sau executate. Asta cu conditia sa fie vizibile conform legaturii dintre contextele lexicale asociate functiilor( altfel spus o variabila sa fie vizibila in interiorul unei functii).
+
+let obj = {
+  prop1: “valoare1”,
+  mesaj(){
+    console.log(“test”)
+  }
+}
+
+Astfel
+Proprietatile:
+obj.prop1 este si proprietate si variabila
+obj.prop1 = “orice valoare” // poate primi orice valoare ca o variabila oarecare, inclusiv alte obiecte sau functii(daca primeste o functie devine metoda)
+
+Metodele:
+obj.mesaj este si metoda, si functie oarecare, deci un simplu obiect, poate fi in cele din urma si o simpla proprietate
+
+1)
+Poate fi atribuita altei functii
+let func = obj.mesaj
+
+2)
+Poate fi suprascrisa 
+obj.mesaj = function(){
+   console.log(“test2”)
+}
+
+obj.mesaj = “test3”
+obj.mesaj = null
+
+3)
+Poate fi stearsa
+delete obj.mesaj
+
+
+
+Pe noi ne intereseaza cazul 1)
+let func = obj.mesaj
+
+Intrebarea este: Daca metoda obj.mesaj este atribuita lui func iar in interiorul lui obj.mesaj se face referire la “this”, care bineinteles este obj, cine este “this” in interiorul lui func? 
+
+Variabila-functie func este independenta de vreun obiect deci this nu poate face referire la nici un obiect si ar trebui sa fie “undefined”. Si intr-adevar, in modul strict (“use strict”) this este undefined in interiorul lui func. Daca modul strict nu este activat this este obiectul global, window.
+
+Exemplul 1
+
+let obj = {
+  prop: "test",
+  mesaj(){
+     console.log(this.prop)
+   }
+}
+
+obj.mesaj()//”test”
+//apel din interiorul obiectului, metoda mesaj are acces prin “this” la obiectul “obj”
+
+let func = obj.mesaj 
+// se atribuie metoda obj.mesaj unei variabile oarecare func fara legatura cu “obj”
+
+func() // undefined
+//apel din exteriorul obiectului “obj”, this nu este “obj” ci obiectul window, proprietatea “prop” nu face parte din obiectul window
+
+=====================================
+Metoda unui obiect poate fi copiata in alte functii prin copierea referintei catre metoda din obiect in noua functie.
+Metoda unui obiect poate fi creata din alta functie prin copierea referintei catre acea functie in noua metoda.
+Valoarea “this” accesata in interiorul unei functii este obiectul pentru care functia este apelata. 
+Pentru o functie care nu este apelata ca metoda a unui obiect “this” este window sau undefined.
+======================================
+
+
+Exemplul 1
+
+Sa luam un alt exemplu in care sa verificam cine este this in ambele cazuri
+
+       let persoana = {
+            nume: "John",
+            greeting() {
+                console.log("Welcome " + this.nume)
+                console.log(this)
+            }
+        }
+
+        let hello = persoana.greeting // se creaza functia hello prin copierea referintei la metoda persoana.greeting
+
+        persoana.greeting() //(A)
+        hello() //(B)
+
+
+In cazul (A) se afiseaza:
+Welcome John
+{nume: 'John', greeting: ƒ} //aceasta este valoarea lui this
+
+In cazul (B) se afiseaza:
+Welcome undefined
+Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+In acest caza valoarea proprietatii persoana.nume nu a mai putut fi accesata din interiorul functiei hello, functia hello doar contine o referinta la obiectul functie greeting. Functia hello nu este apelata impreuna cu obiectul persoana deci nu stie cine este persoana.
+
+Exemplul 2
+Ne putem imagina urmatorul scenariu:
+Cream o functie felicitare si o atribuim lui persoana.greeting creand astfel metoda greeting in persoana.
+
+    let felicitare = function () {
+            console.log("Welcome " + this.nume)
+            console.log(this)
+        }
+
+        let persoana = { nume: "John" }
+
+        persoana.greeting = felicitare
+
+        persoana.greeting()
+
+//Se afiseaza:
+Welcome John
+{nume: 'John', greeting: ƒ}
+
+Functioneaza exact ca in exemplul precedent cand greeting a fost creat direct in persoana.
+
+Si acum sa atribuim metoda persoana.greeting variabilei hello:
+
+let hello = persoana.greeting()
+
+Ca ci in exemplul precedent functia hello este independenta de obiectul persoana si nu va vedea obiectul persoana prin intermediul lui this:
+
+hello()
+//Se afiseaza: 
+Welcome undefined
+Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+Exista totusi urmatoarea diferenta in exemplul 2 fata de exemplul 1
+
+let felicitare = function(){..}
+
+persoana.greeting = felicitare
+
+let hello = persoana.greeting
+
+In acest ca persoana greeting este doar intermediar pentru copierea functiei felicitare in functia hello. 
+
+Se putea face direct
+let hello = felicitare
+si nu era nici o diferenta
+
+Nici felicitare, nici hello nu pot vedea obiectul persoana prin intermediul lui this, doar greeting care este apelat din contextul lui persoana poate vedea persoana prin intermediul lui this.
+
+felicitare()//this este window
+persoana.greeting() // this este persoana
+hello()//this este window
+
+Ar putea fi create nenumarate alte functii la fel ca si hello, si toate ar fi doar o referinta la prima functie, felicitare.
+
+let hello2 = persoana.greeting()
+let hello3 = persoana.greeting()
+
+        console.log(felicitare === persoana.greeting) //true
+        console.log(felicitare === hello) //true
+        console.log(persoana.greeting === hello) //true
+        console.log(persoana.greeting === hello2) //true
+        console.log(persoana.greeting === hello3) //true
+
+Deci toate functiile sunt identice si fiind obiecte nu putem trage concluzia decat faptul ca sunt referinte la aceasi functi, functia felicitare de la care a fost copiata referinta pentru toate celelalte functii.
+
+Singura functie care se executa in contextul obiectului persoana si care are accesa la “this” ca fiind persoana este functia care a fost atasata de obiectul persoana, greeting, si care este executata prin notatia cu punct legata de persoana, persoana.greeting().
+
+Exemplul 3
+Un test de verificare a faptului ca toate functiile obtinute prin copiere sunt de fapt referinte la aceeasi functie:
+
+Toate cele functii sunt identice, fiind referinta la acealasi obiect functie, functia felicitare. Drept dovada daca adaugam o proprietate obiectului functie felicitare, acea proprietate va fi accesibila din orice functie care contine referinta la functia felicitare.
+
+Sa adaugam proprietatea “a” cu valoarea 1 pe linia (A) la functia felicitare . Da, pare anormal sa adaugam proprietati pentru functii, dar am mai spus deja, functiile sunt obiecte si se comporta ca obiecte. Iar cand sunt copiate, sunt copiate prin referinta, la fel ca obiectele obisnuite.
+
+    let felicitare = function () {
+            console.log("Welcome " + this.nume)
+            console.log(this)
+        }
+
+        let persoana = { nume: "John" }
+
+        persoana.greeting = felicitare
+
+        let hello = persoana.greeting
+        let hello2 = persoana.greeting
+        let hello3 = persoana.greeting
+
+        felicitare.a = 1 // (A)
+
+        console.log(persoana.greeting.a) //1
+        console.log(hello.a)  //1
+        console.log(hello2.a) //1
+        console.log(hello3.a) //1
+
+=================================
+Functiile care sunt apelate in interiorul unei metode pierd legatura cu this
+=================================
+
+Sa recapitulam comportamentul functiilor normal in raport cu this
+1)
+O metoda a unui obiect are acces la acel obiect prin intermediul lui this
+Nu conteza cum este creata acea metoda, fie direct in obiect, fie prin adaugare dupa crearea obiectului, atunci cand metoda este apelata prin notatia cu punct, deci in contextul acelui obiect, valoarea lui this este referinta la acel obiect.
+
+        let metoda2 = function () {
+            console.log("metoda2: " + this.prop)
+        }
+
+        let obj = {
+            prop: "test",
+
+            metoda1() {
+                console.log("metoda1: " + this.prop)
+            },
+
+            metoda2
+        }
+
+        obj.metoda3 = function () {
+            console.log("metoda3: " + this.prop)
+        }
+
+        obj.metoda1()
+        obj.metoda2()
+        obj.metoda3()
+
+//Se afiseaza:
+metoda1: test
+metoda2: test
+metoda3: test
+
+2)
+O metoda copiata in a doua variabila, daca este apelata cu acea a doua variabila, nu mai are acces la obiectul original.
+O functie care este creata prin copierea unei metode a unui obiect, desi este aceeasi cu metoda obiectului, fiind doar o referinta, daca nu apelata din contextul obiectului folosind notatia cu punct, nu are acces la resursele obiectului si anume la valoarea “this” a acestuia.
+
+      let obj = {
+            text: "hello",
+            mesaj() {
+                console.log(this.text)
+            }
+        }
+
+        let func = obj.mesaj
+
+        obj.mesaj() // “hello”
+        func()//undefined
+
+
+De aici tragem concluzia ca exista doua moduri de apelare pentru func lucru care influenteaza modul de accesare a lui “this”
+
+Daca functia func este apelata sub forma
+obj.func() 
+atunci valoarea lui this este obj
+
+Daca functia func este apelata sub forma
+func()
+atunci valoare lui this este undefined sau obiectul window.
+
+Ce se intampla daca avem situatia
+
+        let obj = {
+            text: "hello",
+            mesaj() {
+
+                function pregatireMesaj() {
+                    return `${this.text} there!`  //(A)
+                }
+
+                let formatMesaj = pregatireMesaj() //(B)
+
+                console.log(formatMesaj)
+            }
+      
+  }
+
+        obj.mesaj()//undefined there!
+
+In metoda “mesaj” am declarat o noua functie “pregatireMesaj” care sa se ocupe de mesajul final, adica sa-i dea o noua forma care sa fie afisata cu console.log(), totul desfasurandu-se in interiorul metodei “mesaj”.
+
+Functia pregatireMesaj() este declarata in metoda “mesaj” si ne asteptam ca atunci cand este apelata pe lina (B) sa returneze in variabila “formatMesaj” noua valoare a textului, “hello there!” (`${this.text} there!`) , care apoi sa fie afisat cu console.log().
+
+Se observa pe linia (A) textul returnat contine valoarea ${this.text} . Dar in realitate this.text este undefined, mesajul final afisat este “undefined there”.
+
+Se intampla ca functia pregatireMejaj apelata pe linia (B) sa nu se incadreze la cazul 1, apel de forma obj.func(), ci se regaseste la cazul 2, apel de forma func().
+
+Chiar daca functia pregatireMesaj a fost declarata in metoda mesaj si a fost apelata tot acolo, ea trebuie sa respecte regula de acces a lui this atunci cand se afla in unul din cele doua cazuri: apelare cu notatia cu punct si apelare fara notatia cu punct.
+
+In acest caza functia pregatireMesaj este apelata fara notatia cu punct si atunci valoarea lui this este obiectul window, deci this.text este undefined.
+
+Ca sa ne putem obisnui totusi cu ideea ca functiile declarate in interiorul metodelor nu pot accesa valoarea this vizibila in acele metode, e bine sa luam din nou exemplul cu functiile ca electroni liberi. Chiar daca e declarata intr-o metoda, acea functie poate fi returnata si poate ajunge in alta parte a codului si poate fi folosita ca metoda pentru alt obiect. Asa ca valoarea lui this din functie ar trebui modificata de fiecare data cand functia ar fi folosita in contextului unui alt obiect, poate cu consecinte neasteptate. Deci creatorii limbajului au ramas la decizia ca functiile, chiar si declarate in interiorul metodelor, sa nu aiba acces la valoarea this vizibila in acele metode in care sunt declarate.
+
+
+================================================
+Metode de rezolvare a ruperii legaturii cu this pentru functii normale.
+==================================================
+
+Exista cateva cai de al aduce pe “this” in interiorul functiilor declarate in metode.
+
+
+Metoda cu parametri.
+Nu ne opreste nimic sa-l transmitem pe “this” ca valoare efectiva pentru functia pregatireMesaj
+
+
+
+        let obj = {
+            text: "hello",
+            mesaj() {
+
+                function pregatireMesaj(myThis) {  //(C)
+                    return `${myThis.text} there!`  //(A)
+                }
+
+                let formatMesaj = pregatireMesaj(this) //(B)
+
+                console.log(formatMesaj)
+            }
+
+        }
+
+        obj.mesaj()//hello there!
+
+
+Pe linia (C) am adaugat parametrul “myThis” pentru functia pregatireMesaj(myThis). Parametrul formal myThis primeste valoarea lui “this” cand functia pregatireMesaj(this) este apelata, valoarea myThis.text devine astfel “hello” si intra in interiorul noului text care este retunat in variabila  formatMesaj.
+
+Functia pregatireMesaj poate fi declarata si in afara obiectului. Faptul ca “this” e transmis ca parametru determina ca functia sa fie suficient de generala ca sa nu fie neaparat nevoie sa fie declarata local, in metoda “mesaj”. Astfel functia pregatireMesaj poate fi folosita si in alte locuri.
+
+     function pregatireMesaj(myThis) {  //(C)
+                    return `${myThis.text} there!`  //(A)
+                }
+
+        let obj = {
+            text: "hello",
+            mesaj() {
+               let formatMesaj = pregatireMesaj(this) //(B)
+                console.log(formatMesaj)
+            }
+        }
+
+        obj.mesaj()//hello there!
+        console.log(pregatireMesaj({ text: "Go" }))   //Go there!
+
+Folosirea unei varibile externe pentru a memora valoarea lui “this”
+Se poate crea o variabila in metoda “mesaj” si sa i se atribuie valoare lui “this”.
+Acea variabila care are referinta la “this” va fi externa pentru alte functii declarate in metoda “mesaj” si astfel va fi vizibila in interiorul lor.
+
+Obs:
+Trebuie totusi notat faptul ca o astfel de functie devine legata de metoda “mesaj” prin existenta unei variabile externe. Deci va fi problematica refolosirea unei astfel de functii in afara metodei “mesaj”.
+
+       let obj = {
+            text: "hello",
+            mesaj() {
+
+                let _this = this //(A)
+                function pregatireMesaj() {
+                    return `${_this.text} there!`  //(B)
+                }
+
+                let formatMesaj = pregatireMesaj() //
+
+                console.log(formatMesaj)
+            }
+
+        }
+
+        obj.mesaj()//hello there!
+
+
+Pe linia (A) a fost creata variabila externa “_this” care contine o referinta la “this”. Diferenta fata de exemplul 1. cu parametri e ca in loc de parametrul myThis folosim variabila externa “_this”.
+
+Am ales numele “_this” pentru variabila externa pentru ca a fost folosit in decursul timpului ca o conventie. Cand lumea vede “_this” stie ca inseamna variabila externa care contine o referinta la “this”. Este o metoda veche si notatia s-a standardizat oarecum. Dar putem folosi orice nume in loc de “_this”.
+
+Ambele metode, cu parametru si cu variabila externa, aduc totusi un nivel de complexitate nedorit.
+Problema pierderii lui “this” in interiorul functiilor declarate in metode a fost principalul motiv pentru adaugarea in limbaj a functiilor arrow: let func = ()=>{...}
+Functiile de tip arrow rezolva astfel de situatii pentru ca ele sunt “transparente” pentru this, nu blocheaza accesul catre this cand sunt declarate si apelate in interiorul unei metode. Astfel accesarea lui this din interiorul functiilor arrow este ca atunci cand functiile arrow nici nu ar exista, this are valoarea din contextul in care este declarata acea functie arrow. Ca si cand functia arrow ar fi doar un bloc din interiorul metodei.
+
+========================================
+Legatura cu “this” se creaza in prima faza de executie
+Functiile arrow permite accesarea lui “this” in interiorul lor.
+Functiile arrow preiau pe “this” din contextul in care se afla, de la metoda in care a fost declarata
+=================================================
+
+Unul dintre motivele pentru care au fost create functiile arrow este rezolvarea lui “this” in interiorul functiilor apelata in metode. Problema pierderii lui “this” in interiorul functiilor care sunt declarate in metode nu a avut multa vreme o rezolvare clara. Valoarea lui “this” ar trebui sa fie vizibila in interiorul functiilor declarate si apelatate din interiorul metodelor obiectelor pentru ca “this” are comportament de variabila si ar trebui sa se comporte ca variabila externa pentru aceste functii.
+
+De ce “this” are comportament de variabila? Pentru ca cine este “this” se stabileste in prima faza de executie dar valoarea propriu-zisa a lui “this” este setata in cea de-a doua parte, faza de executie.
+
+Cautand pe Internet gasim ca primei faze de executie i se mai spune si “faza de creare”.
+Am stabilit deja cu cateva ocazii, mai ales la discutia despre vizibilitatea variabilelelor in raport cu locul de declarare a functiilor, ca in aceasta faza de creare sunt identificate legaturile dintre functii si variabile.
+In aceasta faza sunt create obiectele care contin variabilele locale ale functiilor, denumite contexte lexicale pentru functii, si in baza carora se stabilesc domeniile de vizibilitate. Variabilele doar se cunosc in aceasta faza, ele nu au valori. Valorile pentru variabile sunt primite in faza a doua de executie cand se activeaza operatorul de atribuire.
+La fel se intampla si pentru “this”. Functiile sunt deja cunoscute in aceasta faza de creare iar “this” exista deja ca o variabila declarata insa neinitializata. Ar trebui ca “this” acum sa fie “undefined” si intra-adevar este “undefined” in modul strict. Are ca valoare obiectul window in modul nestrict dar dupa introducerea modului stric in Javascript este considerata o inexactitate.
+
+Deci “this” se comporta ca o variabila, este creata odata cu functia, primeste valoarea undefined, si isi asteapta valoarea propriu-zisa in faza a doua de executie.
+
+Abia in faza de executie se decide exact cine este “this” pentru ca o functie poate fi atribuita ca metoda a unui obiect in aceasta faza de executie si doar acum valoarea “this” poate deveni obiectul la care este atasata functia, daca aceasta se executa in contextul noului obiect.
+
+Exemplu:
+      let whoThis = function () {
+            console.log(this)  // (A)
+        }
+
+        let obj = {
+            a: 1
+        }
+
+        whoThis()//  (B)( Window {window: Window, ....
+        obj.checkThis = whoThis // (C)
+
+        obj.checkThis() //  (D) {a: 1, checkThis: ƒ}
+
+Se observa in acest exemplu ca functia whoThis, cand este executata de sine statator, afiseaza ca valoarea a lui “this” obiectul window - linia (B).
+Dar cand este atribuita unui obiect, linia (C), valoarea lui “this” se schimba dupa cum se vede pe linia (D) unde este afisata valoarea obiectului din care face acum parte functia whoThis prin intermediul metodei checkThis.
+
+Trebuie clarificat ca whoThis si obj.checkThis reprezinta exact aceeasi functie, ambele variabile-functie, whoThis si obj.checkThis, contin referinta la aceeasi functie. Insa difera felul in care sunt apelate. Desi ambele functii fac referire la functia declarata cu numele whoThis care contine instructiunea console.log(this) pe linia (A), rezultatul afisarii depinde in faza de executie de contextul in care este executata aceasta functie.
+daca este executata de sine statator (linia B) se afiseaza “this”: undefined/window
+daca se executa in contextul obiectului obj obj.checkThis() (linia D)  atunci “this” este obiectul obj,  {a: 1, checkThis: ƒ}
+
+Dar aceasta diferenta nu se poate realiza decat in faza de executie pentru ca doar atunci se poate executa atribuirea de pe linia (C) cand functia whoThis devine parte si din obiectul obj ca metoda al acestuia sub forma metodei checkThis. 
+
+Pana acum am vazut ca “this” se comporta ca o variabila locala pentru o functie iar tot ca o variabila isi primeste valoarea in faza de executie, this este undefined cand functia se executa singura, this este obiectul cand functia se executa in contextul obiectului ca metoda.
+
+ De ce nu este vizibila in alte functii declarate in interiorul unei metode?
+
+   let obj = {
+            prop: "valoare",
+            metoda_obj() {
+                let test_this = function () {  //(A)
+                    console.log(this) //(B)
+                }
+                test_this()   //(C)
+            }
+        }
+
+obj.metoda_obj() // (D) afiseaza “undefined”/window
+
+Ar trebui ca “this” sa fie vizibil in functia “test_this” pentru ca “this” exista in interiorul functiei “metoda_obj” si ar trebui ca “this” sa fie ca o variabila externa pentru “metoda_obj”. 
+
+Obs:
+Nu stim de ce “this” nu e vizibil in functii declarate in metode precum “test_this”, e posibil sa aiba legatura cu abilitatea functiilor de a fi folosite ca functii constructor pentru generarea dinamica a obiectelor(urmeaza sa fie discutat), astfel “this” poate este pastrat neatins pentru acest caz special.
+
+
+Functii Arrow
+Insa pentru a repara problema vizibilitatii in functii din metode avem functiile arrow.
+
+Sa inlocuim functia test_this cu o functie arrow denumita la fel
+
+   let obj = {
+            prop: "valoare",
+            metoda_obj() {
+
+                let test_this =  () => {  //(A)
+                    console.log(this) //(B)
+                }
+
+                test_this()   //(C)
+            }
+        }
+
+obj.metoda_obj() // (D) afiseaza {prop: 'valoare', metoda_obj: ƒ}
+
+
+De data asta, console.log(this) de pe linia (B) afiseaza valoarea lui “this” ca fiind obiectul “obj” din interiorul metodei metoda_obj in care functia arrow test_this este declarata (linia A).
+
+Putem sa ne imaginam ca functia arrow test_this este transparenta, din ea se vede valoarea lui “this” care este in exteriorul ei.
+
+Mai ramane un lucru sa verificam. Identificarea lui this pentru functii arrow se face in prima faza de executie sau in a doua?
+
+Sa mutam functia test_this in afara obiectului, sa facem functia test_this globala.
+
+        let test_this =  () => {  //(A)
+                    console.log(this) //(B)
+                }
+
+   let obj = {
+            prop: "valoare",
+            metoda_obj() {
+
+                  test_this()   //(C)
+            }
+        }
+
+obj.metoda_obj() // (D) afiseaza: Window {window: Window, ....
+
+
+
+Valoarea lui this din test_this trimite acum catre window desi se executa din interiorul metodei metoda_obj. Deci asocierea dintre “this”, ca obiect window, si functia test_this se face la declarare si nu la executie, deci in prima faza, cea de creare.
+
+Este un raport care se realizeaza intre “this” si functii arrow la fel ca in cazul variabilelor externe cu functiile obisnuite. Conteza unde sunt declarate nu unde sunt executate.
+
+Sigur, in acest caz conteaza unde este executata functia arrow, intreaga discutie are sens doar daca functia arrow test_this() se executa in interiorul unei metode. Doar ca trebuie declarata tot acolo ca sa vada valoarea lui “this” a metodei.
+
+
+
+
+===========================================
+Modificarea valorii "this" pentru functii - call si bind
+Setare valoare this pentru functii in interiorul metodelor
+=============================================
+
+Poate nu se intampla atat de des dar uneori avem o functie pe care am pregatit-o ca sa se execute in interiorul unei metode iar aceast functie il acceseaza pe “this”.
+
+Am vazut ca daca folosim functii arrow declarate exteriorul obiectelor acestea il preiau pe “this” din locul unde sunt declarate.
+
+Daca folosim functii normale nu se poate accesa “this” din exterior in nici un fel.
+
+Sa presupunem ca avem o functie externa pe care dorim sa o folosim in diferite obiecte. Aceasta functie externa calculeaza un pret pentru o cantitate de produse, fiecare produs, cantitate si pret fiind memorata intr-un obiect:
+
+
+        let mere = {
+            nume: "mere",
+            val_kg: 10,
+            cantitate: 40,
+
+            valoareTotala() {
+                return this.cantitate * this.val_kg
+            },
+
+            afisareStatusProd() {
+                console.log(`Pentru ${this.nume} exista o cantitate de ${this.cantitate} unitati cu valoarea toatala ${this.valoareTotala()}`)  // (A)
+            }
+
+        }
+
+        mere.afisareStatusProd()//Pentru mere exista o cantitate de 40 unitati cu valoarea toatala 400
+
+
+Daca in metoda afisareStatusProd, in loc sa cream tot string-ul care este afisat pe linia (A), dorim sa cream o alta functie care sa se ocupe de creare string-urlui si dorim sa fie in exteriorul obiectului.
+
+    //(A)
+        let generareStatus = function () {
+            return `Pentru ${this.nume} exista o cantitate de ${this.cantitate} unitati cu valoarea toatala ${this.valoareTotala()}`
+        }
+
+        let mere = {
+            nume: "mere",
+            val_kg: 10,
+            cantitate: 40,
+
+            valoareTotala() {
+                return this.cantitate * this.val_kg
+            },
+
+            afisareStatusProd() {
+                console.log(generareStatus())  // (B)
+            }
+        }
+
+        mere.afisareStatusProd() // Uncaught TypeError: this.valoareTotala is not a function
+
+
+Nu arata doar mai bine, dar functia generareStatus declarata pe linia (A) poate fi refolosita si pentru alte metode sau chiar alte metode in alte obiecte similare ca format. Aici este folosita pe linia (B) in metoda afisareStatusProd()
+
+Doar ca aici nu functioneaza pentru ca valoarea lui this din functia generareStatus nu este legata de nici un obiect.
+
+Exsita doua metode de creare legatura dintre o functie si un obiect. 
+Am stabilit deja ca functiile sunt la baza obiecte. Astfel si ele au metode. Doua dintre metodele care ne intereseaza sunt call si bind.
+
+Metoda call
+Se foloseste o functie care este specifica obiectelor de tip functie si anume metoda “call”. 
+Metoda “call” poate fi apelata pentru orice functie si face legatura dintre functie si obiectul pe care “call” il primeste ca parametru. Practic rescrie valoarea lui “this” din functie cu noua valoare.
+
+func.call(obj), este un mod de apelare pentru func dar in care valoare lui “this” este “obj”.
+
+Ca si cand temporar func devine metoda a lui obj iar dupa executie func este stearsa ca metoda din obj.
+
+Apelarea lui generareStatus de pe linia (B) poate fi rescrisa:
+generareStatus.call(this)
+In acest fel valoarea lui “this” din metoda afisareStatusProd devine acelasi “this” si pentru generareStatus.
+
+   //(A)
+        let generareStatus = function () {
+            return `Pentru ${this.nume} exista o cantitate de ${this.cantitate} unitati cu valoarea toatala ${this.valoareTotala()}`
+        }
+
+        let mere = {
+            nume: "mere",
+            val_kg: 10,
+            cantitate: 40,
+
+            valoareTotala() {
+                return this.cantitate * this.val_kg
+            },
+
+            afisareStatusProd() {
+                console.log(generareStatus.call(this))  // (B)
+            }
+        }
+
+        mere.afisareStatusProd() // Pentru mere exista o cantitate de 40 unitati cu valoarea toatala 400
+
+Metoda bind
+Functia bind este si ea o metoda specifica functiilor (obiectelor de tip functie daca e sa revenim la faptul ca functiile sunt la baza obiecte). Doar ca in plus fata de “call”, metoda “bind” creaza o cu totul alta functie, cu acelasi corp de functie, dar un alt obiect functie, aceasta noua functie avand ca valoarea pentru “this” obiectul dat ca parametru pentru bind.
+
+let func2 = func.bind(obj)
+
+Astfel functia func2 devine permanent legata de obj, valoare lui this in func2 fiind tot timpul egala cu “obj”
+
+Ca si cand func2 ar fi metoda permanenta a lui obj, dar obj nu stie de ea, pentru ca func2 nu exista de fapt ca metoda in obj.
+
+
+Apelarea lui generareStatus de pe linia (B) poate fi rescrisa:
+
+let genStat2 = generareStatus.bind(this)
+console.log(genStat2())
+
+In acest fel valoarea lui “this” din metoda afisareStatusProd devine acelasi “this” si pentru generareStatus.
+
+
+     //(A)
+        let generareStatus = function () {
+            return `Pentru ${this.nume} exista o cantitate de ${this.cantitate} unitati cu valoarea toatala ${this.valoareTotala()}`
+        }
+
+        let mere = {
+            nume: "mere",
+            val_kg: 10,
+            cantitate: 40,
+
+            valoareTotala() {
+                return this.cantitate * this.val_kg
+            },
+
+            afisareStatusProd() {
+                let genStat2 = generareStatus.bind(this)
+                console.log(genStat2())  // (B)
+            }
+        }
+
+        mere.afisareStatusProd() // Pentru mere exista o cantitate de 40 unitati cu valoarea toatala 400
+
+
+Exemplele sunt poate fortate, nu are rost crearea unei functii care sa se bazeze atat de mult pe “this” si apoi sa fie refolosita prin metodele unui obiect. Dar sunt alte situatii in care avem nevoie ca o functie sa fie legata din punct de vedere a lui this de un obiect.
+
+De asemeni aici doar am trecut in revista ce se poate face cu bind si call, nici nu am luat in calcul de exemplu faptul ca functiile apelate au parametri. Va trebui revenit le ele - dar in mare cam asta e rolul lui bind si call.
+
+======================================
+Recap metode de recuperare a lui “this” in functii
+======================================
+
+Avem pana acum 4 metode de recuperare “this” in functii declarate si folosite in metode:
+Metoda cu this transmis ca parametr
+Metoda cu this salvata intr-o variabila externa
+Metoda func.call()
+Metoda func.bind()
+
+Insa ultimele doua metode, 3 si 4, erau cele mai bune pana la introducerea functiilor arrow in limbaj pentru ca nu creau modificari permanente asupra functiei originale si nici asupra obiectului si nu adaugau variabile suplimentare in metode. E adevarat metoda a 2-a, bind, creaza o functie suplimentara, dar avantajul e ca se obtine o functie in legatura permanenta cu obiectul si poate fi folosita oriunde in cod, legatura cu obiectul existand oriunde este aceasta apelata. 
+Aceste doua metode  sunt folosite si acum, dupa introducerea functiilor arrow, daca nu exista o posibilitate usoara de inlocuire cu functii arrow.
+
+Cum pot fi inlocuite functiile arrow cu cele doua metode, call si bind:
+
+Revenim la exemplul cu functii arrow:
+
+   let obj = {
+            prop: "valoare",
+            metoda_obj() {
+
+                let test_this =  () => {  //(A)
+                    console.log(this) //(B)
+                }
+
+                test_this()   //(C)
+            }
+        }
+
+obj.metoda_obj() // (D) afiseaza {prop: 'valoare', metoda_obj: ƒ}
+
+
+
+ 1. call:
+
+In loc de functie arrow folosim o functie normala dar o apelam cu ajutorul lui call setand ca valoare pentru this valoarea lui this vizibila in metoda (linia C)
+
+    let test_this = function () {  //(A)
+            console.log(this) //(B)
+        }
+
+        let obj = {
+            prop: "valoare",
+            metoda_obj() {
+
+                test_this.call(this) //(C)
+            }
+        }
+
+        obj.metoda_obj()
+
+Metoda2: bind:
+
+In loc de functie arrow folosim o functie normala dar cream o functie secundara care este in permanenta legata de valoarea lui this din metoda (linia C)
+
+       let test_this = function () { //(A)
+            console.log(this) //(B)
+        }
+
+        let obj = {
+            prop: "valoare",
+            metoda_obj() {
+                let test_this2 = test_this.bind(this) //(C)
+                  test_this2() //(D)
+            }
+        }
+
+        obj.metoda_obj() //{prop: 'valoare', metoda_obj: ƒ}
+
+
+Obs: In ambele exemple am folosit o functie normala declarata in afara obiectului. Nu conteaza unde declaram o functie daca avem intentia sa-i schimbam valoarea pentru this folosind call sau bind. Oricum stim deja ca valoarea initiala a lui this din functie nu ne ajuta. Doar, ca de obicei, functia declarata in afara obiectului trebuie sa fie vizibila sau sa fie importata intr-o zona vizibila astfel incat sa poata fi apelata in interiorul metodei obiectului.
+
+
+Lista de metode de accesare a lui this pe care le-am parcurs pana acum:
+
+        let objTest = {
+            nume: "Func",
+
+            afis() {
+                console.log(this)
+                console.log("normal", this.nume)
+            }
+            ,
+
+            afis1() {
+                let _this = this
+                function wrapper() {
+                    console.log(_this)
+                    console.log("_extern", _this.nume)
+                }
+                wrapper()
+            }
+
+            ,
+            afis2() {
+
+                let wrapper = () => {
+                    console.log(this)
+                    console.log("arrow", this.nume)
+                }
+                wrapper()
+            }
+            ,
+
+            afis3() {
+
+                function wrapper(p_this) {
+                    console.log(p_this)
+                    console.log("para", p_this.nume)
+                }
+                wrapper(this)
+            }
+
+            ,
+            afis4() {
+
+                function wrapper() {
+                    console.log(this)
+                    console.log("bind", this.nume)
+                }
+                let wrapper2 = wrapper.bind(this)
+                wrapper2()
+            }
+            ,
+
+            afis5() {
+
+                function wrapper() {
+                    console.log(this)
+                    console.log("call", this.nume)
+                }
+
+                wrapper.call(this)
+            }
+            ,
+        }
+
+        objTest.afis()
+        objTest.afis1()
+        objTest.afis2()
+        objTest.afis3()
+        objTest.afis4()
+        objTest.afis5()
+
+/*
+{nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ normal Func
+
+{nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ _extern Func
+
+ {nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ arrow Func
+
+ {nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ para Func
+
+ {nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ bind Func
+
+ {nume: 'Func', afis: ƒ, afis1: ƒ, afis2: ƒ, afis3: ƒ, …}
+ call Func
+*/
+
+
+
+========================
+Inlantuirea metodelor
+(method chaining)
+======================
+
+Inlantuirea metodelor se refera la faptul ca asupra unui obiect pot fi aplicate in mod sucesiv mai multe metode prin notatia cu punct daca aceste metode returneaza valoarea “this”
+
+let obj = {prop:”valoare”,
+   metoda1(){
+   ... return this
+   },
+   metoda2(){
+   ... return this
+   },
+   ...
+   metoda_k(){
+    ... return this
+   },
+}
+
+Dat fiind ca metodele returneaza valoarea “this” a obiectului atunci se poate crea o succesiune de operatii create din metode sub forma
+obj.metoda1().metoda2().  ...  .metoda_k(). metoda1(). metoda2().....
+
+De ce se poate crea un astfel de lant?
+obj.metoda_i() 
+
+returneaza valoarea “this” dar “this” este chiar obiectul care contine metoda, adica
+
+obj.metoda1() este tot obj pentru ca metoda1 il returneaza pe “this” care este o referinta la obj.
+
+La fel se intampla cu obj.metoda2() si tot asa, se pot pune in acest lant oricate metode, ele vor putea modifica continutul obiectului iar obiectul va fi returnat si folosit de urmatoarea metoda.
+
+
+Exemplu pentru incrementari/decrementari:
+        let inc_dec = {
+            contor: 0,
+
+            inc() {
+                this.contor = this.contor + 1
+                return this
+            },
+
+            dec() {
+                this.contor = this.contor - 1
+                return this
+            },
+
+            afisare() {
+                console.log(this.contor)
+                return this
+            }
+
+        }
+
+        inc_dec.inc().inc().afisare()  // (A)
+            .inc().inc().afisare()  // (B)
+            .dec().afisare()
+
+      console.log(inc_dec) //(C)
+
+
+//Se afiseaza:
+2
+4
+3
+
+{contor: 3, inc: ƒ, dec: ƒ, afisare: ƒ}
+
+Proprietatea contor a fost incrementata si decrementata, fiecare metoda preluand valoarea curenta a obiectului si aducand propriile modificari proprietatii contor. La final obiectul inc_dec pastreaza toate modificarile asa cum se vede dupa afisarea cu console.log() de pe linia (C).
+
+Chiar si metoda de afisare a contorului, inc_dec.afisare, returneaza valoarea “this” pentru a permite modificari ulterioare ale obiectului. Daca metoda inc_dec.afisare nu ar fi returnat valoarea “this” atunci nu s-ar mai fi putut inlantui alte metode.
+
+Daca se sterge linia “return this” din metoda inc_dec.afisare obtinem urmatoare eroare:
+Uncaught TypeError: Cannot read properties of undefined (reading 'inc')
+care se aplica pentru linia (B).
+Deoarece afisare() de pe linia (A) nu returneaza un obiect atunci metoda inc() de pe linia (B) nu poate fi rulata pentru ca nu mai exista obiectul din care sa fie accesata.
+
+
+
+        let inc_dec = {
+            contor: 0,
+
+            inc() {
+                this.contor = this.contor + 1
+                return this
+            },
+
+            afisare() {
+                console.log(this.contor)
+
+            }
+
+        }
+
+        inc_dec.inc().inc().afisare()  // (A)
+            .inc() //(B)  Eroare:
+
+        console.log(inc_dec) //Uncaught TypeError: Cannot read properties of undefined (reading 'inc')
+
+Pe linia (B) metoda inc() nu mai poate fi rulata in contextul obiectului inc_dec pentru ca ultima metoda de pe linia (A), metoda afisare, nu il returneaza.
+
+Trebuie neaparat folosita aceasta metoda pentru a aplica modificari obiectului?
+Nu, aceleasi metode pot fi folosite de sine statator.
+
+
+        let inc_dec = {
+            contor: 0,
+
+            inc() {
+                this.contor = this.contor + 1
+                return this
+            },
+
+            dec() {
+                this.contor = this.contor - 1
+                return this
+            },
+
+            afisare() {
+                console.log(this.contor)
+
+            }
+
+        }
+
+        inc_dec.inc()
+        inc_dec.inc()
+        inc_dec.afisare()
+        inc_dec.inc()
+        inc_dec.inc()
+        inc_dec.afisare()
+        inc_dec.dec()
+        inc_dec.afisare()
+
+        console.log(inc_dec)
+
+//Se afiseaza acelasi rezultat:
+2
+4
+3
+{contor: 3, inc: ƒ, dec: ƒ, afisare: ƒ}
+
+
+Chiar daca se poate fara inlantuire, metoda de inlantuire este folosita in multe librarii. Este o cale succinta si organizata de a folosi functiile ca “midleware”, valorile prelucrate si returnate de o functie sunt preluate si prelucrate de alta functie, valorile fiind stocate intr-un obiect iar obiectul este trecut de la o functie la alta, inlantuirea de functii neavand limita. 
+Ex: Libraria jQuery foloseste intensiv acest mod de inlanturi prin asa-zisele plugin-uri (https://plugins.jquery.com/) - se pot aplica unui element HTML stiluri CSS cu un plugin, in continuare cu altul se pot insera alte elemente in interior, sau modifica continutul, sau adauga animatii, totul folosind acest mecanism de inlatuire metode pe acel element HTML.
+
+Desi nu este obligatorie inlantuirea metodelor in mod normal, anumite librarii au implementat de asa natura metodele pe care le exporta incat forteaza folosirea lor ca metode inlantuite pe un singur obiect, metoda fiind denumita “pipeline”. E ca o banda rulanta pe care merge obiectul iar acesta sufera modificari cu fiecare metoda aplicata ca si cand ar fi diverse statii de lucru cu lucratori care modifica obiectul initial si il trec de la unul la altul.
+
+=============================
+Folosirea lui “this” la crearea obiectelor(optional)
+=========================
+Exemplu pentru utilizarea lui this ca valoare la crearea unui obiect/expresie
+
+Ce se intampla daca incercam accesarea lui this din interiorul obiectului la momentul crearii acestuia?
+let obj = {a:1, b:this}
+
+Este valoarea lui “b” referinta circulara catre obj?
+Sau altfel spus, poate fi accesat o proprietate prin intermediul proprietatii “b”?
+
+function createObj(){ 
+ return { a:1, b:this} 
+}
+
+let obj = createObj() 
+console.log(obj.b.a) // Se afiseaza 1?
+
+
+Discutia este doar teoretica, insa ne ajuta sa intelegem ce se intampla cu valoarea “this” in functii normale la momentul executiei. Nu vom intalni in practica asa ceva pentru ca nu se pot face referinte circulare in acest fel, insa se poate gresi la inceput.
+
+
+Daca il afisam pe this direct de pe nivelul global:
+
+console.log(this)//Window {window: Window, self: Window...
+
+sau dintr-o functie
+
+let testThis = function(){
+   console.log(this) 
+}
+testThis() //Window {window: Window, self: Window...
+
+sau ca metoda
+
+let obj = {a:1}
+obj.testThis = testThis
+
+obj.testThis()//{a: 1, testThis: ƒ}
+
+Am stabilit deja ca valoarea lui this se hotaraste la momentul executiei pentru ca aceeasi functie poate avea valori diferite pentru “this” depinzand de modul cum este executata, ca simpla functie sau ca metoda a unui obiect. 
+Dar stabilirea valorii la momentul executiei se intampla si cu variabilele obisnuite. 
+
+Intrebarea e: La momentul executiei se stie “de unde” este luat “this”? In sensul ca “this” este accesibil in mod similar variabilelor care apartin unui context lexical si sunt vizibile de catre functii conform unui domeniu de vizibilitate care este stabilit in prima faza de executie? Si am vazut deja ca in cazul functiilor arrow lucrul acesta este stabilit in prima faza de executie, faza de constructie, pentru ca o functie arrow declarata in afara contextului unui obiect si folosita in interiorul unei metode a obiectului, nu va vedea de fapt obiectul ci valoarea lui this din locul unde a fost declarata. Iar acest lucru demonstreaza ca “locul” de unde este luat “this” pentru functii arrow este stabilit dinainte de faza de executie, in prima faza, cea de constructie.
+
+Probabil ca acelasi lucru se intampla si cu functiile obisnuite doar ca nu putem sa ne dam seama de asta imediat, valoarea lui “this” incadrandu-se in cele doua variante: “this” este undefined/window daca functia este executata in afara contextului unui obiect ori “this” este chiar obiectul daca functie este metoda a obiectului. Prin urmare nu conteaza unde este declarata o astfel de functie, daca nu este folosita ca metoda, valoarea lui this va fi intotdeauna “this” local al functiei obisnuite. Totusi din urmatorul exemplu se poate intui ca “this” este stabilit in prima faza de executie si pentru functiile obisnuite - sau mai degraba exemplul arata ca “this” are un comportament unic, oarecum similar cu cel al variabilelor.
+
+
+function createObj(){ // (A)
+ return { a:1, b:this}  // (B)
+}
+
+let obj = createObj() // (C)
+console.log(obj.b.a) // (D)
+
+Pe linia (D) se acceseaza proprietatea “b” a obiectului care, in interiorul functiei createObj(), a primit pentru proprietatea “b” valoarea “this”. Cine este acest “this”, este “this” al obiectului sau al functiei?
+
+Valoarea afisata pe linia (D) este undefined, deci e clar ca obj.b nu trimite catre obiect, adica nu este o referinta circulara cum am avea tendinta sa credem din exemplu.
+
+Exista (cel putin) doua motive posibile pentru asta:
+
+Locatia lui “this”(nu valoarea) este stabilita in prima faza de executie. Iar in a doua faza, atunci cand este creat obiectul de pe linia (B), “this” este deja cunoscut ca locatie, locatia fiind “this” al functiei.
+Si trebuie sa se intample lucrul acesta in prima faza de executie pentru ca “this” este o valoare care trebuie deja sa fie stiut “de unde” este luata in faza a doua de executie. Adica “this” nu este o primitiva care nu conteaza de unde este luata. Indiferent ce valoare va lua in faza de executie, “this” trebuie sa se stie “de unde” este luat. In cazul functiilor normale valoarea “this” va fi totdeauna valoarea “this a functiei”, chiar daca valoarea concreta “this a functiei” se va stabili in faza de executie.
+ Deci la momentul crearii obiectului pe linia (B) “this” nu va trimite catre obiectul in care este folosit ca valoare la atribuire pentru proprietatea “b”; “this” si obiectul sunt entitati separate. Valoarea lui “this” este valoarea “this” a functiei lucru care este stabilit in prima faza de executie.
+
+Ca sa fie mai clar de ce “this” trebuie sa fie identificat in prima faza de executie putem rescrie functia de mai sus folosind o variabila intermediara.
+
+function createObj(){ 
+  let localThis = this  //(E)
+ return { a:1, b:localThis}  // (D)
+}
+
+Locul de unde este luat “localThis” (linia D) este stabilit in prima faza de executie, localThis este variabila locala si identificarea ei se stabileste in prima faza. Abia in faza a adoua de executie se intampla ca “localThis” sa primeasca valoarea lui “this” (linia E) si apoi sa fie folosita la crearea obiectului pe linia (D). De asemeni tot ca urmare a primei faze de executie localThis de pe linia (E) stie de unde sa-l ia pe “this” si cu siguranta nu poate fi obiectul de pe linia urmatoare, nu poate exista vreo legatura intre “this” care urmeaza sa ajunga in variabila “localThis” si un obiect oarecare creat in aceeasi functie in faza de executie.
+
+Un al doilea(posibil) motiv este faptul ca, la momentul fazei de executie, pe linia (B) inca nu a fost creat complet obiectul la momentul in care “this” este atribuit unei proprietati a obiectului.  Este doar un motiv care exclude posibilitatea ca this sa fie obiectul, dar nu ne spune cine este “this”.
+
+Atunci cand “this” este atribuit proprietatii “b”, b:this, obiectul care urmeaza sa fie returnat inca nu e complet in memorie. Trebuie sa se ajunga in faza de executie ca obiectul sa fie finalizat dupa ce toate proprietatile au fost fixate, evaluate, si a fost adaugata si ultima acolada a obiectului, obiectul a prins forma in zona Heap sau intr-o zona temporara, si abia apoi se poate vorbi de valoarea this a obiectului. Si nici macar atunci obiectul nu este complet. Valoarea adresei de memorie din Heap a obiectului trebuie sa ajunga intr-o variabila (linia C) si abia apoi obiectul poate fi accesat cu acea adresa de memorie. Chiar valoarea “this” folosit in metodele obiectului va trebui sa fie identica cu acea adresa de memorie. Daca obiectul inca nu este creat atunci nici o proprietate din acel obiect nu poate accesa valoarea “this” a obiectului pentru ca aceasta valoare “this” nu poate exista la acel moment.
+
+        function showObj() {
+            console.log(this)
+        }
+
+        function createObj() { // (A)
+            return { a: 1, b: this }  // (B)
+        }
+
+        let obj = createObj() // (C)
+
+        obj.showObj = showObj // (D)
+
+        obj.showObj()  //{a: 1, b: Window, showObj: ƒ} // (E)
+
+
+Pe linia (D) functia showObj() devine metoda a obiectului. Cu ajutorul ei putem afisa valoarea lui “this”. Se observa ca proprietatea “b” a obiectului afisat este “Window” primita pe linia (B), adica “b” nu a primit referinta catre obiectul in care este proprietate ci catre valoarea “this” din functia din care a fost returnat obiectul.
+
+Obs:
+Discutia de aici este doar un exercitiul de analiza a lui “this” pentru prima si a doua faza de executie. Detaliile de implementare a lui “this” in functii nu pot fi cunoscute deci e posibil ca demonstratiile sa nu fie neaparat corecte. Fiecare dintre noi insa se merita sa aiba propria analiza pentru intelegerea mecanismului utilizarii lui “this”, il intalnim pe “this” pretutindeni.
