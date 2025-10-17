@@ -1,4 +1,4 @@
-## Plugin-uri utile VsCode
+# 🔌Plugin-uri utile VsCode
 >Pentru browser
 - Live Server - valabil doar pentru Javascript pentru browser, click dreapta in editor si apoi "Open with Live Server"
 >Pentru server
@@ -15,7 +15,7 @@
 
 - 3️⃣Poate importa și module externe (în varianta Pro).
 
-## Plugin-uri mai avansate
+## ▶ Plugin-uri mai avansate
 > Prettier si ESLint sunt foarte utile in conditiile unor proiect de dimensiuni mari pentru formatare cod si verificare corectitudine cod. Dezavantajul e ca pot interfera cu setarile VSCode sau chiar intre ele. Deci e util un ghid de instalare.
 
 >1️⃣ Trebuie mai intai instalate extensiile din VSCode de la sectiunea plugins
