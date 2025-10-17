@@ -11,8 +11,11 @@
 
 >1️⃣ Trebuie mai intai instalate extensiile din VSCode de la sectiunea plugins
 
->2️⃣ Apoi trebuie instalate pachetele (packages) corespunzatoare direct in folderul de proiect folosind utilitarul npm:
-`npm install --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier`
+>2️⃣ Apoi trebuie instalate pachetele (packages) corespunzatoare direct in folderul de proiect folosind utilitarul
+
+
+>npm: `npm install --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier`
+
 >☑ Detaliat de pe chatgpt:
 
 
