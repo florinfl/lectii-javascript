@@ -6,14 +6,16 @@
   
 - Quokka.js - in general pentru Javascript pe server, pentru un fisier js: Apasă Ctrl+K Q → Start on Current File (sau din Command Palette: Ctrl+Shift+P → Quokka: Start on Current File)
 >este un plugin pentru VS Code (și alte IDE-uri, ca WebStorm) care îți permite să rulezi JavaScript sau TypeScript instant, în timp ce tastezi — adică vezi rezultatele direct în editor, fără să rulezi manual fișierul.
-
 >⚙️ Pe scurt, ce face Quokka:
-
 - 1️⃣Evaluează codul în timp real.
-
 - 2️⃣Arată rezultatele direct în editor, în partea dreaptă a fiecărei linii, poți vedea valori, erori, timp de execuție, console.log — toate inline.
-
 - 3️⃣Poate importa și module externe (în varianta Pro).
+
+
+## ▶ Plugin-uri utilitare
+- vscode-pdf pentru vizualizare pdf-uri
+- markdown preview enhanced - pentru preview la fisiere md
+- markdown pdf - conversie in pdf pentru fisiere md
 
 ## ▶ Plugin-uri mai avansate
 > Prettier si ESLint sunt foarte utile in conditiile unor proiect de dimensiuni mari pentru formatare cod si verificare corectitudine cod. Dezavantajul e ca pot interfera cu setarile VSCode sau chiar intre ele. Deci e util un ghid de instalare.
