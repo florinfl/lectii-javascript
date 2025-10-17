@@ -8,7 +8,9 @@
 
 ## Plugin-uri mai avansate
 > Prettier si ESLint sunt foarte utile in conditiile unor proiect de dimensiuni mari pentru formatare cod si verificare corectitudine cod. Dezavantajul e ca pot interfera cu setarile VSCode sau chiar intre ele. Deci e util un ghid de instalare.
+
 >1️⃣ Trebuie mai intai instalate extensiile din VSCode de la sectiunea plugins
+
 >2️⃣ Apoi trebuie instalate pachetele (packages) corespunzatoare direct in folderul de proiect folosind utilitarul npm.
 
 
