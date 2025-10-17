@@ -3,8 +3,17 @@
 - Live Server - valabil doar pentru Javascript pentru browser, click dreapta in editor, undeva in text, si apoi alegeti "Open with Live Server"
 >Pentru server
 - NodeJS exec - valabil doar pentru Javascript pe server,  se selecteaza codul care se doreste a fi rulat si apoi F8
+  
 - Quokka.js - in general pentru Javascript pe server, pentru un fisier js: Apasă Ctrl+K Q → Start on Current File (sau din Command Palette: Ctrl+Shift+P → Quokka: Start on Current File)
+>este un plugin pentru VS Code (și alte IDE-uri, ca WebStorm) care îți permite să rulezi JavaScript sau TypeScript instant, în timp ce tastezi — adică vezi rezultatele direct în editor, fără să rulezi manual fișierul.
 
+>⚙️ Pe scurt, ce face Quokka:
+
+-1️⃣Evaluează codul în timp real.
+
+-2️⃣Arată rezultatele direct în editor, în partea dreaptă a fiecărei linii, poți vedea valori, erori, timp de execuție, console.log — toate inline.
+
+-3️⃣Poate importa și module externe (în varianta Pro).
 
 ## Plugin-uri mai avansate
 > Prettier si ESLint sunt foarte utile in conditiile unor proiect de dimensiuni mari pentru formatare cod si verificare corectitudine cod. Dezavantajul e ca pot interfera cu setarile VSCode sau chiar intre ele. Deci e util un ghid de instalare.
