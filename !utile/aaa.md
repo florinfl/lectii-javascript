@@ -16,7 +16,7 @@
 
 >npm: `npm install --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier`
 
->☑ Detaliat de pe chatgpt:
+>❗ Detaliat de pe chatgpt:
 
 
 
