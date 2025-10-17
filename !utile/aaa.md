@@ -15,9 +15,9 @@
 
 
 
-## Ghidul complet pentru instalare corecta Prettier si ESLint, markdown creat cu chatgpt
+## ✅Ghidul complet pentru instalare corecta Prettier si ESLint
 
->Intrebarea initiala: Care sunt variantele de eslint si prettify pentru Vscode?
+>Intrebarea initiala pe chatgpt: Care sunt variantele de eslint si prettify pentru Vscode?
 
 ## 🧩 ESLint & Prettier în VS Code (actualizat 2025)
 
