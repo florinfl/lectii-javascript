@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// BANKIST APP - TODO-uri și HINT-uri HTML DETALIATE
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+<!-- 1. STRUCTURA DE BAZĂ -->
+    <!-- TODO: Creează DOCTYPE HTML5 -->
+    <!-- HINT: Folosește <!DOCTYPE html> -->
+
+    <!-- TODO: Creează elementul <html> cu atributul lang="en" -->
+    <!-- HINT: <html lang="en"> -->
+
+    <!-- TODO: Creează elementul <head> -->
+    <!-- TODO: Adaugă <meta charset="UTF-8"> -->
+    <!-- TODO: Adaugă <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- TODO: Adaugă <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <!-- TODO: Adaugă link către favicon -->
+    <!-- HINT: <link rel="shortcut icon" type="image/png" href="/icon.png"> -->
+    <!-- TODO: Adaugă link către Google Fonts Poppins -->
+    <!-- HINT: href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" -->
+    <!-- TODO: Leagă fișierul CSS local (style.css) -->
+    <!-- TODO: Adaugă <title>Bankist</title> -->
+
+    <!-- TODO: Creează elementul <body> -->
+
+    <!-- 2. TOP NAVIGATION -->
+    <!-- TODO: Creează <nav> -->
+    <!-- TODO: Adaugă <p> cu clasa "welcome" și text "Log in to get started" -->
+    <!-- TODO: Adaugă <img> cu src="logo.png", alt="Logo" și clasa "logo" -->
+    <!-- TODO: Creează <form> cu clasa "login" -->
+    <!-- TODO: Creează input pentru user cu type="text", placeholder="user" și clasele "login__input login__input--user" -->
+    <!-- TODO: Creează input pentru PIN cu type="text", placeholder="PIN", maxlength="4" și clasele "login__input login__input--pin" -->
+    <!-- HINT: În practică, PIN-ul ar trebui să fie type="password" -->
+    <!-- TODO: Creează un buton cu clasa "login__btn" și text săgeată (&rarr;) -->
+
+    <!-- 3. MAIN APP -->
+    <!-- TODO: Creează <main> cu clasa "app" -->
+
+    <!-- 3a. BALANCE -->
+    <!-- TODO: Creează div cu clasa "balance" -->
+    <!-- TODO: Creează un div interior -->
+    <!-- TODO: Creează <p> cu clasa "balance__label" și text "Current balance" -->
+    <!-- TODO: Creează <p> cu clasa "balance__date" -->
+    <!-- TODO: Include <span> cu clasa "date" și textul unei date exemplu, ex: 05/03/2037 -->
+    <!-- TODO: Creează <p> cu clasa "balance__value" și text exemplu "0000€" -->
+
+    <!-- 3b. MOVEMENTS -->
+    <!-- TODO: Creează div cu clasa "movements" -->
+    <!-- TODO: Creează primul rând de tranzacție -->
+    <!-- TODO: div cu clasa "movements__row" -->
+    <!-- TODO: div cu clasa "movements__type movements__type--deposit" și text "2 deposit" -->
+    <!-- TODO: div cu clasa "movements__date" și text "3 days ago" -->
+    <!-- TODO: div cu clasa "movements__value" și text "4 000€" -->
+    <!-- TODO: Creează al doilea rând de tranzacție -->
+    <!-- TODO: div cu clasa "movements__row" -->
+    <!-- TODO: div cu clasa "movements__type movements__type--withdrawal" și text "1 withdrawal" -->
+    <!-- TODO: div cu clasa "movements__date" și text "24/01/2037" -->
+    <!-- TODO: div cu clasa "movements__value" și text "-378€" -->
+
+    <!-- 3c. SUMMARY -->
+    <!-- TODO: Creează div cu clasa "summary" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__label" și text "In" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__value summary__value--in" și text "0000€" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__label" și text "Out" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__value summary__value--out" și text "0000€" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__label" și text "Interest" -->
+    <!-- TODO: Adaugă <p> cu clasa "summary__value summary__value--interest" și text "0000€" -->
+    <!-- TODO: Adaugă buton cu clasa "btn--sort" și text săgeată jos "&downarrow; SORT" -->
+
+    <!-- 3d. OPERAȚIUNI -->
+    <!-- 3d-i. TRANSFER -->
+    <!-- TODO: Creează div cu clasele "operation operation--transfer" -->
+    <!-- TODO: Adaugă <h2> cu text "Transfer money" -->
+    <!-- TODO: Creează formular cu clasa "form form--transfer" -->
+    <!-- TODO: input text pentru destinatar, clasa "form__input form__input--to" -->
+    <!-- TODO: input number pentru sumă, clasa "form__input form__input--amount" -->
+    <!-- TODO: buton submit cu clasa "form__btn form__btn--transfer" și text "&rarr;" -->
+    <!-- TODO: label pentru "Transfer to" -->
+    <!-- TODO: label pentru "Amount" -->
+
+    <!-- 3d-ii. LOAN -->
+    <!-- TODO: Creează div cu clasele "operation operation--loan" -->
+    <!-- TODO: Adaugă <h2> cu text "Request loan" -->
+    <!-- TODO: Creează formular cu clasa "form form--loan" -->
+    <!-- TODO: input number pentru sumă, clasa "form__input form__input--loan-amount" -->
+    <!-- TODO: buton submit cu clasa "form__btn form__btn--loan" și text "&rarr;" -->
+    <!-- TODO: label pentru "Amount" -->
+
+    <!-- 3d-iii. CLOSE ACCOUNT -->
+    <!-- TODO: Creează div cu clasele "operation operation--close" -->
+    <!-- TODO: Adaugă <h2> cu text "Close account" -->
+    <!-- TODO: Creează formular cu clasa "form form--close" -->
+    <!-- TODO: input text pentru username, clasa "form__input form__input--user" -->
+    <!-- TODO: input password pentru PIN, clasa "form__input form__input--pin", maxlength 6 -->
+    <!-- TODO: buton submit cu clasa "form__btn form__btn--close" și text "&rarr;" -->
+    <!-- TODO: label pentru "Confirm user" -->
+    <!-- TODO: label pentru "Confirm PIN" -->
+
+    <!-- 3e. LOGOUT TIMER -->
+    <!-- TODO: Creează <p> cu clasa "logout-timer" -->
+    <!-- TODO: Include <span> cu clasa "timer" și text exemplu "05:00" -->
+
+    <!-- 4. SCRIPT -->
+    <!-- TODO: Adaugă <script> cu src="script.js" la finalul body-ului -->
+
+
+    <script>
+
+
+
+        /*
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// BANKIST APP - TODO-uri și HINT-uri DETALIATE
+// Scop: Ajută Copilot să genereze cod complet fără a vedea codul original
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+// 1. STRUCTURA DATELOR
+// TODO: Creează obiecte pentru fiecare cont bancar
+// HINT: Fiecare cont are proprietăți:
+//       - owner: numele complet al proprietarului
+//       - movements: array cu sumele tranzacțiilor (pozitive/depozit, negative/retragere)
+//       - interestRate: rata dobânzii contului
+//       - pin: codul PIN numeric
+// TODO: Creează un array care să conțină toate conturile
+
+// 2. SELECTAREA ELEMENTELOR DOM
+// TODO: Selectează toate elementele necesare din DOM, inclusiv:
+//       - label-uri pentru salut, sold, total depuneri/retrageri/dobândă
+//       - container pentru tranzacții
+//       - butoane pentru login, transfer, credit, închidere cont, sortare
+//       - input-uri pentru username, PIN, suma transfer, destinatar, sumă credit, username și PIN închidere cont
+// HINT: Folosește document.querySelector sau querySelectorAll și stochează referințele în variabile
+
+// 3. AFIȘAREA TRANZACȚIILOR
+// TODO: Creează funcția displayMovements(account, sort = false)
+// HINT: Folosește forEach pentru a parcurge fiecare mișcare
+// HINT: Creează HTML pentru fiecare tranzacție cu clasa 'movements__row'
+// TODO: Verifică dacă sortarea este activă și sortează array-ul înainte de afișare
+// HINT: Folosește slice() și sort() pentru sortare nedistructivă
+// TODO: Inserează HTML-ul generat în containerul de tranzacții
+// HINT: Folosește insertAdjacentHTML('afterbegin', html)
+
+// 4. CALCULAREA SOLDULUI
+// TODO: Creează funcția calcDisplayBalance(account)
+// HINT: Folosește reduce pe array-ul account.movements pentru a obține soldul
+// TODO: Stochează soldul în proprietatea account.balance
+// TODO: Actualizează label-ul soldului din UI
+// HINT: Folosește innerText sau textContent
+
+// 5. CALCULAREA SUMARULUI
+// TODO: Creează funcția calcDisplaySummary(account)
+// HINT: Calculează:
+//       - totalul depunerilor (filtrare > 0, apoi reduce)
+//       - totalul retragerilor (filtrare < 0, apoi reduce)
+//       - totalul dobânzii: pentru fiecare depunere, dobânda = depunere * interestRate / 100
+// TODO: Include în totalul dobânzii doar valorile >= 1
+// TODO: Actualizează UI pentru toate cele trei valori
+// HINT: Folosește innerText și metodele array-urilor map, filter, reduce
+
+// 6. CREAREA USERNAME-URILOR
+// TODO: Creează funcția createUsernames(accounts)
+// HINT: Pentru fiecare cont:
+//       - ia numele proprietarului
+//       - convertește în lowercase
+//       - împarte numele după spații (split)
+//       - ia prima literă din fiecare cuvânt
+//       - combină literele în string (join)
+// TODO: Salvează username-ul în cont sub proprietatea account.username
+
+// 7. ACTUALIZAREA UI-ULUI
+// TODO: Creează funcția updateUI(account)
+// HINT: Aceasta funcție trebuie să apeleze:
+//       - displayMovements(account)
+//       - calcDisplayBalance(account)
+//       - calcDisplaySummary(account)
+
+// 8. EVENIMENT DE LOGIN
+// TODO: Creează event listener pentru butonul de login
+// HINT: Folosește addEventListener('click', function(e){ e.preventDefault(); ... })
+// TODO: Găsește contul cu username-ul introdus
+// HINT: Folosește find pe array-ul de conturi
+// TODO: Verifică dacă PIN-ul introdus corespunde cu cont.pin
+// HINT: Folosește optional chaining
+// TODO: Afișează mesaj de bun venit cu numele proprietarului (ex: 'Bine ai venit, Jonas')
+// TODO: Fă vizibil containerul aplicației
+// TODO: Golește câmpurile input
+// TODO: Apelează updateUI(account) pentru contul logat
+
+// 9. EVENIMENT DE TRANSFER
+// TODO: Creează event listener pentru butonul transfer
+// HINT: Previne comportamentul default al formularului
+// TODO: Citește suma transfer și username-ul destinatarului
+// TODO: Verifică:
+//       - suma > 0
+//       - soldul contului curent >= suma
+//       - destinatarul există și nu este contul curent
+// TODO: Actualizează array-urile movements ale conturilor: scade de la contul curent, adaugă la destinatar
+// TODO: Actualizează UI pentru contul curent
+
+// 10. CERERE DE CREDIT
+// TODO: Creează event listener pentru butonul credit
+// TODO: Citește suma cerută
+// TODO: Verifică dacă există cel puțin o depunere >= 10% din suma cerută
+// TODO: Dacă condiția este îndeplinită, adaugă suma la movements și actualizează UI
+
+// 11. ÎNCHIDERE CONT
+// TODO: Creează event listener pentru butonul de închidere cont
+// TODO: Verifică dacă username și PIN-ul introduse corespund contului curent
+// TODO: Dacă da, elimină contul din array-ul de conturi
+// TODO: Ascunde UI-ul aplicației
+
+// 12. SORTAREA TRANZACȚIILOR
+// TODO: Creează event listener pentru butonul de sortare
+// TODO: Comută între sortarea tranzacțiilor crescător și descrescător
+// TODO: Apelează displayMovements cu sort = true/false în funcție de stare
+// HINT: Folosește un flag boolean pentru a urmări starea
+
+// 13. EXERCIȚII CU METODE DE ARRAY
+// TODO: Creează funcții pentru exerciții:
+//       - map, filter, reduce, find, some, every, flat, flatMap
+// HINT: Exersează combinarea metodelor pentru a calcula:
+//       - total depuneri/retrageri
+//       - media tranzacțiilor
+//       - cel mai mare/cea mai mare tranzacție
+//       - conturi cu criterii speciale
+
+// 14. PROVOCARE DE CODARE
+// TODO: Creează provocări precum calculul vârstei câinilor, medii ponderate etc.
+// HINT: Folosește arrow functions, destructuring, chaining de array-uri, optional chaining
+
+// 15. BONUS / AVANSAT
+// TODO: Exersează metode noi nedistructive: toSorted, toReversed, toSpliced, with
+// HINT: Folosește-le pentru a modifica array-uri fără a le altera originalul
+
+// 16. VERIFICARE FINALĂ
+// TODO: Asigură-te că updateUI este apelată după orice modificare a contului
+// HINT: Refactorizează codul astfel încât toate acțiunile să actualizeze UI-ul corect
+
+*/
+
+    </script>
+
+</body>
+
+</html>

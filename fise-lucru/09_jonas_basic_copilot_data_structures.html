@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // ===========================
+        // DESTRUCTURARE ARRAY
+        // ===========================
+
+        // TODOS:
+        // - Creează două array-uri cu jucători pentru două echipe
+        // - Destructurare: primul element = portar, restul = jucători de câmp
+        // - Combină ambele array-uri într-un array cu toți jucătorii
+        // - Adaugă jucători noi la primul array folosind spread operator
+
+        // HINTS:
+        // - `[a, b] = arr` extrage primele două elemente
+        // - `[gk, ...fieldPlayers] = players1` -> gk = primul element, restul în array
+        // - `[...arr1, ...arr2]` combină două array-uri
+        // - `[...oldArray, 'newElement']` adaugă elemente noi
+
+
+        // ===========================
+        // DESTRUCTURARE OBIECT
+        // ===========================
+
+        // TODOS:
+        // - Extrage proprietăți direct din obiect
+        // - Redenumește proprietățile la destructurare
+        // - Setează valori default dacă proprietatea nu există
+        // - Nested destructuring pentru obiecte imbricate
+
+        // HINTS:
+        // - `{ prop1, prop2 } = obj` extrage proprietăți
+        // - `{ prop: newName } = obj` redenumește proprietatea
+        // - `{ prop = default } = obj` setează valoare default
+        // - `{ nested: { inner } } = obj` extrage valori din obiecte imbricate
+
+
+        // ===========================
+        // SPREAD OPERATOR
+        // ===========================
+
+        // TODOS:
+        // - Creează o copie a unui array folosind spread
+        // - Combină două array-uri folosind spread
+        // - Folosește spread pentru a trimite array-uri ca argumente într-o funcție
+
+        // HINTS:
+        // - `const copy = [...originalArray]`
+        // - `const combined = [...arr1, ...arr2]`
+        // - `func(...array)` transformă array-ul în argumente separate
+
+
+        // ===========================
+        // REST PATTERN & PARAMETERS
+        // ===========================
+
+        // TODOS:
+        // - Folosește destructurare cu rest pentru array
+        // - Folosește destructurare cu rest pentru obiect
+        // - Creează o funcție care primește un număr variabil de argumente
+
+        // HINTS:
+        // - `[first, second, ...others] = arr` pune restul elementelor într-un array
+        // - `{ a, b, ...rest } = obj` pune restul proprietăților într-un obiect
+        // - `function fn(...args) {}` transformă argumentele într-un array
+        // - Poți folosi rest doar la **ultimul element**
+
+
+        /* ===========================
+        SHORT-CIRCUITING (||, &&, ??)
+        =========================== */
+
+        // TODOS:
+        // - Exemplu cu OR || pentru valori default
+        // - Exemplu cu AND && pentru apel condiționat de funcție
+        // - Folosește nullish coalescing ?? pentru valori default corecte (0 sau '')
+
+        // HINTS:
+        // - `const val = a || b` → returnează primul truthy
+        // - `const val = a && b` → returnează primul falsy
+        // - `const val = a ?? b` → returnează b doar dacă a e null sau undefined
+        // - Folosește && pentru a executa o funcție doar dacă există: `obj.func && obj.func()`
+
+
+        // ===========================
+        // CODING CHALLENGES & EXTRAS
+        // ===========================
+
+        // TODOS:
+        // - Looping Objects: iterare cu Object.entries pentru destructurare
+        // - Optional chaining pentru a preveni erorile când o proprietate nu există
+        // - Exemple practice pentru array.map, Set, Map, String methods
+
+        // HINTS:
+        // - `for (const [key, value] of Object.entries(obj))` 
+        // - `obj?.prop?.nested` → optional chaining
+        // - `arr.map(el => ...)` → iterează array-ul și returnează un nou array
+        // - `new Set(arr)` → elimină duplicate
+
+
+
+
+/////////////////////////////////////////////////////
+/// PARTEA a II - Variante intensive și exerciții suplimentare
+        
+
+//============================
+        //revenire la lucrurile mai dificile:
+
+        // ===========================
+        // DESTRUCTURARE ARRAY - Exemple detaliate
+        // ===========================
+
+        // TODOS:
+        // - Extrage primul și al doilea element dintr-un array de numere
+        // - Extrage primul element și restul elementelor într-un array separat
+        // - Schimbă valorile a două variabile folosind destructurare
+        // - Folosește destructurare direct în parametrii unei funcții
+
+        // HINTS:
+        // - `[a, b] = [1, 2, 3]` → a = 1, b = 2
+        // - `[first, ...rest] = [10, 20, 30, 40]` → rest = [20,30,40]
+        // - `[x, y] = [y, x]` → swap fără variabilă temporară
+        // - `function sum([a, b, c]) { return a+b+c }` → destructurare direct în parametru
+
+
+        // ===========================
+        // DESTRUCTURARE OBIECT - Exemple detaliate
+        // ===========================
+
+        // TODOS:
+        // - Extrage proprietăți simple dintr-un obiect
+        // - Redenumește proprietăți în timpul destructurării
+        // - Setează valori default pentru proprietăți inexistente
+        // - Destructurare nested pentru obiecte imbricate
+        // - Destructurare direct în parametrii funcției
+
+        // HINTS:
+        // - `const {name, age} = {name: 'Ana', age: 25}` → name='Ana', age=25
+        // - `const {name: n, age: a} = obj` → redenumire
+        // - `const {city = 'Unknown'} = obj` → valoare default
+        // - `const {address: {street, zip}} = obj` → nested destructuring
+        // - `function greet({name, age}) {}` → destructurare direct în parametru
+
+
+        // ===========================
+        // SPREAD OPERATOR - Exemple detaliate
+        // ===========================
+
+        // TODOS:
+        // - Creează o copie superficială a unui array
+        // - Combină două sau mai multe array-uri
+        // - Adaugă elemente noi la un array existent
+        // - Copiază obiecte și suprascrie proprietăți
+        // - Folosește spread pentru a trimite argumente într-o funcție
+
+        // HINTS:
+        // - `const copy = [...arr]` → copie array
+        // - `const combined = [...arr1, ...arr2]` → concatenare
+        // - `const newArr = [...arr, 4,5]` → adăugare elemente
+        // - `const newObj = {...obj, name:'John'}` → copiere și modificare obiect
+        // - `Math.max(...numbers)` → array devine argumente separate
+
+
+        // ===========================
+        // REST PATTERN & PARAMETERS - Exemple detaliate
+        // ===========================
+
+        // TODOS:
+        // - Destructurare array cu rest
+        // - Destructurare obiect cu rest
+        // - Creează funcție care primește număr variabil de argumente
+        // - Folosește rest în parametrii funcției și combină cu alți parametri
+
+        // HINTS:
+        // - `[first, second, ...others] = [1,2,3,4]` → others=[3,4]
+        // - `{a, b, ...rest} = {a:1,b:2,c:3,d:4}` → rest={c:3,d:4}
+        // - `function sumAll(...nums) { return nums.reduce((a,b)=>a+b,0) }`
+        // - `function greet(greeting, ...names) {}` → greeting=primul argument, restul în array
+
+
+        // ===========================
+        // SHORT-CIRCUITING (||, &&, ??) - Exemple detaliate
+        // ===========================
+
+        // TODOS:
+        // - Folosește || pentru valori default
+        // - Folosește && pentru a apela o funcție doar dacă există
+        // - Folosește ?? pentru valori default care pot fi 0 sau ''
+        // - Compară diferența dintre || și ??
+
+        // HINTS:
+        // - `const name = userName || 'Guest'` → returnează 'Guest' dacă userName falsy
+        // - `user && user.sendMessage()` → trimite mesaj doar dacă user există
+        // - `const count = input ?? 10` → returnează 10 doar dacă input null/undefined
+        // - `'' || 'default'` = 'default', `'' ?? 'default'` = ''
+
+
+        // ===========================
+        // EXERCIȚII PRACTICE COMBINATE
+        // ===========================
+
+        // TODOS:
+        // - Iterează un obiect folosind Object.entries și destructurare
+        // - Folosește optional chaining pentru proprietăți care pot lipsi
+        // - Creează un array de valori unice folosind Set și spread
+        // - Folosește map pentru a modifica valorile unui array
+
+        // HINTS:
+        // - `for (const [key, value] of Object.entries(obj)) {}` → destructurare la loop
+        // - `obj?.nested?.value` → prevenire erori
+        // - `const unique = [...new Set(arr)]` → elimină duplicate
+        // - `arr.map(x => x*2)` → returnează un nou array cu valori modificate
+
+
+//////////////////////////////////
+// partea a III - exerciții suplimentare
+///////////////////////////////////
+
+        // ===========================
+        //Varianta intensiva
+
+        // ===========================
+        // DESTRUCTURARE ARRAY - Exemple practice
+        // ===========================
+
+        // TODOS:
+        // - Extrage primul element și restul jucătorilor
+        // - Swap între două variabile folosind destructurare
+        // - Extrage valori dintr-un array direct în parametrii unei funcții
+        // - Destructurare multiplă cu valori default
+
+        // HINTS:
+        // - `[goalkeeper, ...fieldPlayers] = ['Ana', 'Ion', 'Mihai']` → goalkeeper='Ana', fieldPlayers=['Ion','Mihai']
+        // - `[x, y] = [y, x]` → schimbă valorile a două variabile fără variabilă temporară
+        // - `function matchResult([home, away]) { return home - away }` → destructurare direct în parametru
+        // - `[first = 0, second = 0] = []` → valori default dacă array-ul e gol
+
+
+        // ===========================
+        // DESTRUCTURARE OBIECT - Exemple practice
+        // ===========================
+
+        // TODOS:
+        // - Extrage proprietăți simple dintr-un obiect
+        // - Redenumește proprietăți la destructurare
+        // - Folosește valori default
+        // - Destructurare nested pentru obiecte imbricate
+        // - Destructurare direct în parametrii funcției
+
+        // HINTS:
+        // - `const {name, age} = {name:'Ana', age:25}` → name='Ana', age=25
+        // - `const {name: playerName, age: playerAge} = obj` → redenumire proprietăți
+        // - `const {city = 'Unknown'} = obj` → valoare default
+        // - `const {team: {goalkeeper, fieldPlayers}} = match` → nested destructuring
+        // - `function greet({name, age}) { return `Hello ${name}` }` → destructurare direct în parametru
+
+
+        // ===========================
+        // SPREAD OPERATOR - Exemple practice
+        // ===========================
+
+        // TODOS:
+        // - Creează o copie superficială a unui array sau obiect
+        // - Combină două sau mai multe array-uri
+        // - Adaugă elemente noi
+        // - Copiază obiect și suprascrie proprietăți
+        // - Folosește spread pentru funcții
+
+        // HINTS:
+        // - `const newArr = [...oldArr]` → copie array
+        // - `const combined = [...arr1, ...arr2]` → concatenare array
+        // - `const updated = [...arr, 'extra']` → adăugare element
+        // - `const updatedObj = {...obj, name:'John'}` → copiere obiect cu modificare
+        // - `Math.max(...numbers)` → array devine argumente separate
+
+
+        // ===========================
+        // REST PATTERN & PARAMETERS - Exemple practice
+        // ===========================
+
+        // TODOS:
+        // - Destructurare array cu rest
+        // - Destructurare obiect cu rest
+        // - Creează funcție cu număr variabil de argumente
+        // - Folosește rest cu alți parametri
+
+        // HINTS:
+        // - `[first, second, ...others] = [1,2,3,4]` → others=[3,4]
+        // - `{a, b, ...rest} = {a:1,b:2,c:3,d:4}` → rest={c:3,d:4}
+        // - `function sumAll(...nums) { return nums.reduce((a,b)=>a+b,0) }`
+        // - `function greet(greeting, ...names) {}` → greeting=primul argument, restul în array
+
+
+        // ===========================
+        // SHORT-CIRCUITING (||, &&, ??) - Exemple practice
+        // ===========================
+
+        // TODOS:
+        // - Folosește || pentru valori default
+        // - Folosește && pentru a apela o funcție doar dacă există
+        // - Folosește ?? pentru valori default care pot fi 0 sau ''
+        // - Compară diferența dintre || și ??
+
+        // HINTS:
+        // - `const name = userName || 'Guest'` → returnează 'Guest' dacă userName falsy
+        // - `player && player.play()` → apelează funcția doar dacă player există
+        // - `const score = input ?? 0` → returnează 0 doar dacă input null/undefined
+        // - `'' || 'default'` = 'default', `'' ?? 'default'` = ''
+
+
+        // ===========================
+        // EXERCIȚII PRACTICE COMBINATE
+        // ===========================
+
+        // TODOS:
+        // - Iterează obiect cu Object.entries și destructurare
+        // - Folosește optional chaining pentru proprietăți care pot lipsi
+        // - Creează array de valori unice folosind Set și spread
+        // - Folosește map pentru a modifica valorile unui array
+
+        // HINTS:
+        // - `for (const [key, value] of Object.entries(obj)) {}` → destructurare la loop
+        // - `obj?.nested?.value` → prevenire erori pentru proprietăți inexistente
+        // - `const unique = [...new Set(arr)]` → elimină duplicate
+        // - `arr.map(x => x*2)` → returnează un array cu valori modificate
+
+
+//////////////////////////
+//Partea a IV-a 
+
+ //exerciții suplimentare pentru practică avansată
+
+ // ===========================
+// DESTRUCTURARE ARRAY - Mini-exerciții
+// ===========================
+
+// TODOS:
+// 1. Extrage primul jucător și restul echipei
+// 2. Schimbă două scoruri folosind destructurare
+// 3. Extrage valorile dintr-un array direct în parametrii funcției
+// 4. Folosește valori default dacă array-ul e gol
+// 5. Extrage doar ultimele două elemente ale array-ului
+
+// HINTS:
+// 1. `[captain, ...players] = ['Ana','Ion','Mihai','Elena']` → captain='Ana', players=['Ion','Mihai','Elena']
+// 2. `[score1, score2] = [score2, score1]` → swap valori
+// 3. `function total([a,b,c]) { return a+b+c }` → destructurare direct în parametru
+// 4. `[first = 0, second = 0] = []` → valori default
+// 5. `const lastTwo = array.slice(-2)` sau `[...rest, secondLast, last] = array`
+
+
+// ===========================
+// DESTRUCTURARE OBIECT - Mini-exerciții
+// ===========================
+
+// TODOS:
+// 1. Extrage numele și vârsta jucătorului
+// 2. Redenumește proprietăți
+// 3. Folosește valori default
+// 4. Extrage nested properties (echipă → portar)
+// 5. Destructurare direct în parametru funcție
+
+// HINTS:
+// 1. `const {name, age} = {name:'Ana', age:25}` → name='Ana', age=25
+// 2. `const {name: playerName, age: playerAge} = obj` → redenumire
+// 3. `const {city='Unknown'} = obj` → default
+// 4. `const {team:{goalkeeper, fieldPlayers}} = match` → nested
+// 5. `function greet({name, age}) { return name }` → param destructurat
+
+
+// ===========================
+// SPREAD OPERATOR - Mini-exerciții
+// ===========================
+
+// TODOS:
+// 1. Copiază un array de scoruri
+// 2. Combină două array-uri de jucători
+// 3. Adaugă un nou jucător la echipă
+// 4. Copiază un obiect și schimbă proprietatea nume
+// 5. Folosește spread pentru a da array ca argumente unei funcții
+// 6. Copiază array și inversează ordinea
+
+// HINTS:
+// 1. `const copyScores = [...scores]`
+// 2. `const allPlayers = [...teamA, ...teamB]`
+// 3. `const newTeam = [...team, 'Maria']`
+// 4. `const newObj = {...player, name:'Ioan'}`
+// 5. `Math.max(...scores)`
+// 6. `const reversed = [...arr].reverse()`
+
+
+// ===========================
+// REST PATTERN & PARAMETERS - Mini-exerciții
+// ===========================
+
+// TODOS:
+// 1. Extrage primul scor și restul scorurilor
+// 2. Extrage proprietăți din obiect și restul într-un alt obiect
+// 3. Creează funcție care primește n argumente
+// 4. Folosește rest după primul parametru
+// 5. Combine destructurare array cu rest
+
+// HINTS:
+// 1. `[first, ...others] = [10,20,30]` → others=[20,30]
+// 2. `{a,b,...rest} = {a:1,b:2,c:3,d:4}` → rest={c:3,d:4}
+// 3. `function sumAll(...nums) { return nums.reduce((x,y)=>x+y,0) }`
+// 4. `function greet(greeting, ...names) {}` → rest ca array
+// 5. `[first, second, ...remaining] = arr`
+
+
+// ===========================
+// SHORT-CIRCUITING (||, &&, ??) - Mini-exerciții
+// ===========================
+
+// TODOS:
+// 1. Folosește || pentru valoare default la nume
+// 2. Folosește && pentru a apela funcție doar dacă există
+// 3. Folosește ?? pentru a permite 0 ca valoare validă
+// 4. Compară diferența || și ??
+// 5. Folosește scurtcircuit pentru a seta scor minim
+
+// HINTS:
+// 1. `const name = userName || 'Guest'`
+// 2. `player && player.play()`
+// 3. `const score = input ?? 0`
+// 4. `'' || 'default'`='default', `'' ?? 'default'`=''
+// 5. `const minScore = score || 10`
+
+
+// ===========================
+// EXERCIȚII PRACTICE COMBINATE
+// ===========================
+
+// TODOS:
+// 1. Iterează obiect cu Object.entries și destructurare
+// 2. Folosește optional chaining pentru proprietăți inexistente
+// 3. Creează array unic folosind Set și spread
+// 4. Folosește map pentru a dubla scorurile
+// 5. Combină destructurare array și obiect pentru o funcție
+// 6. Folosește rest și spread împreună pentru array-uri
+
+// HINTS:
+// 1. `for(const [key,value] of Object.entries(obj)) {}`
+// 2. `obj?.nested?.value`
+// 3. `const unique = [...new Set(arr)]`
+// 4. `arr.map(x => x*2)`
+// 5. `function match([first,...rest], {bonus}) {}`
+// 6. `const combined = [...arr1, ...arr2, ...restArray]`
+
+
+    </script>
+
+</body>
+
+</html>

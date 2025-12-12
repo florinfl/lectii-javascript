@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // =====================================================
+        // 1. HTML Structure — Understanding the Interface
+        // =====================================================
+
+        // TODO 1.1: Observă structura generală a paginii HTML.
+        // HINT: Pagina este împărțită în <header> și <main>, unde header-ul conține titlul,
+        // butonul "Again!" și numărul secret, iar main conține input-ul și mesajele jocului.
+
+        // TODO 1.2: Identifică elementul <h1> care afișează titlul jocului.
+        // HINT: Afișează textul "Guess My Number!" și este pur decorativ.
+
+        // TODO 1.3: Analizează paragraful cu clasa .between.
+        // HINT: Afișează intervalul dintre 1 și 20 pentru a ghida jucătorul.
+
+        // TODO 1.4: Observă butonul cu clasa .again.
+        // HINT: Folosit pentru resetarea jocului — JS va asculta click-ul pe acest buton.
+
+        // TODO 1.5: Analizează elementul .number.
+        // HINT: Inițial afișează "?" și devine numărul secret când câștigi.
+
+        // TODO 1.6: Studiază input-ul cu clasa .guess.
+        // HINT: Jucătorul introduce aici numărul pe care îl ghicește.
+
+        // TODO 1.7: Analizează butonul .check.
+        // HINT: Butonul care declanșează verificarea guess-ului (eveniment în JS).
+
+        // TODO 1.8: Analizează secțiunea .message.
+        // HINT: Afișează mesajele jocului: "Start guessing", "Too high", "You lost", etc.
+
+        // TODO 1.9: Identifică .score și .highscore.
+        // HINT: Score scade la fiecare încercare; highscore se actualizează doar la câștig.
+
+        // =====================================================
+        // 2. JavaScript — Game State Initialization
+        // =====================================================
+
+        // TODO 2.1: Creează variabila secretNumber cu un număr aleator între 1–20.
+        // HINT: Folosește Math.trunc(Math.random() * 20) + 1.
+
+        // TODO 2.2: Inițializează variabila score la 20 (scade la fiecare încercare).
+        // HINT: Score reflectă numărul de șanse rămase.
+
+        // TODO 2.3: Creează variabila highscore și setează-o la 0.
+        // HINT: highscore reține cel mai bun rezultat obținut vreodată.
+
+        // TODO 2.4: Definește funcția displayMessage(message).
+        // HINT: Encapsulează repetarea document.querySelector('.message').textContent = ...;
+
+        // =====================================================
+        // 3. JavaScript — Implementing the Guess Check Logic
+        // =====================================================
+
+        // TODO 3.1: Adaugă un event listener pe butonul .check.
+        // HINT: Folosește addEventListener('click', ...).
+
+        // TODO 3.2: Preia valoarea introdusă în input-ul .guess și convertește-o la număr.
+        // HINT: Number(document.querySelector('.guess').value)
+
+        // TODO 3.3: Gestionează cazul în care nu a fost introdus niciun număr.
+        // HINT: if (!guess) → afișează mesajul "No number!".
+
+        // TODO 3.4: Gestionează cazul în care guess-ul este egal cu numărul secret.
+        // HINT: Schimbă background-ul, mărește caseta numărului, afișează secretNumber,
+        // actualizează highscore.
+
+        // TODO 3.5: Gestionează cazul în care guess-ul este diferit.
+        // HINT: Folosește operatorul ternar pentru "Too high!" / "Too low!".
+
+        // TODO 3.6: Decrementează scorul la fiecare încercare greșită.
+        // HINT: score--, apoi actualizezi elementul .score în DOM.
+
+        // TODO 3.7: Gestionează scenariul pierderii jocului.
+        // HINT: Când scorul ajunge la 0 → mesaj "You lost the game!".
+
+        // =====================================================
+        // 4. JavaScript — Implementing the Reset Functionality
+        // =====================================================
+
+        // TODO 4.1: Adaugă un event listener pe butonul .again.
+        // HINT: Butonul trebuie să reseteze jocul complet.
+
+        // TODO 4.2: Resetează variabilele interne: score și secretNumber.
+        // HINT: Re-generează numărul secret și setează score = 20.
+
+        // TODO 4.3: Resetează UI-ul: message, score, number, input.
+        // HINT: message = "Start guessing...", number = "?", guess = "".
+
+        // TODO 4.4: Resetează stilurile vizuale schimbate.
+        // HINT: body background revine la #222, .number width revine la 15rem.
+
+        // =====================================================
+        // 5. Optional — Code Clean-Up and Refactoring
+        // =====================================================
+
+        // TODO 5.1: Înlocuiește toate modificările de mesaj cu displayMessage().
+        // HINT: Acest pas reduce duplicarea de cod (DRY principle).
+
+        // TODO 5.2: Comentariile lungi cu if-else pot fi înlocuite cu o versiune compactă.
+        // HINT: Jonas demonstrează cum se simplifică logica folosind "guess !== secretNumber".
+
+        // TODO 5.3: Asigură-te că numărul secret nu este afișat înainte de câștig.
+        // HINT: .number trebuie să rămână "?" până când jucătorul ghicește.
+
+        // =====================================================
+        // 6. Coding Challenge #1 — Game Reset Implementation
+        // =====================================================
+
+        // TODO 6.1: Selectează elementul cu clasa 'again'.
+        // HINT: document.querySelector('.again')
+
+        // TODO 6.2: Atașează un event listener de click.
+        // HINT: Șterge valoarea inputului și resetează UI-ul.
+
+        // TODO 6.3: Resetează variabilele score și secretNumber.
+        // HINT: Score = 20; secretNumber = random();
+
+        // TODO 6.4: Resetează mesajele, stilurile și valorile de afișare.
+        // HINT: Folosește displayMessage('Start guessing...').
+
+        // =====================================================
+        // 7. HINT-uri pentru Copilot — înțelegerea logicii jocului
+        // =====================================================
+
+        // HINT 7.1: Jocul este un "state machine" simplu — fiecare click modifică starea curentă.
+
+        // HINT 7.2: DOM-ul este actualizat după fiecare acțiune a utilizatorului:
+        // message, score, number, highscore, background color.
+
+        // HINT 7.3: Cea mai importantă parte este verificarea guess-ului și compararea cu secretNumber.
+
+        // HINT 7.4: Codul folosește un mic pattern de refactoring: funcția displayMessage()
+        // reduce duplicarea la actualizarea textului.
+
+        // HINT 7.5: Logica "Too high/Too low" este compactată prin operatorul ternar.
+
+        // HINT 7.6: Resetarea jocului trebuie să readucă absolut toate valorile vizibile
+        // și interne la starea inițială — altfel apar bug-uri la multiple runde.
+
+        // =====================================================
+        // Sfârșit fișă Guess My Number
+        // =====================================================
+
+    </script>
+
+</body>
+
+</html>

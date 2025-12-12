@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+
+        /*
+        Această fișă pune accent pe JS quirks:
+        
+        block scope vs function scope
+        
+        hoisting și temporal dead zone
+        
+        this behavior în funcții normale vs arrow
+        
+        arguments object
+        
+        shallow vs deep copy și referințe
+        */
+
+        ///////////////////////////////////////
+        // 1. Scoping in Practice
+        ///////////////////////////////////////
+
+        // TODO: Creează o funcție calcAge cu un parametru birthYear
+        // TODO: În interior, definește o funcție printAge care:
+        //  - Accesează variabila age din funcția părinte
+        //  - Creează o variabilă output folosind template literals
+        //  - Într-un if block, creează o variabilă var millenial și o const firstName
+        //  - Observă ce variabile sunt vizibile în afara block-ului
+        //  - Creează o funcție add în interiorul block-ului if și testează dacă poți accesa add() în afara block-ului
+        // HINT: var este function-scoped, const/let sunt block-scoped. Funcțiile declarate în block-uri pot avea comportament neașteptat
+
+        ///////////////////////////////////////
+        // 2. Hoisting and TDZ
+        ///////////////////////////////////////
+
+        // TODO: Testează hoisting pentru var, let și const
+        // console.log(me); // var → undefined
+        // console.log(job); // let → ReferenceError
+        // console.log(year); // const → ReferenceError
+        // TODO: Creează funcții cu declarație normală și expresii (var și const) și testează când poți să le apelezi
+        // HINT: funcțiile declarate sunt hoisted complet, funcțiile expresii/arrow nu
+        // TODO: Experimentează cu var și window object
+        // var x = 1; let y = 2; const z = 3;
+        // console.log(x === window.x); // true
+        // console.log(y === window.y); // false
+        // console.log(z === window.z); // false
+
+        ///////////////////////////////////////
+        // 3. The this Keyword
+        ///////////////////////////////////////
+
+        // TODO: Creează o funcție normală și o arrow function în afara oricărui obiect și console.log(this)
+        // TODO: Creează un obiect cu o metodă calcAge și observe this
+        // TODO: Creează un alt obiect și atribuirea metodei de la primul obiect; observă cum this se schimbă
+        // TODO: Stochează metoda într-o variabilă și apeleaz-o; observă ce se întâmplă cu this
+        // HINT: Arrow functions nu au propriul this; this din arrow ia valoarea din lexically enclosing scope
+
+        ///////////////////////////////////////
+        // 4. Regular vs Arrow Functions
+        ///////////////////////////////////////
+
+        // TODO: Într-un obiect, creează o metodă calcAge cu funcție normală și definește o funcție normală și una arrow în interior
+        // TODO: Observă cum this se comportă în funcția arrow vs regular
+        // TODO: Creează o metodă greet ca arrow function și observă this
+        // HINT: Arrow function în metoda obiectului nu poate accesa corect proprietăți cu this
+
+        // TODO: Experimentează cu arguments în funcții normale și arrow
+        // const addExpr = function(a, b) { console.log(arguments); return a + b; }
+        // const addArrow = (a, b) => { console.log(arguments); return a + b; }
+        // HINT: Arrow functions nu au arguments object
+
+        ///////////////////////////////////////
+        // 5. Object References (Shallow vs Deep Copies)
+        ///////////////////////////////////////
+
+        // TODO: Creează un obiect jessica cu proprietăți primitive și un array
+        // TODO: Creează o funcție marryPerson care modifică lastName și returnează obiectul
+        // TODO: Observă cum obiectele sunt mutate și cum referințele afectează obiectul original
+        // TODO: Creează un shallow copy folosind spread operator și modifică proprietăți primitive vs array
+        // TODO: Creează un deep copy folosind structuredClone și modifică array-ul; observă că originalul nu se schimbă
+        // HINT: Spread operator face shallow copy, array-uri și obiectele din interior rămân referință către original
+
+        ///////////////////////////////////////
+        // 6. Challenge exercises
+        ///////////////////////////////////////
+
+        // TODO: Creează un mic exercițiu unde:
+        // 1. Folosești variabile cu var, let, const și vezi cine este accesibil unde
+        // 2. Creezi o funcție cu inner function și testezi scope
+        // 3. Creezi un obiect cu metode arrow și regular și testezi this
+        // 4. Creezi un obiect cu array și testezi shallow vs deep copy
+        // TODO: Loghează toate observațiile în consolă și încearcă să explici de ce se întâmplă fiecare comportament
+
+    </script>
+
+</body>
+
+</html>
