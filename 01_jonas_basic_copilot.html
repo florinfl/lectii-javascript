@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // =====================================================
+        // 1. Linking a JavaScript File
+        // =====================================================
+
+        // TODO: Creează o expresie matematică diferită și afișeaz-o în consolă.
+        // HINT: folosește operatori matematici (+, -, *, /, **)
+
+        // TODO: Stochează un string într-o variabilă și afișează-l în consolă.
+        // HINT: creează o variabilă let sau const cu un text.
+
+        // TODO: Testează rularea codului într-un fișier JS extern.
+        // HINT: asigură-te că script src="script.js" /script este în HTML.
+
+
+        // =====================================================
+        // 2. Values and Variables
+        // =====================================================
+
+        // TODO: Creează 3 variabile noi folosind nume valide și afișează-le.
+        // HINT: numele variabilelor trebuie să înceapă cu litere, _, $.
+
+        // TODO: Încearcă să folosești variabile cu nume invalide și vezi ce erori produc.
+        // HINT: nume invalide = 1abc, my-var, function.
+
+        // TODO: Creează două variabile pentru jobul vechi și jobul nou și afișează-le împreună.
+        // HINT: folosește concatenare sau template literals.
+
+
+        // =====================================================
+        // 3. Data Types
+        // =====================================================
+
+        // TODO: Afișează tipul mai multor variabile folosind typeof.
+        // HINT: typeof variabila
+
+        // TODO: Schimbă tipul unei variabile și vezi rezultatul în consolă.
+        // HINT: reasignează din string în number sau invers.
+
+        // TODO: Testează typeof pe null și analizează rezultatul.
+        // HINT: typeof null === "object" (bug vechi în JS)
+
+
+        // =====================================================
+        // 4. let, const and var
+        // =====================================================
+
+        // TODO: Creează o variabilă let și reatribuie-i o valoare diferită.
+        // HINT: let poate fi modificat ulterior.
+
+        // TODO: Creează o variabilă const și încearcă să o reatribuie.
+        // HINT: const NU poate fi modificată.
+
+        // TODO: Creează o variabilă globală fără let/var/const și observă comportamentul.
+        // HINT: devine automat proprietate a obiectului global (window).
+
+
+        // =====================================================
+        // 5. Basic Operators
+        // =====================================================
+
+        // TODO: Calculează vârsta a două persoane folosind operatori matematici.
+        // HINT: an_curent - an_nastere
+
+        // TODO: Creează un nume complet prin concatenarea a două stringuri.
+        // HINT: "A" + " " + "B"
+
+        // TODO: Folosește operatori de asignare pentru a modifica o variabilă numerică.
+        // HINT: x += 5, x *= 2 etc.
+
+        // TODO: Compară două vârste și afișează rezultatul.
+        // HINT: >, <, >=, <=
+
+
+        // =====================================================
+        // 6. Operator Precedence
+        // =====================================================
+
+        // TODO: Creează o expresie complexă cu operatori amestecați și observă rezultatul.
+        // HINT: amestecă +, -, *, /, **
+
+        // TODO: Calculează media a două valori într-o singură expresie.
+        // HINT: (a + b) / 2
+
+        // TODO: Folosește atribuiri în lanț și afișează valorile.
+        // HINT: let x, y; x = y = 25 - 10 - 5;
+
+
+        // =====================================================
+        // 7. Coding Challenge #1 — BMI
+        // =====================================================
+
+        // TODO: Stochează masa și înălțimea pentru Mark și John în variabile.
+        // HINT: folosește kg și metri.
+
+        // TODO: Calculează BMI pentru amândoi folosind formula.
+        // HINT: BMI = mass / height ** 2
+
+        // TODO: Creează o variabilă booleană care indică dacă Mark are BMI mai mare.
+        // HINT: markBMI > johnBMI
+
+        // TODO: Afișează toate valorile în consolă.
+
+
+        // =====================================================
+        // 8. Strings and Template Literals
+        // =====================================================
+
+        // TODO: Creează un string folosind concatenare clasică.
+        // HINT: "Salut, sunt " + nume
+
+        // TODO: Creează același string folosind un template literal.
+        // HINT: `Salut, sunt ${nume}`
+
+        // TODO: Afișează un string multi-line folosind ambele metode.
+        // HINT: cu \n și cu backticks
+
+
+        // =====================================================
+        // 9. Taking Decisions: if / else Statements
+        // =====================================================
+
+        // TODO: Creează o condiție care verifică dacă o persoană poate obține permisul.
+        // HINT: if (varsta >= 18)
+
+        // TODO: Calculează anii rămași până la 18 dacă persoana e minoră.
+        // HINT: 18 - varsta
+
+        // TODO: Determină secolul nașterii în funcție de anul de naștere.
+        // HINT: if (an < 2000) secolul = 20; else secolul = 21;
+
+
+        // =====================================================
+        // 10. Coding Challenge #2 — BMI cu mesaje
+        // =====================================================
+
+        // TODO: Refolosește valorile BMI din challenge-ul #1.
+        // HINT: nu recalcula dacă nu este necesar.
+
+        // TODO: Generează un mesaj diferit în funcție de cine are BMI mai mare.
+        // HINT: if/else cu template literals
+
+        // TODO: Include valorile BMI în interiorul mesajului folosind template literals.
+
+
+        // =====================================================
+        // 11. Type Conversion and Coercion
+        // =====================================================
+
+        // TODO: Convertește un string în număr și fă o operație matematică.
+        // HINT: Number('23')
+
+        // TODO: Testează Number('text') și observă rezultatul (NaN).
+        // HINT: NaN înseamnă Not-a-Number
+
+        // TODO: Convertește un număr în string.
+        // HINT: String(123)
+
+        // TODO: Testează operații care declanșează coercion automată.
+        // HINT: "23" - 10 → 13, "23" + 10 → "2310"
+
+
+        // =====================================================
+        // 12. Truthy and Falsy Values
+        // =====================================================
+
+        // TODO: Testează Boolean() pe mai multe valori falsy.
+        // HINT: 0, "", null, undefined, NaN
+
+        // TODO: Folosește o condiție pentru a verifica dacă o variabilă este definită.
+        // HINT: if (variabila)
+
+        // TODO: Creează un scenariu în care o valoare 0 este tratată incorect ca falsă.
+        // HINT: scor = 0 → if (scor)...
+
+
+
+        // =====================================================
+        // 13. Equality Operators (== vs ===)
+        // =====================================================
+
+        // TODO: Creează o condiție care folosește === pentru comparație strictă.
+        // HINT: === nu face conversie de tip
+
+        // TODO: Creează o condiție care folosește == și observă diferența.
+        // HINT: == convertește tipurile automat
+
+        // TODO: Cere un număr de la utilizator cu prompt() și convertește-l corect.
+        // HINT: Number(prompt("..."))
+
+
+        // =====================================================
+        // 14. Logical Operators
+        // =====================================================
+
+        // TODO: Creează trei variabile booleene și combină-le cu && și ||.
+        // HINT: ex: arePermis && areMasina
+
+        // TODO: Creează o condiție complexă cu ! pentru a inversa rezultatul.
+        // HINT: if (!oboseala)
+
+        // TODO: Decide dacă cineva poate conduce în funcție de 3 condiții.
+        // HINT: toate trebuie să fie true
+
+
+        // =====================================================
+        // 15. Coding Challenge #3 — Dolphins & Koalas
+        // =====================================================
+
+        // TODO: Calculează media a trei scoruri pentru ambele echipe.
+        // HINT: (a + b + c) / 3
+
+        // TODO: Determină câștigătorul pe baza mediei.
+        // HINT: comparație simplă între medii
+
+        // TODO: Aplică regula scorului minim de 100.
+        // HINT: media >= 100
+
+        // TODO: Gestionează scenariile de egalitate conform bonusului.
+
+
+        // =====================================================
+        // 16. The switch Statement
+        // =====================================================
+
+        // TODO: Creează un switch pentru a afișa activitățile în funcție de zi.
+        // HINT: case 'monday': ...
+
+        // TODO: Adaugă un caz default pentru zile invalide.
+
+        // TODO: Recriează aceeași logică folosind if/else.
+
+
+        // =====================================================
+        // 17. Statements and Expressions
+        // =====================================================
+
+        // TODO: Creează câteva expresii simple și afișează-le.
+        // HINT: 5 + 5, "a" + "b"
+
+        // TODO: Folosește o expresie într-un template literal.
+        // HINT: `${2 + 3}`
+
+        // TODO: Creează un bloc if cu o variabilă locală.
+
+
+        // =====================================================
+        // 18. The Conditional (Ternary) Operator
+        // =====================================================
+
+        // TODO: Creează o variabilă care depinde de o condiție cu operatorul ternar.
+        // HINT: const tip = age >= 18 ? "adult" : "minor";
+
+        // TODO: Recriează aceeași logică folosind if/else.
+
+        // TODO: Introdu expresia ternară direct într-un template literal.
+
+
+        // =====================================================
+        // 19. Coding Challenge #4 — Tip Calculator
+        // =====================================================
+
+        // TODO: Creează o variabilă pentru valoarea notei (bill).
+
+        // TODO: Calculează bacșișul folosind operatorul ternar, fără if/else.
+        // HINT: bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2
+
+        // TODO: Afișează nota, bacșișul și totalul într-un template literal.
+
+        // TODO: Testează logica pentru valorile 275, 40 și 430.
+
+
+    </script>
+</body>
+
+</html>
