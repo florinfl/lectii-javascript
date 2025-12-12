@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // =====================================================
+        // 1. Functions – Introduction
+        // =====================================================
+
+        // TODO 1.1: Creează o funcție greet() care afișează un mesaj în consolă.
+        // Hint: function greet() { console.log("Hello!"); }
+
+        // TODO 1.2: Creează funcția makeJuice(a, b) care combină două ingrediente și returnează un string.
+        // Hint: întoarce un template literal: `Juice with ${a} apples and ${b} oranges`
+
+        // TODO 1.3: Apelează funcțiile cu valori diferite.
+
+
+        // =====================================================
+        // 2. Function Declarations vs Expressions
+        // =====================================================
+
+        // TODO 2.1: Scrie o funcție clasică calcAgeDecl(birthYear).
+        // Hint: function calcAgeDecl(y) { return 2037 - y; }
+
+        // TODO 2.2: Scrie aceeași funcție ca function expression.
+        // Hint: const calcAgeExpr = function(y) { return 2037 - y; }
+
+        // TODO 2.3: Apelează ambele funcții și compară rezultatele.
+
+
+        // =====================================================
+        // 3. Arrow Functions
+        // =====================================================
+
+        // TODO 3.1: Creează o arrow function care calculează vârsta.
+        // Hint: const calcAge = y => 2037 - y;
+
+        // TODO 3.2: Creează o arrow function yearsUntilRetirement()
+        // Hint: calculează age, apoi 65 - age și întoarce un string cu template literal
+
+        // TODO 3.3: Testează funcția cu două persoane diferite.
+
+
+        // =====================================================
+        // 4. Functions Calling Other Functions
+        // =====================================================
+
+        // TODO 4.1: Creează funcția cutFruitPieces(fruit) → return fruit * 4.
+        // TODO 4.2: Creează funcția fruitProcessor(a, o) care folosește cutFruitPieces.
+        // Hint: const applePieces = cutFruitPieces(a);
+
+        // TODO 4.3: Returnează un text cu numărul de bucăți rezultate.
+
+
+        // =====================================================
+        // 5. Reviewing Functions
+        // =====================================================
+
+        // TODO 5.1: Creează funcția calcAge(birthYear).
+        // TODO 5.2: Creează yearsUntilRetirement(birthYear, name) care face:
+        //    - calcAge()
+        //    - calculează retirement = 65 - age
+        //    - dacă retirement > 0 → întoarce mesajul corect
+        // Hint: folosește if/else și returnează stringuri diferite.
+
+        // TODO 5.3: Testează două scenarii: activ și pensionat.
+
+
+        // =====================================================
+        // 6. Coding Challenge – Team Averages
+        // =====================================================
+
+        // TODO 6.1: Creează funcția calcAverage(a,b,c).
+        // TODO 6.2: Calculează mediile pentru ambele echipe.
+        // TODO 6.3: Creează checkWinner(avg1, avg2).
+        // Hint: dacă o echipă are cel puțin dublul scorului celeilalte → câștigă.
+
+        // TODO 6.4: Testează pentru două seturi de date.
+
+
+        // =====================================================
+        // 7. Introduction to Arrays
+        // =====================================================
+
+        // TODO 7.1: Creează array-ul friends.
+        // TODO 7.2: Afișează primul și ultimul element.
+        // TODO 7.3: Modifică un element.
+        // TODO 7.4: Creează un array mixt.
+
+        // Hint: pentru ultimul element folosește friends[friends.length - 1].
+
+
+        // =====================================================
+        // 8. Basic Array Operations
+        // =====================================================
+
+        // TODO 8.1: Adaugă elemente folosind push + unshift.
+        // TODO 8.2: Șterge elemente folosind pop + shift.
+        // TODO 8.3: Folosește includes() pentru verificare.
+        // TODO 8.4: Afișează indexul unui element.
+
+        // Hint: friends.includes("Steven") returnează boolean.
+
+
+        // =====================================================
+        // 9. Coding Challenge – Tip Calculator (Arrays)
+        // =====================================================
+
+        // TODO 9.1: Creează funcția calcTip(bill) cu regula:
+        //        - 15% dacă 50 <= bill <= 300, altfel 20%.
+        // Hint: folosește operator ternar.
+
+        // TODO 9.2: Creează array-ul bills.
+        // TODO 9.3: Creează array-ul tips folosind calcTip direct în interior.
+        // TODO 9.4: Creează array-ul totals (bill + tip).
+
+
+        // =====================================================
+        // 10. Introduction to Objects
+        // =====================================================
+
+        // TODO 10.1: Creează un obiect person cu firstname, lastname, age, job, friends.
+        // TODO 10.2: Accesează proprietăți cu dot notation.
+        // TODO 10.3: Accesează proprietăți cu bracket notation.
+
+
+        // =====================================================
+        // 11. Dot vs Bracket Notation
+        // =====================================================
+
+        // TODO 11.1: Creează un nameKey și accesează person["first" + nameKey].
+        // TODO 11.2: Adaugă noi proprietăți dinamice obiectului.
+        // TODO 11.3: Creează fraza “X has Y friends”.
+
+
+        // =====================================================
+        // 12. Object Methods
+        // =====================================================
+
+        // TODO 12.1: Creează un obiect cu metoda calcAge() care:
+        //       - folosește this.birthYear
+        //       - salvează this.age
+
+        // TODO 12.2: Creează metoda getSummary()
+        // Hint: întoarce text: “Jonas is a X-year-old teacher and has/no driver's license”
+
+        // TODO 12.3: Apelează ambele metode.
+
+
+        // =====================================================
+        // 13. Coding Challenge – BMI Objects
+        // =====================================================
+
+        // TODO 13.1: Creează obiectele mark și john cu fullName, mass, height.
+        // TODO 13.2: Adaugă metoda calcBMI() în ambele.
+        // Hint: bmi = mass / height ** 2;
+
+        // TODO 13.3: Compară rezultatele și afișează cine are BMI mai mare.
+
+
+        // =====================================================
+        // 14. For Loops
+        // =====================================================
+
+        // TODO 14.1: Creează un for loop 1 → 20.
+        // TODO 14.2: Creează un loop cu increment diferit (i += 2).
+        // TODO 14.3: Creează un loop invers (20 → 1).
+
+
+        // =====================================================
+        // 15. Looping Arrays, Break & Continue
+        // =====================================================
+
+        // TODO 15.1: Parcurge un array mixt și salvează tipurile într-un alt array.
+        // TODO 15.2: Afișează doar stringurile folosind continue.
+        // TODO 15.3: Oprește bucla la primul număr folosind break.
+
+        // Hint: typeof arr[i] === "string" / "number".
+
+
+        // =====================================================
+        // 16. Looping Backwards & Nested Loops
+        // =====================================================
+
+        // TODO 16.1: Parcurge array-ul în ordine inversă.
+        // TODO 16.2: Creează două bucle imbricate pentru exerciții și repetiții.
+        // Hint: for (let ex = 1; ex <= 3; ex++) { for (let rep = 1; rep <= 5; rep++) { ... } }
+
+
+        // =====================================================
+        // 17. While Loop
+        // =====================================================
+
+        // TODO 17.1: Creează o buclă while de la 1 la 10.
+        // TODO 17.2: Generează zaruri random până iese 6.
+        // Hint: Math.trunc(Math.random() * 6) + 1;
+
+        // TODO 17.3: Salvează fiecare aruncare într-un array.
+
+
+        // =====================================================
+        // 18. Coding Challenge – Tips with Loops
+        // =====================================================
+
+        // TODO 18.1: Creează array-ul cu 10 valori pentru bills.
+        // TODO 18.2: Folosește un for loop pentru a popula tips și totals.
+        // TODO 18.3: Creează funcția calcAverage(arr) care:
+        //       - folosește o variabilă sum = 0
+        //       - adună toate valorile într-un loop
+        //       - returnează sum / arr.length
+
+        // TODO 18.4: Calculează media pentru totals și pentru tips.
+
+    </script>
+</body>
+
+</html>
